@@ -15,19 +15,25 @@ _configured = False
 
 class _SecretFilter(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:
-        msg = record.getMessage()
-        if _TOKEN_RE.search(msg) or _KEY_RE.search(msg):
-            record.msg = _TOKEN_RE.sub(r"\1[REDACTED]", str(record.msg))
-            record.msg = _KEY_RE.sub(r"\1=[REDACTED]", str(record.msg))
-        # also scrub args if present
+        # Scrub message template (before %-formatting) if it contains secrets.
+        try:
+            if isinstance(record.msg, str) and (_TOKEN_RE.search(record.msg) or _KEY_RE.search(record.msg)):
+                record.msg = _TOKEN_RE.sub(r"\1[REDACTED]", record.msg)
+                record.msg = _KEY_RE.sub(r"\1=[REDACTED]", record.msg)
+        except Exception:
+            pass
+        # Scrub string args only; leave numeric args untouched so %d/%f still work.
         if record.args:
             try:
+                args = record.args if isinstance(record.args, tuple) else (record.args,)
                 scrubbed = []
-                for a in record.args if isinstance(record.args, tuple) else (record.args,):
-                    s = str(a)
-                    s = _TOKEN_RE.sub(r"\1[REDACTED]", s)
-                    s = _KEY_RE.sub(r"\1=[REDACTED]", s)
-                    scrubbed.append(s)
+                for a in args:
+                    if isinstance(a, str):
+                        s = _TOKEN_RE.sub(r"\1[REDACTED]", a)
+                        s = _KEY_RE.sub(r"\1=[REDACTED]", s)
+                        scrubbed.append(s)
+                    else:
+                        scrubbed.append(a)
                 record.args = tuple(scrubbed) if isinstance(record.args, tuple) else scrubbed[0]
             except Exception:
                 pass
