@@ -129,6 +129,12 @@ MIN_DEVELOPMENT_GAP_MINUTES: int = _env_int("MIN_DEVELOPMENT_GAP_MINUTES", 90)
 MAX_POST_LENGTH: int = _env_int("MAX_POST_LENGTH", 260)
 HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
 OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free")
+OPENROUTER_FALLBACK_MODELS: list[str] = [
+    s.strip() for s in _env_str(
+        "OPENROUTER_FALLBACK_MODELS",
+        "minimax/minimax-m2.7:free,liquid/lfm-2.5-2.6b:free,google/gemma-4-26b-a4b-it:free",
+    ).split(",") if s.strip()
+]
 CLUSTER_SIMILARITY_THRESHOLD: float = _env_float("CLUSTER_SIMILARITY_THRESHOLD", 0.45)
 STATE_RETENTION_DAYS: int = _env_int("STATE_RETENTION_DAYS", 7)
 FEED_TIMEOUT_SECONDS: int = _env_int("FEED_TIMEOUT_SECONDS", 15)

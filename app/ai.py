@@ -50,15 +50,13 @@ def _extract_json(text: str) -> Any:
 
 # ── HTTP ─────────────────────────────────────────────
 
-def _chat(
+def _chat_once(
     messages: list[dict],
-    model: str | None = None,
-    temperature: float = 0.7,
-    max_tokens: int = 1200,
+    model: str,
+    temperature: float,
+    max_tokens: int,
 ) -> str:
-    if not config.OPENROUTER_API_KEY:
-        raise RuntimeError("OPENROUTER_API_KEY not set")
-    mdl = model or config.OPENROUTER_MODEL
+    """Single model attempt with internal retries for transient errors."""
     headers = {
         "Authorization": f"Bearer {config.OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
@@ -66,7 +64,7 @@ def _chat(
         "X-Title": "x-news-bot",
     }
     body = {
-        "model": mdl,
+        "model": model,
         "messages": messages,
         "temperature": temperature,
         "max_tokens": max_tokens,
@@ -77,35 +75,78 @@ def _chat(
             resp = requests.post(OPENROUTER_URL, headers=headers, json=body, timeout=30)
             if resp.status_code == 429:
                 wait = int(resp.headers.get("Retry-After", "8"))
-                log.warning("OpenRouter rate-limited, waiting %ds", wait)
+                log.warning("OpenRouter %s rate-limited, waiting %ds", model, wait)
                 time.sleep(min(wait, 20))
                 continue
+            if resp.status_code == 404:
+                # Model not found / no free endpoint — don't retry same model
+                raise RuntimeError(f"Model {model} not available (404): {resp.text[:300]}")
             resp.raise_for_status()
             data = resp.json()
             choices = data.get("choices") or []
             if not choices:
                 raise ValueError(f"No choices in response: {data}")
-            content = choices[0].get("message", {}).get("content", "")
+            msg = choices[0].get("message", {})
+            content = msg.get("content", "")
+            # Some reasoning models put answer in reasoning field when content is null
+            if not content and msg.get("reasoning"):
+                # Try reasoning as fallback only if it looks like JSON/post
+                reasoning = msg["reasoning"]
+                if "{" in reasoning and "}" in reasoning:
+                    log.warning("Model %s returned empty content, using reasoning field", model)
+                    content = reasoning
             if not content:
                 raise ValueError("Empty content in OpenRouter response")
             return content
         except requests.RequestException as exc:
             last_exc = exc
-            # Retry transient 5xx / timeout
             status = getattr(getattr(exc, "response", None), "status_code", None)
             if status and 500 <= status < 600:
                 time.sleep(2 * (attempt + 1))
                 continue
-            # Network errors: retry once
             if attempt < 2:
                 time.sleep(2 * (attempt + 1))
                 continue
+            raise
+        except RuntimeError:
             raise
         except Exception:
             raise
     if last_exc:
         raise last_exc
-    raise RuntimeError("OpenRouter failed after retries")
+    raise RuntimeError(f"OpenRouter {model} failed after retries")
+
+
+def _chat(
+    messages: list[dict],
+    model: str | None = None,
+    temperature: float = 0.7,
+    max_tokens: int = 1200,
+) -> str:
+    if not config.OPENROUTER_API_KEY:
+        raise RuntimeError("OPENROUTER_API_KEY not set")
+    primary = model or config.OPENROUTER_MODEL
+    candidates = [primary] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != primary]
+    last_err: Exception | None = None
+    for mdl in candidates:
+        try:
+            return _chat_once(messages, mdl, temperature, max_tokens)
+        except Exception as exc:
+            last_err = exc
+            msg = str(exc)
+            # Only rotate on model-level failures (404, empty content, 429 exhausted)
+            rotatable = any(k in msg for k in ("404", "not available", "Empty content", "rate-limited"))
+            if rotatable and mdl != candidates[-1]:
+                log.warning("Model %s failed (%s), rotating to next fallback", mdl, msg[:120])
+                continue
+            # Non-rotatable or last model — propagate
+            if mdl == candidates[-1]:
+                raise
+            # For transient errors already retried inside _chat_once, don't rotate
+            raise
+    if last_err:
+        raise last_err
+    raise RuntimeError("OpenRouter failed after trying all models")
 
 
 # ── Public API ───────────────────────────────────────
