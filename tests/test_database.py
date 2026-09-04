@@ -22,10 +22,15 @@ def test_upsert_articles(tmp_path=pathlib.Path(tempfile.mkdtemp())):
     arts = [{"id": "a1", "title": "Hello", "canonical_url": "https://example.com/a", "source": "BBC", "tier": 1, "category": "world", "published": "", "feed_name": "BBC"}]
     counts = s.upsert_articles(arts)
     assert counts["new"] == 1
-    # second upsert same id → updated
+    # second upsert same id immediately → not counted as updated (churn reduction: <1h)
     counts2 = s.upsert_articles(arts)
     assert counts2["new"] == 0
-    assert counts2["updated"] == 1
+    assert counts2["updated"] == 0
+    # after 2 hours, it should count as updated
+    from datetime import timedelta
+    later = datetime.now(timezone.utc) + timedelta(hours=2)
+    counts3 = s.upsert_articles(arts, now=later)
+    assert counts3["updated"] == 1
 
 
 def test_daily_counts(tmp_path=pathlib.Path(tempfile.mkdtemp())):

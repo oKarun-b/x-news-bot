@@ -78,6 +78,27 @@ class StateStore:
             for k, v in DEFAULT_STATE.items():
                 if k not in self.data:
                     self.data[k] = json.loads(json.dumps(v))
+            # Migrate legacy article format to compact (one-time)
+            migrated = 0
+            for aid, rec in list(self.data.get("articles", {}).items()):
+                if "u" not in rec and "canonical_url" in rec:
+                    from app.normalize import normalize_title, title_hash
+                    rec["u"] = rec.pop("canonical_url", "")
+                    rec["h"] = title_hash(normalize_title(rec.pop("title", "")))
+                    rec["p"] = rec.pop("published_at", rec.pop("published", "") if "published" in rec else "")
+                    rec["f"] = rec.pop("first_seen_at", rec.get("f", ""))
+                    rec["l"] = rec.pop("last_seen_at", rec.get("l", ""))
+                    # Drop verbose fields if present
+                    rec.pop("source", None)
+                    rec.pop("tier", None)
+                    rec.pop("category", None)
+                    rec.pop("feed_name", None)
+                    # Keep truncated title for debug only
+                    if "title" not in rec and rec.get("h"):
+                        rec["id"] = aid
+                    migrated += 1
+            if migrated:
+                log.info("Migrated %d legacy articles to compact format", migrated)
         except (json.JSONDecodeError, OSError) as exc:
             log.warning("State load failed (%s), starting fresh", exc)
             self.data = json.loads(json.dumps(DEFAULT_STATE))
@@ -101,50 +122,65 @@ class StateStore:
             except Exception:
                 pass
         with open(self.path, "w", encoding="utf-8") as f:
-            json.dump(self.data, f, indent=2, ensure_ascii=False, sort_keys=False)
+            # Compact JSON to keep repo size small (2.3 MB -> ~0.8 MB)
+            json.dump(self.data, f, ensure_ascii=False, sort_keys=False, separators=(",", ":"))
             f.write("\n")
         self._dirty = False
-        log.info("State saved to %s", self.path)
+        log.info("State saved to %s (%d bytes)", self.path, self.path.stat().st_size)
         return True
 
     # -- articles ----------------------------------------------------------
 
     def upsert_articles(self, articles: list[dict], now: datetime | None = None) -> dict[str, int]:
-        """Insert/update articles, tracking first_seen/last_seen. Returns counts."""
+        """Insert/update articles, tracking first_seen/last_seen. Returns counts. Compact storage."""
         if now is None:
             now = datetime.now(timezone.utc)
         now_iso = now.isoformat()
         arts: dict[str, Any] = self.data.setdefault("articles", {})
+        from app.normalize import normalize_title, title_hash
         new = 0
         updated = 0
         for a in articles:
             aid = a["id"]
             existing = arts.get(aid)
             if existing is None:
+                # Compact: store only essentials for dedupe (u=canonical, h=title hash, p=published)
                 arts[aid] = {
-                    "id": aid,
-                    "canonical_url": a.get("canonical_url", ""),
-                    "title": a.get("title", ""),
-                    "source": a.get("source", ""),
-                    "tier": a.get("tier", 3),
-                    "category": a.get("category", "general"),
-                    "published_at": a.get("published", ""),
-                    "first_seen_at": now_iso,
-                    "last_seen_at": now_iso,
-                    "feed_name": a.get("feed_name", ""),
+                    "u": a.get("canonical_url", ""),
+                    "h": title_hash(normalize_title(a.get("title", ""))),
+                    "p": a.get("published", ""),
+                    "f": now_iso,
+                    "l": now_iso,
                 }
                 new += 1
             else:
-                existing["last_seen_at"] = now_iso
-                updated += 1
+                # Only bump last_seen if older than 1 hour (reduces state churn and git bloat)
+                last_str = existing.get("l", existing.get("last_seen_at", ""))
+                last = _parse_iso(last_str)
+                if last is None or (now - last).total_seconds() > 3600:
+                    if "l" in existing:
+                        existing["l"] = now_iso
+                    else:
+                        existing["last_seen_at"] = now_iso
+                    updated += 1
+                # else: skip update, keep existing last_seen to avoid churn
         return {"new": new, "updated": updated, "total": len(arts)}
 
     def seen_canonical_set(self) -> set[str]:
-        return {v.get("canonical_url", "") for v in self.data.get("articles", {}).values() if v.get("canonical_url")}
+        vals = self.data.get("articles", {}).values()
+        return {v.get("u", v.get("canonical_url", "")) for v in vals if v.get("u") or v.get("canonical_url")}
 
     def seen_title_hashes(self) -> set[str]:
-        from app.normalize import normalize_title, title_hash
-        return {title_hash(normalize_title(v.get("title", ""))) for v in self.data.get("articles", {}).values()}
+        vals = self.data.get("articles", {}).values()
+        # Prefer stored hash (h), fallback to computing from title for legacy
+        hashes = set()
+        for v in vals:
+            if v.get("h"):
+                hashes.add(v["h"])
+            elif v.get("title"):
+                from app.normalize import normalize_title, title_hash
+                hashes.add(title_hash(normalize_title(v.get("title", ""))))
+        return hashes
 
     # -- clusters ----------------------------------------------------------
 
@@ -242,11 +278,12 @@ class StateStore:
         if now is None:
             now = datetime.now(timezone.utc)
         cutoff = now - timedelta(days=config.STATE_RETENTION_DAYS)
+        article_cutoff = now - timedelta(days=config.ARTICLE_RETENTION_DAYS)
         arts: dict[str, Any] = self.data.get("articles", {})
         removed_articles = 0
         for aid in list(arts.keys()):
-            last = _parse_iso(arts[aid].get("last_seen_at"))
-            if last and last < cutoff:
+            last = _parse_iso(arts[aid].get("l", arts[aid].get("last_seen_at")))
+            if last and last < article_cutoff:
                 del arts[aid]
                 removed_articles += 1
 

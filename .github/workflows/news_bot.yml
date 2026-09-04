@@ -2,9 +2,10 @@ name: news-bot
 
 on:
   schedule:
-    # 10-min polling during active window (06:00-23:30 BOT time) plus overnight coverage.
-    # Staggered off the hour to reduce top-of-hour contention.
-    - cron: "3,13,23,33,43,53 * * * *"
+    # 15-min polling during active window (06:00-23:30 BOT time) plus overnight coverage.
+    # Staggered off the hour to reduce top-of-hour contention and respect GitHub abuse limits.
+    # 96 runs/day vs 144 at 10 min — safer for principal account.
+    - cron: "3,18,33,48 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -29,12 +30,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
