@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "updated_at": "2026-09-04T22:19:02.645148+00:00",
+  "updated_at": "2026-09-04T23:06:15.298539+00:00",
   "last_run": {
-    "at": "2026-09-04T22:17:05.078167+00:00",
-    "mode": "idle",
-    "result": "no_slots"
+    "at": "2026-09-04T23:01:50.897333+00:00",
+    "mode": "dry_run",
+    "result": "2 dry-run"
   },
-  "last_successful_feed_check": null,
+  "last_successful_feed_check": "2026-09-04T23:01:50.897333+00:00",
   "buffer_cache": {},
   "daily_counts": {},
   "articles": {
@@ -19292,6 +19292,1566 @@
       "published_at": "2026-08-26T07:00:00+00:00",
       "first_seen_at": "2026-09-04T22:17:05.078167+00:00",
       "last_seen_at": "2026-09-04T22:17:05.078167+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "3bf14e589f78eeb8": {
+      "id": "3bf14e589f78eeb8",
+      "canonical_url": "https://www.bbc.co.uk/news/articles/cpwlrj2je1po?at_campaign=rss&at_medium=RSS",
+      "title": "Mistrial declared in Lindsay Clancy murder case, after jury deadlocks",
+      "source": "BBC News",
+      "tier": 1,
+      "category": "general",
+      "published_at": "2026-09-04T22:48:38+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "BBC News"
+    },
+    "f8f4e230ee299d64": {
+      "id": "f8f4e230ee299d64",
+      "canonical_url": "https://www.bbc.co.uk/sport/football/articles/c209xvxe558o?at_campaign=rss&at_medium=RSS",
+      "title": "Isak finally arrives as Gakpo proves value to Liverpool",
+      "source": "BBC News",
+      "tier": 1,
+      "category": "general",
+      "published_at": "2026-09-04T22:37:16+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "BBC News"
+    },
+    "080322bf15655530": {
+      "id": "080322bf15655530",
+      "canonical_url": "https://www.bbc.co.uk/sport/football/articles/czxz1vnwgz6o?at_campaign=rss&at_medium=RSS",
+      "title": "How London City proved they can live up to the hype",
+      "source": "BBC News",
+      "tier": 1,
+      "category": "general",
+      "published_at": "2026-09-04T22:02:34+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "BBC News"
+    },
+    "0ffbe521a4dd83ec": {
+      "id": "0ffbe521a4dd83ec",
+      "canonical_url": "https://www.bbc.co.uk/sport/darts/articles/c4gr9nk9rnro?at_campaign=rss&at_medium=RSS",
+      "title": "Greaves becomes first woman to win match on European Tour",
+      "source": "BBC News",
+      "tier": 1,
+      "category": "general",
+      "published_at": "2026-09-04T22:40:16+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "BBC News"
+    },
+    "ff4838346f3ace7e": {
+      "id": "ff4838346f3ace7e",
+      "canonical_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE03SVBfS1Q0RVpKVlgzR0VPOXU5aUZHREIzcEFCeTVITEJ3VllGMnVqV2pnUkl4UGRLemswNkwzTXVIekhGcEs0WnRjeGFNVjl4bjU3WHo5NEFkcE5Qd2sxNTFLNnRXWFpBbTM2MV9SZldmWm1IOFNuR2tQWVM?oc=5",
+      "title": "Lindsay Clancy Trial Live Updates: Judge Declares Mistrial in Triple-Murder Case - The New York Times",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T21:55:07+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "1696869cc201c3a2": {
+      "id": "1696869cc201c3a2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOLTd1MEZMWF9KdTNTOGFhSzJQMUs1eDNDbnJ1YjhsRjdwbVpDOFR0M2R6U3YtUFltVFpQb2hiSVkwQjJ1aFR6WnRnSm1GUThlZFZjTkRVMVpJcjBlRkdhcmNyUm5TVkhuc1lLTm9kRHd6QVJndkRoZm9SMW1XbGtqSzJ6S0R0NGN1VkR2YlM5YVVMdXcxT3dHc0x1YnpfajllaEpnd0JKSmd5bzVQdHRadFI4cHFZb2E5WUlaVy16UDAtdw?oc=5",
+      "title": "Judge again blocks Trump’s effort to restrict voting by mail as ballots start going out - NBC News",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T22:11:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "5fe6921014db398d": {
+      "id": "5fe6921014db398d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5MQ2FZMURybVQ3YW00el9ZNDFpMWxhcmtSS05yN1A0TGRBS3ZkdXZvdnpqR2JqSmtVXzdMNFdMNi1YVmllTklCRFY2c21xckQ5YVU3T1NaWHVxZ1dLc1J1bjVucGxDSFFYdUJQTEhFV2gtQmg1b1hhc1BCaDZwZ9IBgwFBVV95cUxPckxUZFk2NjdnSm5IVm1ISE1FVlZHdFFuTnluT3pvUHhkZ1V1eFBqUVh1OVhrVU9QdGxQc0RfVWJFVmxsNm9DQ3pIQVpwSFhoUld2QjZXeFJqVW5XMVF3N2l6R2hhYWxkNVRLOEZNUzM2T0VRU3Q0N1JjblVPeGNTVGl2TQ?oc=5",
+      "title": "Longtime Fox News host Maria Bartiromo disputes reports of termination - CNBC",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T17:09:50+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "cb138b7f38189051": {
+      "id": "cb138b7f38189051",
+      "canonical_url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9SQ1Z4Y0tBTWczN3dZTkh5dnAwbHZoUE5ucExVX0g1bUIyYmE3UEloZWhubTh0eVNIdXJkT2xMYWR1UmFxc19EMS16eWxYai1fcnFfNVN0NjRDYTRvaFAwcjhuWVp2ai1vUlVDWjRWelNEdlJtcmgwM3JscFhZZw?oc=5",
+      "title": "Two men pulled alive from Nepal hydropower plant tunnel nine days after floods - CNN",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T17:12:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "8249e4b27abb5002": {
+      "id": "8249e4b27abb5002",
+      "canonical_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNVlZOeFh2VVYtYllOT25KN2RhNDA5YzVtdFdOdU5vNy1OSnlfX0M1bWVMRDJodDBZOGgwZmxfREVjQ1VSR09hQ3VSUFMxZzZsN0p1WjM0TTF5RUotRGNmLU1IVW9tbTdaV2twVHFJZWhTYk0tdUpGNFhIbkpBLXYxRW00OUtZWFZVXzh5d2M0Wk5uMEdxMURQX1RuTk1XWjdtWklhd0VsVmpMMV9jRmxFalpmMk80cU0?oc=5",
+      "title": "Missouri court refuses to delay congressional map ruling, setting up US Supreme Court appeal - Missouri Independent",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T17:41:49+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "ae630092b4515506": {
+      "id": "ae630092b4515506",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOSmZsS1pKdDlBQ2FfWTExUFQ1WFlyU3NFUUNHRmNDX1UzWVE2eGxkemJ1M0tNNXgxUVBNZEZNM1hOYlJjUDVGWGZfckdWdi1xdm9EUC1sWkxYcXc1VERzY19acUtoTWlKQWo1R09GRGMtYmI4N3QxdGhXM3I3bkNvcldiazNvTnhXWjFVYUM0RENET1VRSFJRTFJ4WEo0MDdQRXNPXzJRUk5HUC1KVVpjV1RMOXZ5cF9QYXR5Y21FdU1udUNySkNFSldZcmtvbncxNk1aeDNJRQ?oc=5",
+      "title": "The Debate - German far right's breakout moment? AfD party eyes outright win in regional election - France 24",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T09:29:09+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "1448279a6981d6ad": {
+      "id": "1448279a6981d6ad",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOaXBKVHktcVd4YllGVWp6Y1RrY2t4Qk1Zak9xd00zMnpKU3ZNVFg3SUdOWnRsU3RSUFhzUUtnTlZUcTA1N0pVSzhBM3hkU3lGSF8yT0pSaFhlaW1yeDlzLUpVa3oySUZ6X2luZU5YYk5ydHRXOW1QQ0dsWDk1aW11SnJzSDJuUkpvbzF1U1p1Mmlvd1R3dmdsTA?oc=5",
+      "title": "Russian drone strikes Ukraine's security service HQ, escalating air war - Reuters",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T20:01:33+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "69b84f771d3a2273": {
+      "id": "69b84f771d3a2273",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNeHN0dDlKUW5GZFotZml1LU1iRHB2dkFERDZDbVhFTUdZcFJtQmdqNFhDS0RsUk9PNEdCVGhTdVEydUZWd1FfM3dENlVFYV9QeXRNX2NWSjN2cS1NRVZ6YjU0WGRqQmJKMkZGOEczeHBzenpSS3Z4aEdZUms1a0RhcWUyOGdKM0ZrUk43N0J1aXBRUi1neE1rcFFR?oc=5",
+      "title": "Wall Street ends lower as solid jobs data fuels hawkish Fed bets - Reuters",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T20:24:45+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "bdbf038b3b424e86": {
+      "id": "bdbf038b3b424e86",
+      "canonical_url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZWZZVnlxeTAzSV9XUDMxblJRSzZkQTZhQlVmVnFyYWdqSXJIRWpBQkhkX0U1SU5ROG9BX1dFZm41MnhpSWprUmUwUXg3cEpjV0hVRVI5ZTlOMFVlSm0yVllXTmZsVXZCdUdxN1c4ZnYyUmpwMmRjUXBSenQzTVYzZ05LMlhKMmJBMTNPWmtBNDBrbktMWW13bEM4S2h2eFE?oc=5",
+      "title": "Apple's Foldable iPhone Runs Into Early Trouble - finance.yahoo.com",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T14:20:57+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "a2d1d7b9c2906ad0": {
+      "id": "a2d1d7b9c2906ad0",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNUjZSV3lFWmtuc3lzMkxGc19jNDNHQVVheE5USktUcmR6bHdJQ1VPVEVCQU5KR0RaUmppRHZ3X281U0NpcnJIWnh6dmdROGdKRWY3cGxrdzlFTi1fM05ndldSZEVXbjRXdEhodTFzU1VWV25WLVJTa2FyWEsza0FfNC04d3R3bElWZHd2OGpHYWvSAZYBQVVfeXFMTk9USmM1eFUzUHpoa1UxSjNDOFV3SkV3RDQ3akFFM1draVFyYmxQUUpHWTZBdWc3eUt4RlFHd1c0LUZlZ0RfS1F1elc5c3FacFpmcGZDSkd5eEhuVWVMRkJONGdaS21RTkxVTTN5eXhVUHd6RGYxTzcteXg3UF9PaTQ3OHBsU2RuU3N0eV9icFN3czRYQ0xR?oc=5",
+      "title": "AMD Introduces Threadripper Halo Station at IFA 2026 - techpowerup.com",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T19:40:40+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "c4eab93dccaf9bcf": {
+      "id": "c4eab93dccaf9bcf",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9MQldoZGJuaDVFX05xYjJaWFhVZGRqWWNOeGZjVTVqNkNhOHpDNXRSWEhRbW92SEZod0dtYjRrZmVTZnlsakV0THRicVFqWXdLcGJ0enhiajEzbER1RE1XSXR5WHIxRGVvcmc?oc=5",
+      "title": "Amber Eggers Dies: ‘Love After Lockup’ Star Was 41 - Deadline",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T14:48:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "6b1b9311269beca3": {
+      "id": "6b1b9311269beca3",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPcmFCSG9meTFzZ3hCOTNlX3g3Q1F0NE9BUXNZeTlnaWo4SWEyYzI1MFZvOUF2MlVCcG9jZVNNN1dmc2xNNzR1bWIwNlBsZWVTTkpPVmNmX2NpeVVTczlReElEaTB3di1yTzgxaExjZnpudEJGZkVZS3RSM05CNVRYeVEzejltcEU0SS00ZTJZRFM2eE1ZaDlRSmxqS2oyVWtTamxMdHFOX3NhNjdic1Y0eXpPMmNtRUc4cTRxLVZqdXlXal9ZRE1GQ053?oc=5",
+      "title": "Pro Football Hall of Fame Makes Rule Changes to Selection Process After Bill Belichick Snub - Bleacher Report",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T19:20:39+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "fd48c4650b214f21": {
+      "id": "fd48c4650b214f21",
+      "canonical_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQSnhKcVdqT3dlRVQyUTdPMWFfSWVTMzMyVnJXbkV0cHVqUUhGRGZRU1lycW1OakR1SnhGbldmT3VPRGlzTnpiXy1DRW9jLTNWREpxLUhSbVpWVmhBallmM2F6Q2owYm42b3ZBVVh0V19yaWR6a2xrU1hHaFowYjBNMW56OThjT1ZwSGVqYTZIbGNqV2tQb3ItbkRTQ0I1dk5v?oc=5",
+      "title": "Infant died of measles in Pennsylvania, coroner confirms - The Washington Post",
+      "source": "Top stories - Google News",
+      "tier": 2,
+      "category": "general",
+      "published_at": "2026-09-04T22:52:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Top"
+    },
+    "ac4af652a8276cb6": {
+      "id": "ac4af652a8276cb6",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNa1U1dEUtOE54N0IzRXlpaTBnWGEzYXN2THJxUUVOc09XdmZTd2dna2xJMGFaNV9YWXhJNlpiRVdtbVNFVG9VTkNVZTM4dWJra2xBd1o5ZWQxSnZTeFNrVTlwVDhBa2R3dEdvOS00ejNROUFRUDVqNWFKbEJ4a0RHT29QVl8wUQ?oc=5",
+      "title": "Federal judge extends block on Trump executive order seeking to limit mail voting in the midterms - WHYY",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:23:03+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "28959e96be35ddc6": {
+      "id": "28959e96be35ddc6",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNaXpmM3VTQkNraFZlM0JsX0NaX0Y5U0hodnBxempLQ1NCLVlxSV9RZHBybW43dVhMd2t0RDNsM1pqdnN5VVB3Qm82dHRxSGdjTkRMbDljb2NRdUFwWjkzc3ZtRU90WXMxU0tQODVpcWljY3VKYlJ4emYya3V5WjBaZVR5SmRVNlR3cjF3?oc=5",
+      "title": "Judge Once Again Blocks Mail-In Ballot Rules - The New York Times",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:09:16+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "039ff956b8006e10": {
+      "id": "039ff956b8006e10",
+      "canonical_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPb1dGZDNHNGtqTGc0SWdKZWpQd2dXTnh4Wl9NUFNCcFQ1TU4zZFUzSEt1WTlKSFhiU3hJRGo2WTZuS3dYSDRZaHZJZFZYWlhwcC1mWlRpUHhBVFB0M0hmcnhiZlFvWlZFS1VNX0dSMXgtZnJjNVBkLTM2TWk4WnVzSTVybWJGT3dzN2NTRFUyVU5Tamd3OUN5alNySnRGX2lDVUxCejZaWFp1LTNRZ1E?oc=5",
+      "title": "Opinion | Trump’s new plan to lower interest rates? Extort the Fed. - The Washington Post",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:44:19+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "8748997920c37666": {
+      "id": "8748997920c37666",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPUkhBbV9vdDVfSUcxcjU2SlJoNDRGRDdyWHZZeWJwbzRQbzdlMENwaGYtMlJJeDE4RTJDellER210UUMyd0pUNkR3UnlXYkJEV0FKRk9Icjl6d1BQX3Z1N2NrZjlLbUQydFl5UzJHZzBNT0YxZGV5WDZFYWhLZVRFTjdISjJfU3ZHaklHa1N2cWZEdw?oc=5",
+      "title": "Kushner and Witkoff to Go to Russia and Ukraine to Revive Peace Talks - The New York Times",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T21:56:31+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "6736297a1c35906c": {
+      "id": "6736297a1c35906c",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOa0JKRDk2OHU2LWRNOUhldUVGcDRDZlhMSWF0TWdyejllVVFwaFhDNk5vTkdtYUZvN2ZWcGJDc3V6SGRfOU4wVkNvanY1Ti03OXpUdE54ak02c09FYU1GZVo5NmRXdk9KVkR3OGN2V1Fyem5nZkJ3bGtZcjZVWWlJT3FWYWNrUmZlSHRfUjFTZ1o1ZWFrTzlfUWVXTjNyQUhnd0NSR1lWbHp1d9IBrwFBVV95cUxNc1ZMN1dwemlLaU1hUkJNbEtpLXZmdkJnRnh3Y3V3UzdUYVFqRS1TZndpQWZoaHBCTjZ5eGlLQVFVdFJuY0FCYndVQ2tPNC1xV1d4N0NFQ3A1VURLS2x1dUk5WTdsY0Y1NW9KY1FQekRhOWIxQmlXaEh5bmJXM2RwbkZud3AwZ3RhdTRqVEtfWXlINFFCbU5sWnpWeU16UjZNblUzVzB5NnVhdHpTWGhj?oc=5",
+      "title": "Federal judge extends block on Trump executive order seeking to limit mail voting in the midterms - abcnews.com",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:34:35+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "1f1b0a1658db6597": {
+      "id": "1f1b0a1658db6597",
+      "canonical_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQaDZLUS1jXzFKSzhUSnJSQm80MjFjVDBXSTJRR3pkTDJzRWduSVlZR3owMjVOeGNHT1dvMmd5a1RKNUtvQ3owV0hPaVB5aktGZTBUNTJDaHQ1SHB2d29xaDZpVG12R2dielh5OFl2Y2ktZy1oYkEwSk5hdDhlMmxJT1BmWnRTcTRBMTZhSXhrWFFIdjJjdEhB0gGrAUFVX3lxTE5PcnVxakdIVzNySmcyZjNqUE5fNy0tYTJaV2l3RWluZ0ZJWEZmRkhtQ0xBSGZSYnVCbmlHTWszalpkNkxMbThvU1A0bmY5V1pVU05heWl3NUw3SDVWVmw1dGxXeWNJTVlLV2NpcER4ZTNXRmJFQ3EzcnI0NTVYRXlEZHZ2YVczZDRjSVNrbWJ1S3l5RHFsWC1RSUZxYXdLeFlUdDAxeXhjV1NnQQ?oc=5",
+      "title": "Trump threatens trade action over Fed interest rates - Cleveland 19 News",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T21:55:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "ec8b30c1544e5d09": {
+      "id": "ec8b30c1544e5d09",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQelBkSV9DcV9NVDF2bEhmMUsyaXhKeTJYM0xIUl93RC1NUkdKRGpjaW53d1ZSM21GNnk3dm1qR0lpaV9JbWxyNUJZakZ0bF8xTUhnd0RJTkVfa2M0TW1PREQyUWdjOXhRbnVBWldFZ1FjeThFeTRhRlJoSXdveGxLazVmMzJvbTM5bHhCTk9GUFRJczRXOHkxWlVycGY4b2J3dnUtV09qdDBDUGlzMFRGVEl2cjNCbF9YZTJXVWVyS2p0cnRZdUducNIB0AFBVV95cUxNZ0xBbGs4VFhCeHNXV0xtYm9YQUJWckZBejVkQkcySXdQZkpEYmE3UnFVUHBHRU1vZGVkSTVSV3Jwb3FWR1FWSzl4WENoSVdWYVJqRjM1bDI2UEFlcTQxdTlzeVV1NDFzWmVfMDJHbVpJRkxEUmhDb2NQVDh2UVd0TWhKWGNfMk9qXzJaYWwzSHJaWEt6TTRpZ2hiX01BYkoyenFVdkJ2ME9hYVdxdlBxdmFNSTIyczN6MTc2dVB4X0ZCS0ZOS08yb005ZVZDMDc4?oc=5",
+      "title": "Fake RNC midterm convention website redirects to DOJ Epstein files - NBC 5 Dallas-Fort Worth",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:23:14+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "c6cafe6fd81b0b6e": {
+      "id": "c6cafe6fd81b0b6e",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxONno3Z0hxd0p5T2xRYmlVeFprbGlYT0hZb3RaRllCWVV3d2cwX3VTbUFMY2ZyQWlQYUFVSGM0RXRwMW9LSDBQT2I0RmxIZ2YyaDI1OS1FQXotbXRBLW9Nd2szd0JicmpTclNjQUJLYURKWnI5bU1za21DVHBPR1dpdEdld1c3RFY4N2JHTEpESVJBLV9mbkZuSEZkMA?oc=5",
+      "title": "Alejandro Betancourt, Trump’s Partner in Venezuelan Oil Deal, Has Faced Investigations - The New York Times",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T20:55:12+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "37eeb65a927c663c": {
+      "id": "37eeb65a927c663c",
+      "canonical_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9HYllYQ0NuR0tvVnlHZnZSN0l2QkZXQWdNd2FNVWlKeXpWdFFsZktxZmNWbFlyMkZ4TGxnSzFqNHZfX1pWWWF2ZEVBeEVJUllyNTFHU3pmc3I3MC1sTGtpYjYxLVFOdUdESFFmTVlzR3ZPRXhjNndn?oc=5",
+      "title": "Judge extends block on Trump’s mail-in ballot limits - MS NOW",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:38:32+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "b0f89f674a90d5b1": {
+      "id": "b0f89f674a90d5b1",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbE1kSFZneFR2WDZ5T1IxaWFaRXhIVjB1bnkxdGhYNmxLY3FPdjI0N0ZfakdvVVdkLWMtbERLX1lqYm05ZEk4azRrek1VT25LWU9seUd1OFFLZXI4dzE5dWRTTWhGZmw0M0JsQng2UVhHdkloQ2d1a1RVUk9PYnpoczlONkVXenczY2dGTnRJLTJOUmg5M2w0d1hRVGstLVJNd3NCdGhkXzZuLU0tZHFtb3FGNlV2YXRpU2VEZDd0VzB2QQ?oc=5",
+      "title": "Gavin Newsom fires back at Trump after judge dismisses DOJ lawsuit over trans athletes in girls' sports - Fox News",
+      "source": "\"Donald Trump\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T12:44:40+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Donald Trump"
+    },
+    "9e7d5fdf0ea485d5": {
+      "id": "9e7d5fdf0ea485d5",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOSXdvR1N3cmFSSGg3YTN1dW8xbzJYUTMtTEhRQmlGMFdsMWZibkFrR2FrMGxvUGpRQ250ZjJRSVFfRVgwTEN3M0hOSzNRY2VRSnNteTVZNENiRU1lMHZCaVV2X2ZMeTZ3cndhaG1Fc3FFeGlxMExHM1R4T0ZxX095MC13WmpaVFNaLTB4aUlHXzFxNXFxODhZeXJIaDZTMWVEUndMM1RtSjQ?oc=5",
+      "title": "Trump plans to break ground on Washington arch without final approval - Missouri Lawyers Media",
+      "source": "\"Trump legal\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T20:17:30+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Trump legal"
+    },
+    "47457095b52b6c56": {
+      "id": "47457095b52b6c56",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQbUxMMlNUVUw2elRTdXBrTm1WYXR2NEhpaFF2eVkzd2hjMUMzSTJqeEdzMXREVEhfZzUxczFnSnhhazlVTEdycTd1VXY4dTIzS2ZOeXpmTVl3OVVUM3YzdE9Rckt4SUh1WmZWeWtTenJiMVhKQUt5UHFsV2VzWXFvSFVtVmRhZnR5SEFYems1RVVaSTRvVFJYQWpPV2pwQ2pRazBUcWpR?oc=5",
+      "title": "Election Experts See Few Legal Options For Trump To Meddle With Polling Places - Patch",
+      "source": "\"Trump legal\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T16:02:12+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Trump legal"
+    },
+    "b94d5a396f394015": {
+      "id": "b94d5a396f394015",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNdzd4ZGhxNjdmUW1oV0J5QWRfMi1VaVJfSXQtRzludXpmblRYVXdhSExqTTBYWE0wRVlHS2NHYV9XT3RyNnVqbDBkZGc0WFd0MWRmaEdpVGd1WTQ0MzEyTHZCUDYyOFRMTFlrQlZ4YjJ6Z19fcHZ4NmVsaTFxeWE1OWtVVzNoT1ptbUpuME9ndWcyNWtLTmtPZnNONjJfXzd1YlE4N0F3?oc=5",
+      "title": "Mail-in ballots go out as Trump asks Supreme Court to lift USPS voting plan block - WJAC",
+      "source": "\"Trump legal\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:02:27+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Trump legal"
+    },
+    "75b30bd13bb26887": {
+      "id": "75b30bd13bb26887",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOQTBxeGRxM2lMX1ZNLW5LZjR2cGx0N1N0ZFdpX3ZxNlU1bmpqMFRXU18tbWI0R0tHZVBzVHNPMFByc1lzWXRFZFVITWR1M2NxVjBERjlvYlF4Y2F2VDQ4MVlCSkZKc2FBU0dYeWdpdHBjelVIQW9kYkxuYnpBRmxnX2drdEdrVG9kVTBqWVdrNDR4cGNLTS1tNWl2eFM4WTBmSnRpWkxPSDF4RzBCRFM5QkxDVzVxeTRaOTY0?oc=5",
+      "title": "Trump Administration Attack on Southern Poverty Law Center Puts Democracy at Risk - American Civil Liberties Union",
+      "source": "\"Trump legal\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-05-20T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Trump legal"
+    },
+    "5acfdc2ae3a08ccc": {
+      "id": "5acfdc2ae3a08ccc",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPaV9FQ2Vxb2ZnR0VXRmthSVJVTW1WZHZrWmdCcTNRcVJvMzBiOHJYLWxMTFdwakhSdmktZHFCWXpXSS1qQjhwVEFrSnJQZExTUUpXU0NReHZWU05PSEtoTnIyWVYxenU1UlBFR0dvSXVGa1FjY1VWd29Ea2RxSkNCQUJldjNlbVI2T3AtLQ?oc=5",
+      "title": "Trump administration opens endangered species’ habitats to development, reversing 50 years of environmental law - CNN",
+      "source": "\"Trump legal\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-07-10T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Trump legal"
+    },
+    "c94997eab1357d7d": {
+      "id": "c94997eab1357d7d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNYzFPWjFIdlZreWZvWjQ0amtLRzE3R1pXVThtblRkdmRPTXBmb3ZvdklvVFhmenNGN3d0Q0dqRHJVamFVandpbUVpNjI1b2NqQUZDMFNJNU52ZGdjR2g1WUJVaWJLcVNuMldtUEMyOGxmSzdTUEI0N1RfWmxXN0ktZS1R?oc=5",
+      "title": "Tetris Owner Denounces Trump White House Clone of Game - The New York Times",
+      "source": "\"US politics\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:00:11+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — US politics"
+    },
+    "033a2bab6f42d8e3": {
+      "id": "033a2bab6f42d8e3",
+      "canonical_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQUVJhRU9wdkVCdGphUlR6b01EenAzUDU3RTl2amdROEhHUFk2akhUTll4UDBwX0tiMlB4eWlvY19SN2otTmJ0OE1hcVcySFVES3Nib3NNaTk5cGZ5ZzRwQlFsNy0tZUFXRFdITHM1U191eXNXMHltdFdSLWdQbVd4X29ESU1lb0ktWmg0bVc2aWJnOW9veGc?oc=5",
+      "title": "Trump’s Latest Clemency Grants Benefit Drug Offenders, Union Boss - The New York Times",
+      "source": "\"US politics\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:54:59+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — US politics"
+    },
+    "351dcea151eb1b9b": {
+      "id": "351dcea151eb1b9b",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPdmRwOWFtWlZNMkFLOE96cDJfaFRpc2FoNUpxSk04TkZxSndza0JrbF9LYlYzUmpabzFmUjl1ZkdSTFlDTmVCQWFpNUVXcTlqUURCWTZpMTNPMjByYW9CRUhFZzlhYW9hZFN5a2o2TlZ3YkpGV1B6Rnl1TnMtQUZsaF8xeDNoeXpCUzZfRjhMVms?oc=5",
+      "title": "Judge Suggests Trump Mail-In Voting Rules Could Cause ‘Major Disenfranchisement’ - The New York Times",
+      "source": "\"US politics\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-03T18:35:38+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — US politics"
+    },
+    "04e037a245ce0270": {
+      "id": "04e037a245ce0270",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNeWZpQnVaZnB1SDZ4VGxrck9wQUwydXUtR1plY3hLTlJJcWtFR2JqbjZMQjlERjVEamd2cDVxNF9MS2lLWmM5dWphWTZfUmJuQ0lpajd0S3RoYms1ZGxhVEhYQjFhazMxWG14ZlJ0dnpRVGNSQVN2a24tMWYwTXljdkxoWG5abWZjdU9CcVg5ZEhObE0?oc=5",
+      "title": "Republicans ask the Supreme Court to give them a huge discount on ad spending - vox.com",
+      "source": "\"US politics\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-03T16:20:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — US politics"
+    },
+    "c81a4d5499547cd2": {
+      "id": "c81a4d5499547cd2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQb0s2QjZvS2l3NHllYTcxVHl4QWNGTVZIVC05T0hPMDFlX3NZcElNSDMyS05JSDg0SW9oMXdXWW54V2p3Q3J5LXU4SXNoeFFzWHBLOGo2dDByWkFfa1haOXRBek93OXFvUUhHUF9rdlhFRjM0cktJLUhNZk9ZYUw1MXpaV3FlZHNKMWNCbHR6OVFuYmwtcUdJdzdCMUZIcFpabjQ3Z1BSd2xvQkJlVHM2MkxmQm1WNnFVd1l3dQ?oc=5",
+      "title": "Trump downplays war with Iran, in which 18 US service members have been killed so far, as ‘small potatoes’ – live - inkl",
+      "source": "\"US politics\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T10:34:27+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — US politics"
+    },
+    "242753009f4d5409": {
+      "id": "242753009f4d5409",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPODNnMzE1R0VUNFdySHVTZ3ZtY055aE9kNURNVUd5MEZ0RU91Wm56aWRXdm03cV80NENsd3lDNnE5cVUzOUpRbjdhUXpBRFR0aWZZSUkzbkIwZldxakFqZU05MjVCWV83eGk4Y1k0d2Z0dHBBM1djZ2U1YkhOMUxwXzg0d19zTUp6MnhFUm1mSHNVcW04QUZxV0h2VnZHdm1SVVdxZWtvZFl3WjhUWUpzUF9hbml2V1RUM3h2YXFOSjJOQzBTekl4V2l2OXlidzRpVldCdWMzY2NqQnc?oc=5",
+      "title": "Contrast between Trump, Obama; concerns about US politics | Letters - The Providence Journal",
+      "source": "\"US politics\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-08-15T10:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — US politics"
+    },
+    "3db577420b977f6d": {
+      "id": "3db577420b977f6d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1CQ25Bb0ROcGhfY3REMUhPUEVBeG14NlpoYW1UblBvSGlfc0FGMEZ5VVVnQ2N4aDkyM0pURFNsQlhqcE1TZ0hoaHhLVkxCLXAzeTlFcUNDRWRzVUZMMzVaQkxmdjNoYVZFazU2RmdobVI0Mm5ZbTZ3?oc=5",
+      "title": "The coming verdict on Trump's Strait of Hormuz claims - Axios",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T09:53:40+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "85418f4cb4fb6448": {
+      "id": "85418f4cb4fb6448",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiqwJBVV95cUxPT0NmQ2daRVc3Y2VYMnVWNDY5bzBkYUJkSnROcHZyTmt1ejNIZ2M2MGhBMjFnM0c2RTl4eUhqQjl3R3E0VHJkZ0VIOXY2RGhwSk8wWG4tN2FrWkY2dm9NMnVaZ3FtQWVkUTU5ZWhETkhXcDhHZTJNYmlRTS0xSFoyQ1E2Y290dHhlV25CMjJudEJ4LTVUMUhDOENEWnEwWXFJcTFFYmltQ0FST3NGZHZOZDR2d1VyMXZ6OWdLcHhvZW9GZnpTbXpRMXE4alJNcEVXVlltNDJwdjBaejA2MjFsYkdxS2xKZlJqUlJ5QmdaVHcwNm0xakhlTVNPSkxpTGdqR19qa0pkQTRuNzRCYTlNY3F0bk1WZjhXWjMwWG0yV205NDhxRlVCTHBJWQ?oc=5",
+      "title": "White House launches retro games on border security, MAHA and Trump Accounts - KATU",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T12:12:47+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "71dc3f1b6a3e97b2": {
+      "id": "71dc3f1b6a3e97b2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOeGdrOV9lX0ZLTm5zbWQ5bkx6WTAwWXZhMzFzTF9NOXQyNjQ1MjJKN1p2WTRTNVAwUXc0NEQ1RXpkWnNodF94SjhNRk5YYzNWUkZxOWdNN0w3TDBTbmd6dmpScWY5bkFlSmplQzMwYnoyWkVFb29wZWI0c0F2SkdFTU5QMUtjbmVtR1E3SVBfYzFBN0RmS3RzWkFlZzN1OXBuczNkdzlPbHAtUWRVaGdDbVJyS1hxc1VxNldDOXF3UHB2TmczT0toTtIB0AFBVV95cUxNQ2pNS3lNQm85dFRaemZKUUEyWWw5NVBQeFE2ZDNTWnBBTzZYV09vMDAwNEMyYkVZLVhXRXd6Z0xOazhmZ1FPM3FJdHBrbnpWbnhlWVpodkk2WUNEQUNSeF8teWhIT1diMDBMRXlaaGFIUl95RmdXQ180MFhya2NKWXBNYzBkdGo3RnRkMF9pd0hUMmc3VEdwNi1acUU3Y2VwYnNWaGtIMTZPWXEyc3NFWVFLYkZvNHRiOHpuZ2lhOEVKVEFYWUNoRG9FRktFUGl3?oc=5",
+      "title": "‘Johnny Doc' released from prison after sentence shortened by White House - NBC10 Philadelphia",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:12:37+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "2ea2844ffbdc09b0": {
+      "id": "2ea2844ffbdc09b0",
+      "canonical_url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOeE9vLWZQbGtfeTN4WTJ5QmVEV2RHaFBvTzNPeUZ3cGk2TnhlSnN5SVFId1EtSHBsZDlvMlpDelN1bkZINnRmTkhRYmJkNFdwOHdSSUpodVhNckU0MjdyOURyQ1l5Q1l0R3R5dzVFak5HRkpmN2FrcjB0cmYzMmc0NHJXTGpuRmtuZGsyRjZnSk1HeDdSUDI5dldFREJTeVQtVmxWeGNqTUtqcDRPaGJadmJ3?oc=5",
+      "title": "The Tetris Company Wants Nothing To Do With The White House's New Copycat Game - Engadget",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T22:01:12+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "b3f910cb6309f309": {
+      "id": "b3f910cb6309f309",
+      "canonical_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOS1FVamVRczE5Z1ZfM0tzX3gyNnQ1UEtNRlpqeE5GNFA5clRpRldtQXZlQ29lM0VybFNIMEN3T3EyOXNValZWeXBxS2lEbkdSOGF4NExBendrV29LQ09lQUd4WXNpaVVhNTFQWDQzTkhLUUlodmJVMnhGNWQ0S2pCVHQweGxkMlFCRWs5a0FOVUNuVzAxY1hsWDU2U1EzOC1aVmh6dlZCZjR4ZTlfQlp5bVJuQWR1a1V3UjEyZGh0U1Q1WVFfTGc?oc=5",
+      "title": "Tetris hits back at Trump over knockoff game, warns White House about copyright infringement - Mashable SEA",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-04T20:46:04+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "a38eb11ca837f26b": {
+      "id": "a38eb11ca837f26b",
+      "canonical_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPbHB2TWU4NWNsVFV4QVpLeV9GYXlsNXR6bGRWMmpvbnpiYjJlX2tfUFlQeXBPbmwxU1NHSGtQZWl6Q3d4UVJkMk9jSklIM0Vod3dkLU5jVGl0WHlULXN4TVhkQkNLOEd2NXZoZXVyOEZLOVo3SWUtMHVQYlhvM1pQV3Q5NzA3OHVWSW1yQ0lNYzBNYVFaRlhTUjBNYk5UNzJqY3RjcHFZMzRxSmZwM29r0gG0AUFVX3lxTE8tOTkxU3lFSkRoNkxuY1RaOUhGeTJJV0xlTkdoOG1zaU5aWkRjbi13dVJoU24zajFWRGVMSXFiNnA2cHhjalpaX3AxcFphVG5vVmlmNERaSlFQSnltd1dWRFlPbGRYNTE1QjBhbGxGZWJKSXJQSFZGdmdJemc5ZXNMNHpHQXR2RERwb0lTLVVycFJRekhubHlWNmhuUlo2OE9CR3NvQ3JYZW5RUVJjbktQMWhtRQ?oc=5",
+      "title": "Army secretary frequently warned White House about Hegseth before his departure: Sources - abcnews.com",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-09-01T23:58:30+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "c73a1d766bff133a": {
+      "id": "c73a1d766bff133a",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPaVExbHBxU1NYM1BfdHI5MkQ4ZFAtSlNUdWVDWVlOVzhJYUtfTXhyRERuMlpqWktacVVqWk1hclZrWFMyTHhUY09uWU5OQUE4MG1wLTNDY1cySzVZQm93cHpQeV9DRFBES3pSb3BZNWFTanc4NVEwaU5EblY4QzhLamV5amVWNTlVbU0zWElJeXVTS0I2UjZxbFlkRFd6dVBZdWFr?oc=5",
+      "title": "Ex-White House teleprompter operator fined $172,000 for Trump speech bets - The Guardian",
+      "source": "\"White House\" - Google News",
+      "tier": 2,
+      "category": "politics",
+      "published_at": "2026-08-29T22:52:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — White House"
+    },
+    "0ff9c72174e16111": {
+      "id": "0ff9c72174e16111",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPbFJ1dUtMYUlYXzFyZEtRLUN6dmVwSGZZUEpfLTF6b0Z0cV9ySUFPT0U2VDdscHhlWFBYV0kxckd1bDlxTG9jb2l4RldlR3Z2c2hYMWRxTGdKaElmTC1jZ1BFcGRkSnRJOHIwSjFDbHg1ZHdTV3czQnFIU0lPQjZQTWZmQW1uRUZ3aFRtVWZ1U1hSTjM1VXhZZXZ3Z016b0Nid3pqRldKUVp6Ukl5UTNfTjU0S2E4cUlURWtJ?oc=5",
+      "title": "Breaking News, World News and Video from Al Jazeera - Al Jazeera",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T22:20:34+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "bed2805dc4072261": {
+      "id": "bed2805dc4072261",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQOUU4ZDFTelI3aXI0OVo3ZHJpRWNjT21JVzBuNWdqMXJaVTJJVFVSR1hNRElkVTlDdy1NaTc4RlUxYjViMC1vZ2d0TkFpeU5mTkZBeVltemhsTlcwVmFOS3k5U0J3UU5lRTBnLWhaTDJHUE5wODVPSnZNZ1BlbnNLVGlER1hNblF2Tmx1N1BvbUU3S0k4dlIxeUlqZHBReVlkR21DcmRvTnAtdmtaWm9xZDlWWQ?oc=5",
+      "title": "The U.N. backs a new world map showing Africa in its true relative size - KOSU",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T22:26:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "4e9cc5592b42985d": {
+      "id": "4e9cc5592b42985d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQV1h2U3lpc2xIR19DNE5vdHUwQUZtN2F4SlBpYU5NcW82X0tzZUFmbXZEdXNSV21yWmxIaWltR19RNTFsOTJycDkxUkVlcVEzZzJySEYxemFfWUVaejZaZ19TN0k1YXhLQ0FGOFNvTWVoZ054U1I2MWpqNmxlb0ZNZzllMEdFRDlfNlJCYzh3?oc=5",
+      "title": "Lindsay Clancy judge declares mistrial – what happens next? - The Guardian",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T18:38:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "65b54e2205450b27": {
+      "id": "65b54e2205450b27",
+      "canonical_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNU0RXUzJVQmJzNDZoSVJfMTg1aFdHUnVIVUx0ZTkxS2EzTEtnYXgtTTlhUl9EaGFZNFlBSmRqd2V5cURqaHRGbGQ0WGE1TmhIaE9MY09LX3NaNGdnZDhXNzdRX0VoMUtTb0FkRk9Hcm9iYWl0TG1TeExNcmlLV0pFUmVIbVh5ZjJ0U0FBMHZDSV9GbU9sR1B2UTlxZGotRW54b2l4RGhvV3BBbFZTc1VKNU1HWk8?oc=5",
+      "title": "Brazilian Supreme Court justices at odds as election and probe into failed bank loom - Audacy",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T22:22:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "db94a6d6980f37b4": {
+      "id": "db94a6d6980f37b4",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNeVVUQW92anNfTkR3d1o3eU5MQkZNVmpOU1hVRTlTNml4QnBnRkJ1YzRnWXI5TEtuejN2UzN6eUxFaE55UFE4NHhZLXJJb0prd1dteW8yeDdNOEhmNXdxOFd2ZWt3d1dzQVF0UHdKVF9KUm1RaktQcTZKeWZPQmJFWUZRZ0xfcVRmOVFhTUpKOTZ2T0FtV0ZwY2Zn?oc=5",
+      "title": "New York City police fatally shoot man who climbed up Brooklyn Bridge cables - The Guardian",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T16:16:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "db920ecbdacb9a64": {
+      "id": "db920ecbdacb9a64",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimwJBVV95cUxORGRnN2NybWlzUDRXVnQ0Z2xZaHBrRFNqSU1yUlVqQ3FEUGIzc2xDR01iVjdvRjlGSGlva05rakpDX3BKZHFXcU1uNUhhcUgxdEpTU184Rm1XQjhYT2FtM3BlTUg2empMRnhHV3lwNUhwTDliS0ZuVkdtY0xDcThUbTNrYUI0LUJqWjJHSEZpVjlTRmZPQTlsNnp5UE5GdkJpaDVvbGJ1b0NMQ25PM29pT0pEYlo4RzJraVpFc1BrSVloWWRDZXpFbGpBeHQ4UGNmZ3Z6b1NtV0d6VlNaWkJ3TEdKRnFIa2M1ME11dl9BUlhYWHUyMWJ4ZzNCeFJVMUdSV0VNQjFyMThZT1lXR3RvRHdyVFVMQm0za2x3?oc=5",
+      "title": "Couple in critical condition after lightning strike on popular Central Florida trail - channel3000.com",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T19:23:07+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "8dd9b698323563c2": {
+      "id": "8dd9b698323563c2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNQUhpMjVsVm1HOVFYdzU3OHREeUNEc2VldXZ0TVo3YzliZWpkendwdFRZVklQVVNXWWdrOTNJSG9ySDdLcUQ2QWJiRnRaWC1NdmNRa0JuTUw3eHoyWFgzZzlCZ3cyS2JTYXhvSmNZWFlHQmpaSGRtbjh1TTFZZmU1aHNQaEozUlFfYWxwbWl6TVB2NkJ1WXV0QUg0ZG43LWJjTUVPaXZ4NW44ZS1KWF9nWGNNT29EdUtqeGVLekU0UVJpcFpvM1hsaVNOMlRzek1IcTlZSEJXUkhVM2U0Qm90Z1NRX2ZudlhJZ1pyRzJUMWpzSjNmb053TUpVN20taHNZUkVfQ1h3?oc=5",
+      "title": "70-year-old Kansas man, pastor charged with multiple child sex crimes - channel3000.com",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T19:45:57+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "a758f55987b15470": {
+      "id": "a758f55987b15470",
+      "canonical_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOa3hFcUNoZG40TG9rTmRfcEtRcTJZRlFDOGxpeFJpZ0NoSFlTOGZyTDl6Z2JhUW9kaXZhWDJFZHNrNUktVDJOM2RFOHJtWHdnR0VUd0IxM3J0aE1ROVUyNVpPdkVLWHZWVGJTaWZkWlVHR042UWl6dkg2QWc4QU44MlBnYTMxYWJZNFR6elprRzVFbzFKdDNMNUt3WXVwbjR0YlB0UXpsM1ZVdmdzR2c?oc=5",
+      "title": "Africa bigger, US smaller as UN votes to adopt a new world map - ABC News & Headlines – Australian Broadcasting Corporation",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T20:45:32+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "7e0b222c8d5f82f4": {
+      "id": "7e0b222c8d5f82f4",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNZ0JXaG1GQlF0Rm55STdXWXFlbUJDV3gtSUxZSGdmRUNEVnRZNVg5ZFBXQmJnQnJodXFzSzhNdWltN0F1UWxGVGF5SGVmWnNLUDNCcVR3SlBGcWpDci1qd01XWnBKZGNrcFU4d0IzNUlpSE5OLXo0eWZCdTRGUUREN3FHc1NiQzc2cnFnYU1nUzhDQkE?oc=5",
+      "title": "Three hurricanes in Pacific show the power of El Nino - Sky News",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T22:20:24+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "122977c71ec35de7": {
+      "id": "122977c71ec35de7",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQaDdhcHZUbDVJb0lDMkoyUURhWHVCUnp1R1FSR3R4bmtrUVQxZVdlWURvM3I3Z05fcEZmSzg4RUpZU0U5QkFrazI5SnNPQTQ1WE90YU9sb0FoYzhFa1lxX0FaTXQxWHEtN09aMW1RY21kZjJvVjdRNWFydk9yYVdJVDF5cXU?oc=5",
+      "title": "AI's 'warning shot': Tech companies, experts raise fears of more rogue swarms after alarming Hugging Face hack - CBC",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T16:57:15+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "4c2e6e40db2d6d61": {
+      "id": "4c2e6e40db2d6d61",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQemNfeDhPU05sU0xaenVvQlFJWGdBWEFVcXJlMXl4TU5IU05OVjB1YlBad3lxZk15enpWY1dYSG44Q19uTjRDQjY3VkZhVHFhalJQU19wdlhvVDgyNGc1SWxaRWxQUjZYS2VJZ0RUcmRrT2YzM3FxLXNHa3BFSy0zZkFWQ3B2VjJ1MG5tMWFmUDVyTS15TGd5c0N2NmMxVFVJUmhKMQ?oc=5",
+      "title": "Care workers and others fleeing UK modern slavery win visa reprieve - The Guardian",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T11:19:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "6c9f67f2992cd058": {
+      "id": "6c9f67f2992cd058",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOS3F2S0cxZExnS3A1ZXM4Vzd2dExTdDNtMXBQY2Q5U2hDOGR0YnJxaUF1c1dHZGdEaWREYTFWMTJTdkw4ZUhIdzJxUzJLYjM1U29LY0djT1VxeHJtOHN0V0RpT2RSNnZjUUZtUWNaZlM4OEpJVzdEZGxfSXh1VnhFcHEyZlN0NE11S2l6YWlVM3p6ZnlpbjRIag?oc=5",
+      "title": "Milei: Give us a Hong Kong-style handover of Falklands - The Telegraph",
+      "source": "\"world news\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T19:20:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — world news"
+    },
+    "00838ecc904cc810": {
+      "id": "00838ecc904cc810",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxONmlhRkNOT1pLYlM2aFM4NDRieGtDenlNdlpJUllwQUxjYWYxOHZnUkxHV0tnYnlzMjBGd0JwWEJUTS1zYW5STklXQVNZVFBBMzdpVHlRdWg2OU1wZ2l3S2hCczZad0RnMmxIVDlwS1l0YnMtQ0N1bXdqZzFXeS1xXy1FV1RZUQ?oc=5",
+      "title": "Russian general accused of masterminding the attack against Kyiv’s children’s hospital injured in assassination attempt - CNN",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T14:30:14+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "0b30866d073149cd": {
+      "id": "0b30866d073149cd",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9TaWZqX05jZWN2NkFhV0FQOGMzT1dIMjJORlFNUTVQUEdlWEE3ZEVNUUNDcmN6MHMxY2N0LXpEZkFqOEh2X3poNHkwN1VYZm1yZC15d1B5eTlhbTR4QU5CSE9VclI?oc=5",
+      "title": "Kushner and Witkoff head to Russia and Ukraine in search of a diplomatic win - MS NOW",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T16:50:14+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "dd291827ecef69f4": {
+      "id": "dd291827ecef69f4",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNNFgtTGNmWlRrSGNaU0ZxUHpPRV9wM1hjSGlkN0lwVjkzUy04bi04cWhCWVpXUHVNZ0pBMG1CUDlSSW90NlpUQkdFNWdya3ZaMzJkXzBnblowUFFrUDhuUnBlaGlCakk3a2g3aTBhVkFoYm4zWnNuY0dDcVRwdVJIZFJHWFBaYjRYS041cXpNdlV0Wi1nXzIwWQ?oc=5",
+      "title": "Why Ukraine’s drained Kakhovka Dam is strategic for Russia - France 24",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T15:34:03+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "90acf35d04ce8f88": {
+      "id": "90acf35d04ce8f88",
+      "canonical_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPQURoUEhEcFk3STd0XzZscFVBTHBnRzV2LVRsVDdpM1UzU2V2TzJwbmU4OS1xeVZuOFlSQUNaYktJV0czSjhvdTZVdlpLOUJoaVFvNllrYTByTHQ0ZFlnc3VLeFZWa3VneTFyVUZvTnhUQWpCUGFLMmlIb1RqNEFYVnFVSUNIOGxHWVRGUko5TXhYVkw0RXZuU2UyeUNzS1Ra?oc=5",
+      "title": "Russia bombards Kyiv and other cities in onslaught testing Ukraine’s defenses - AP News",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-08-27T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "d415c99475142fcc": {
+      "id": "d415c99475142fcc",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPbUZ2S1RBTy1ZaWV6TmxsZ21lU0xWT3dsMmtDRmRHbGNBNVhNc2MzeHQ1cmx5eFlWaEdpbnpGdlJMbEdCbjNGMEpRbmN5N3JGamxOVTRrQ1lmcVF5UUYyR0ZBZDBNSTVSaWFQMVhRb1dnMnVwWVZiYjZCRlUtdFBaV0h3?oc=5",
+      "title": "Trump says Witkoff, Kushner heading abroad in latest U.S. effort to end Ukraine war - CBC",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T21:34:04+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "4a4c9a54d70122f7": {
+      "id": "4a4c9a54d70122f7",
+      "canonical_url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQcEFLRmphQzdrLWZFUHp0MDYwS1k0UFhBX01iYjQyM3czZHZYNGpyZXdZcG43R1VqemJYbFBOTmI5Rmp5MTNVWlF4LWZYa1ZTSzZyU05MR0QxUS02d3hMSDVOVkhQRENwU1pRb0FyT1R2SVliRnQ4YzBJSmRIT0k1OHBMOA?oc=5",
+      "title": "The wars in Ukraine and Iran are becoming dangerously enmeshed | Christopher S Chivvis - The Guardian",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T15:12:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "c39f3b9c6b6ccdcb": {
+      "id": "c39f3b9c6b6ccdcb",
+      "canonical_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOWGNmWlUwRVZtc0RvYlpoSkhYZVZnOS16dllFMkxMQ2JfaE1mbVhqV0h1bVA5RmVOMWoyX3NXbGhxcENzb1hOOGJTUmtkY29PZ2ZCRUhDaWtMSHdOZV8yVC16SDFRcThGQTVtcXBHTGh1ZGFQMnpyc0lYbHc1MEhoNlNCYjBtaUZucmY0ZzdMTWVFTzAzeWwwQjNySGxXMG44c3B2T281Z3lEY3NuZWJob0luMlRxZw?oc=5",
+      "title": "Ukraine Braces for Brutal Winter at Mercy of Russian Air Strikes - bloomberg.com",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T04:15:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "632481982f1c3195": {
+      "id": "632481982f1c3195",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxObU52V0lhWFBOY0VrS1V1TmZtT3NxMUZGWlJUandmODVqZzltTXNwd0MxLXNLcUdOQ3pha25ja3VnYTkxSWl2RVBHNnRYY0c0aTI0bGhzT0dwQkg4OXQyX2o3WlVudFcwUzJfWTh5UHc4YnNaVzRzdGJuT2VlSmdqbENKYVVvWHUzOXVDanV30gGTAUFVX3lxTE13dWtPOVUzR255TTh5Q1VuQUhDdUo5OGpvNWVibmQzQW5ITDlMdDAxSlFfN1BFSExMaEc1VzJPYXNZWWstQWR3bGtDNlJ0aTZsM0d1U1dDNGU1M215WXlYeVhISWFXamhOVUhHQkpDRm1tVWhfeDgtOWlRcUdMU2dUaFd4RlZoSndXNlRSWlI0SmljUQ?oc=5",
+      "title": "Trump's special envoys travel with proposal to end Russia-Ukraine war - upi.com",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T22:15:52+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "4ae3debee88adb78": {
+      "id": "4ae3debee88adb78",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE84WWF6d1gycmNySzZ3cVdSYXJvc2pBUmJUcTRlT0g0dDFYanRpR3RRMV92RjJhbFZNN09fZGh3M3RfeEFHMURRbFl3M2hDVEtlaVVxUU44N3pQS2VtZDVMaUZ3UmI?oc=5",
+      "title": "US Treasury secretary blames Ukraine for global rise in energy prices - Українська правда",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T03:38:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "2f32aeb6ef3158ed": {
+      "id": "2f32aeb6ef3158ed",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOcVRrNUdYR09tU3pqRjF3SVJIZERKa2NFQ1o2SjM4bC1LbTZoYW41NnVKbTUxdERlTXg2c0ZWRkVIM1F5OEZRSEwtLS1FblJiV0x3cFhaTlZFRXVlQU1GbXAwdndDLXhmTnE0R0R3ZGlyeU11akYyWGpmSFI2czgxTlo1ckhTSjRnUHk4NGRTMTdMTFE0cmJINFJqNXgwVklBdTZlTlRWWEJidENWWW93S2IyS2h3VC1zNzF1a2NkREY3X1dKQVBxN0ZwYw?oc=5",
+      "title": "Russian drone strikes Ukraine security service headquarters as US talks on the war are expected - The Boston Globe",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T21:03:43+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "133075765dc5742d": {
+      "id": "133075765dc5742d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPVmVDNXlqNHZXVEoxbEdMRjFKLUo4Uk5PdjRINjRPTEhoYjA4TE9XUjhHZGV1RUVxRnF6Wkd3SWF2TTdtYXRSUnV3ZFFxOU1jUlRlalgtcnFvay1hSDVoQWtTVDhka0FySzdqbnhPLVE2RW41cGNPcGh3YnVxdm5KZDNVRC05Z1JJeHR4eFpwUE5pbDZuVE1BcHItT1I1a2xxSjBSaVp1M0E1TDhIOHpiQW5qRE5DYnJvT0hJRWloSdIBxwFBVV95cUxNRzBMWHFNS0lXWlhoU050UVFWbWlZN2J5ZTZ5bU1ybFpoS05QMHM3TkFRdDl2d3RQX0VueWNjeUxnbDE4dDA1UE5aNXV0MHpRakkweTdoZFFNQWFPRml0TXBnYlI0WEE4NDhLT0lBSEhUcERSYVBGYUNZRS1CQWVPNlhXU0RIMENNcmZBRk9IOUdyOE4tQnIyWkxwX3BJSElUcVBNQXY1My03d3RnWDNXOW05MDEwcFdtVUthaU1kdDE2aWpVUEFr?oc=5",
+      "title": "Witkoff, Kushner Heading To Russia, Ukraine To Present Peace Deal: Trump - NDTV",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T19:47:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "0a8c50bab3409e1e": {
+      "id": "0a8c50bab3409e1e",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNY09jZExOVWg3cG9yZjRId1U3M3Z5V3Q1amRKT09EMkFqaVMtcnJKM0RuVDJvcklHRUhHRVJ1aFh5MEhzSUVuSVo5M3dDY1liMm4wcll3Qk9INFk0dU5FQ1NIeWhsdFRzMy00bm5mTkFIVVQ2bm5HZWxwYlZSSThvM3hwNFlVVjlHeGVUSDBTZm1LSnl4Z0VoMUJ1X2t0ZW02bFVMMEQwY1BWVV9NSUFETGxGbVE3SGZ3akxV?oc=5",
+      "title": "Three dead in Ukraine after overnight Russia attacks as US plans peace effort - New York Post",
+      "source": "\"Ukraine Russia\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T12:26:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Ukraine Russia"
+    },
+    "163359e615ea01ba": {
+      "id": "163359e615ea01ba",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOdVVjcmlJWk5XdEhGR1Zhb3NXTXEtMzA0OG5qODY4NjctWmxHS0tQZVlwYkZ6WTFvRndUR29fRnpXemJ2YUpXLVBxMWJsT3RzTnZtRnQzaFRubkhPd1QwX0hRSHdJWW1QLWhJRjNBTGNoTlhFVkpqc001cjJiTWRNR195OGk1RnNyZ2dONjZ2R2liU1NHMm9kX1I4SWFxWHVWdkd0dDQ2NXJqbUVVNmJ3QTRoOUYzQThSd3QxWjZOaFROaUFnOTE5RmU0dDhCSHFFRXNlaFRtMXN3a1k?oc=5",
+      "title": "China's Xi criticizes US actions in the Middle East during Cairo trip - Le Monde.fr",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T12:35:27+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "99856012321e97fb": {
+      "id": "99856012321e97fb",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPUEFQRGVUV1V3Y2tkTGplUmVwdUVrT294X3Y2a0VpekR1ZF85bmx2ajBiRUtyQWZOTV80THZkSnZueXNZSnZocHFmM05sdlpUM0R0WEhqdG9keGpHSW5Ld2ZBZWZoZElvM1lrbElTbU1sODFTZjlLbV9rVndfQjUyd0ZFWkNLVGx6NjE2N0tSdWFqRGxSbGJ6V0l3?oc=5",
+      "title": "'Secretive' UAE and Swiss-based firms found to be major crude suppliers to Israel, says report - Middle East Eye",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T10:55:46+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "2c116761c3ca2390": {
+      "id": "2c116761c3ca2390",
+      "canonical_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOcXJBSG1QV1Ric0FxNF9Seml2aFBac3BZTDdINTFpWU9NS01pa3NBOVhLbzJoeFpaaDRNbzlxVHlITEMtTm1iSVh2RnFCQ2l4MFVQNFh0aFd1NFk5MmlBSkdFVVczOHhsUDBJcmxsWGdQenZLTldHTEQzZmNibi1kNDBDd09QaWMyOUxPbGtycnE1RU42MnBhaXVGeDhxTEo2UnhlOS11SG4yQ2k4cXdBWjFGUzh5dHJZWUpPT0x4TlhjdHRsaXRlc1NqWkRPTmM?oc=5",
+      "title": "Middle East’s 2nd-largest economy deports nearly 15,000 people in one week as Ethiopians account for 58% of illegal border arrests - Business Insider Africa",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T18:08:22+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "33dacf51cda704f0": {
+      "id": "33dacf51cda704f0",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNVzhLeDB0TG5UckxDcm5NQzFNeGIyZlhkYkJJYkFtUDZCRjRPWW1SUEVvSTE0RE9RQVVMNUpNR2ZzNnJEVjhIbXRBaW1Lc0tvVU1BUVpsX3ptZTV4MUMwU2Q3bks1UXpFQjFFUTJBSFp2SlB2Z2daUG9kU1FYVm43N1NQcEVqZw?oc=5",
+      "title": "USS Abraham Lincoln leaving Middle East after 9-month deployment - CBS News",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-08-20T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "bc9050935474b108": {
+      "id": "bc9050935474b108",
+      "canonical_url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPUm9QVS15ZkM4c1JfanhBemlXQkVVVHFldm5xNGR3d2FmdWd4d01MRVI2U1g4WG1hMlFGRm5fZnBiUndKUDd2Z2c1cnNoTWVxSVR5aGNQVnFVWUlPcFI5R2tpRXAwNEUwYTNYWUJKdjN3b2dIR3dwMVk4R2lBNVFpcWE0YzBESFREVnRZSjRPOGhRNm5hNjctMFVRNFFta3hBQkE4OXdCamNPX1lHeEw0akZyMjg?oc=5",
+      "title": "Trump says US fighting Iran to protect Israel, Middle East, West - Anadolu Ajansı",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-03T00:14:07+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "6bb57efc6744a379": {
+      "id": "6bb57efc6744a379",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPdWNnY05GU1ExZHk0QVE5MkV0UHBFeF9hbEF3S0VibEdrNUh4WVNvT3pSS291NXdReUVXVUhPejRkXzFwd0tYaXl1WG9MdC1TQWJHMTF5RDdfcDh5RXdZTnc2NzhDdW9nZHE2WGkydnZQdmt6Q0t1MUZVbUJlVm9BeS1uZHJBMVE?oc=5",
+      "title": "Iran attacks US bases in Middle East as it accuses Trump of ‘war crime’ over wedding strike - The Irish Times",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-02T18:48:47+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "060d77634f63730d": {
+      "id": "060d77634f63730d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPdWktd0RiV0VKczYwdV9UdHJYZ2hzRHdVaVlBc2JpcmhKXzJFWGNFMUdqZERBc0hacWRiampYbkN6TFRCcGFlRFhvYXBiWGw0akM0MzNvOW43VFJtdktYLXJkSzg3eldBeWdrRDluN2FobEd0VzlWcVI4bnRQdlRmeURMb0ZOd1NZb0daTUJyOXZURU9oT05icXk2ZjlTV21hcU1nbnBNQXg1ZnJEbllzd0JQSmN6MU55dkVlTWwyUDhWV1NOS0VHNy0xUdIB0AFBVV95cUxQRjJDWE0zQURBeE54WFE1OGx6LVMxek1pTEgybHVlNmY5eVZ2RmFFQkpzT2tzbjB3UUNsV09YU0toVmtLVkZBZGNwbHJDNnItT3ZFRWNoZlluSDRZXzMyTlZvWmw4ckhtRW1LaTFtMzJ4WVNJbTlFdUZjS2FyNzRHZElaQ01yMTMzdHdKaXJkQTM5ZndLX0w2MFB4WGZjMHQ0M3pnczNodi1lUDVuc0V0RXVkalVOY2RyUzNvRWEwaE5DQkN5Rm51VWtZRFFFOUtr?oc=5",
+      "title": "Iran hits US bases across Middle East after deadly US strikes, wedding deaths - Malay Mail",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-02T09:12:47+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "5574cca7aa465cc4": {
+      "id": "5574cca7aa465cc4",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQay0yRDlUT3g3TzJ3MFlqN05PT2xRWVFrSUdWM2JPZkFOMjdiTFNZRjZSYzhWQlIwdHFvdWlkOEd3NGNlOHdocEs4ZUdyM1ZuWWNDcWFfSWw4S1RBdVR6cmEwb042T2lYcThCQ3RDVGJ0LWdQSkRRd21LaEpPNzR2cTc0b3lWYXdPMnJZ?oc=5",
+      "title": "US military disables ad trackers on troops’ phones amid security fears - The Guardian",
+      "source": "\"Middle East\" - Google News",
+      "tier": 2,
+      "category": "world",
+      "published_at": "2026-09-04T15:48:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Middle East"
+    },
+    "cd26ddc3ff62ec87": {
+      "id": "cd26ddc3ff62ec87",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQZjNTcy1fdEd1cGgyNnVDRnBDQTZnTW5PbUlMWnpUQnBjblUwNm9hSkF3RjBWeUw5WXd1SVdzTHV5cXcxVmxqTEFta0Nhbi1SenJDa1M2SmdwRHlGWldXRFJjZGhEdFBULV9VU18tV1V3eHF0WjI3TWZjRHpOU3o0S2lrbU96b2l0WUgxeFFtOEZFTFBFZXM1U0JwOHYxbUw0eGQ4YnNRYjdhdHlId0ZuU2luZFlVNEdZZ3c?oc=5",
+      "title": "Helper or shortcut? Central New York families weigh where AI belongs in the classroom - WSTM",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T22:04:24+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "047b712902eb3d57": {
+      "id": "047b712902eb3d57",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOWmFGNG5YOXk0WFMyN2p3SzlQaVduWVJOMGp3bmJxdUpnMVNZbThMeHRKNnZWd1RqZ3ZudXRvR3dfSWl5dHp2aXNtdWh2QjlDUnM4N2J4eUZHeE0zd1dld3JkUW5STnlINnBDdGVJWlVkbi1JX1J6N2t0cmNRSDQ3eGNzU3hBUVdPM3ZKa0g4OA?oc=5",
+      "title": "Announcing Artificial Analysis Intelligence Index v4.2 - LinkedIn",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T22:38:39+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "7625f9ad0c0dfcb2": {
+      "id": "7625f9ad0c0dfcb2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQajllcUU3ZlFIZ1BPSURPUHZsdXhJYS15S2ZISUI3dGtuUllYakpWY3ZxcjVVTFFVMnR3V3FMNDUyMlI1bXVSR0xXRVVCY2twLXBBOUZFQnlNU0RHSEtackZ6OElIZ1Z1Y3lERVcwZ2xXREM1TS1wWG4wZVd3Ni1JNDNVdVFpNTUxNnZNckRTVjdjNGRJcmFkQjltUE5CSkwyVUtjRzhQZw?oc=5",
+      "title": "AI-generated ads have come to Oakland politics. Accessible solution — or risky deception? - The Oaklandside",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T22:37:02+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "52de0d0f9d52260f": {
+      "id": "52de0d0f9d52260f",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBNMEF0Tk5rV01mU3NrZGFyRlNUZno1ckwzQU5FQnZuVW5yZEdDLTkwc19mVTJnOFhydldfVEtFTEZrY2p4cnFKRzZYc0xPdDhQNUFyeTQwb0VQelozSlJR?oc=5",
+      "title": "SlideChat is a multimodal generative artificial intelligence assistant for whole-slide computational pathology across cancer types - nature.com",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-01T10:32:08+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "c7a3fcad9f420e44": {
+      "id": "c7a3fcad9f420e44",
+      "canonical_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPQ3c2elRURk5NeU1YejNqQlllemJsdTNrc2FlclIxOHUtNDZsdXF1UW12ZW5CdnlTWUhiOUluZ2VqWTBCQ0lTWFlfTDFkYy1Ud0VMSU1nWGtidkxYNFRCdFlwR243MGw3c200QmtSR0EtX1VaUzNIaHJSOElJelNiZEJKSFhlT1BfLXVsX2JVVy10bXQyY0l2U2tuQ0g5NGxMblFONVZPWHBHYjNF?oc=5",
+      "title": "UChicago Social Sciences Took a Stand Against AI and Devices. Why? - GovTech",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T22:36:08+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "63d1f7a0bbb07f06": {
+      "id": "63d1f7a0bbb07f06",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOOXhlclBlRklqSTc5THR2emFuZzRVWFBHYm5CdGJYcDNwQ2treDBzdlJUZmpNVkpBbHNfTGJJbFYydXlUSHNBSF9yOWMxRk4xbmVXU09aZXlTNEQ4a3owOWtyTVRrWGMyakRRdDZybmZ4d19Bc1h2a2F0NkRnWGhuNmVjdDNMSWM2WmI3bk9EZWQwWkkxNmdzZU4zOGJUbHFKV3ptX3M0bVpOaTBqV1AtVWVNc05QTGpUVGducm1BQzFaV1JHbXFOZThuZFY4UWFOSXA3YnZR?oc=5",
+      "title": "Local schools are figuring out how to teach kids to use AI without letting it do all the work for them - WHEC.com",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T21:57:31+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "c83cb9b4841c8e09": {
+      "id": "c83cb9b4841c8e09",
+      "canonical_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPTmN0ZEVZRHZRZ0FKTGtuVFRwN094c3JzMGVBclNETUxpUDBEREFOYTU3R3dnNlpMd24tV2dTemtscDFtaGo0UWhzUFpPdnBvcXlLZ0NKMXNlMVFQWVJoY1BvTDRILXowLWxOOGEzOFJOR3RKQWNqbU4tYXUtSmdYeWFxSFoyRl9EWXNveGpqY3ZqZm8wa0ZmZG1vR3RLRkJuRk1UN3RMS08zTVhkaFdUM0otekJwT1JEamxBdVRzUldPcWFYRXpZa1psT05zdw?oc=5",
+      "title": "OpenAI Says Humans Need to Be Able to Monitor How AI 'Thinks.' Astra Makes That Much Harder - Gizmodo",
+      "source": "\"artificial intelligence\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T20:55:19+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI"
+    },
+    "abde451995a77bc8": {
+      "id": "abde451995a77bc8",
+      "canonical_url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOTTVuUWNESk1LZDVsNmpZZVdMejFBb2xsMUR4N1NkdVk4SlJHNl9pMk94M2tKV0FaVVdxZGZxcldMdE1hbUN0d0pZaDFfTWp1NXNnWkd0aF8yQVhQWW9aMTNvZkVfU0tHUGplSzFIZWZuSEhqbElNemJKazhoc2JWS1JHZnI0RjlNQ3daRmNlbldxSGM2bERmTnlaQ01qd1NYV3d3QXpqZmhhcW45VGswUk4yYVpxWVE?oc=5",
+      "title": "Filmmakers tout AI’s use in Hollywood at the other film festival in Venice - Semafor",
+      "source": "\"AI technology\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T16:17:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI technology"
+    },
+    "318f103224c41643": {
+      "id": "318f103224c41643",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQYVZDV1RwU0hkRUZGT242dHNyYjBVXzljU2ExSHVWbDY5cGFPaHJ1NlpqdW01S2RXcUdaMVhtMmdmVW9yOGNvempTQ1hSU05rdktSSEhuNkhkbjBVWWFMMVV4MkpObS1SNVJvTVV2VXpiQTdUNG5nejRhak1QckNjdWNlWW1qdWd4bWlnX2NvdllxWmFHbGhPc1ZzcEgzZFlGaUpTNTZHX3QzV28?oc=5",
+      "title": "New $95 million Seattle accelerator aims to design biological tools with AI - The Business Journals",
+      "source": "\"AI technology\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T20:52:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI technology"
+    },
+    "e1ceaea4c0d10f34": {
+      "id": "e1ceaea4c0d10f34",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPZWxxUUNsYVdKbkdxVS12QVFrQTdUcURlV3h5bUo0VU54QU5OR0V2YnZCZWNPQjVNdC10M0tyT2ZDdEhnZE14UVpoR0lndXhvYVY1LTVTX25zQWtGekVqQ2NadkxOaGcwc2hjOWZPODItWWVaSldacURQR2hlSHZMdlVreldlbnhGckthZEFjc0FpaG5XT0NMWUFreVdkX3hua0dyUzVR?oc=5",
+      "title": "Tech news: New Deloitte practice incorporates open source AI models - Accounting Today",
+      "source": "\"AI technology\" - Google News",
+      "tier": 2,
+      "category": "technology",
+      "published_at": "2026-09-04T20:44:08+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — AI technology"
+    },
+    "e996e794318110e2": {
+      "id": "e996e794318110e2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5uSHZFR0NDeWhjX2JHM0REQmNHeWtkc1daZ3NocXlvOXM3YXdEQUp2MmY4SHJ1bXhsaGRFb0J1eGZZMFlXT2JfdjYyLWtPSjBFVmliSnRuVlgwWUZaak1FTy03cnJXQ2VJX2c?oc=5",
+      "title": "Nvidia will officially bring DLSS 5 to older GPUs — but won’t give gamers full control - The Verge",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T01:49:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "62d6201016eaf9a1": {
+      "id": "62d6201016eaf9a1",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPTF9IOEpMNE1RdnN0YlhSZ21LMnZ2T3V4dG0tUGVURFd0THFHYllyc1dmdFI5a19jX2xTdmFjZlkteW1jMGxGbUswaDVkRmRwMjk5S0RtUzV4MWF0eU03SmxjNjZrVTNRU3Q4dUJHY1hELVFSZXB5Z05tTndlbTNMQXlTV0kyZWZsUUdkVV9JOExoRjBvZEJheXAyMmNPLXJ1SmNUOA?oc=5",
+      "title": "After Earnings, Is Nvidia Stock a Buy, a Sell, or Fairly Valued? - global.morningstar.com",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T08:12:09+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "e86f39553c7bd62d": {
+      "id": "e86f39553c7bd62d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9adE5SUnpVVnNMU1UzQnJMdUtYQXNVQmdHdXFlYjQwOExGTmVxZmZoZmxVU1VFU3VidkVmTzdSVFFpdnBYS1M4cWxiM3Q1VVhzSDhYb1c1RlJHekFMMjVrM2VEUk4tSmhtYWJmQnc3S2s1TlU?oc=5",
+      "title": "Nvidia's RTX Spark: The Reality of Next-Gen PCs! - How-To Geek",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T22:36:05+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "5262bd331830eb50": {
+      "id": "5262bd331830eb50",
+      "canonical_url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBud0FiNkhvS2wyMUhqdFFKR2RCdkRRbGl0VXZ5Y3Uwc3lOLVZrZFVuVUlIelkyLXoxVEJRVkhHTm9KOVZBXzNCallnell5MVg1clhwMWhRVExfUGRuLWdTQWxCRnVSdDRETUpOYjN1LVdlZEVpTEHSAXtBVV95cUxQNWNHaE1RcFhTVGpWSVFHajMxQjhrTklWSFotSmo2S1ZVWjFBOXYxMTc4M09HOVlCWVQ3cGhfM18zSE44X19qZ2FOWlYxbzVCT1NqWTZ4MEFNMjV6dm5pZzRVbkx5bVdZMVRlbjVpMy1weEZJeWE2RGtuWGc?oc=5",
+      "title": "Why Nvidia's 'defensive move' to acquire Hugging Face is about much more than chips - CNBC",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T11:00:01+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "a887918a42e765e7": {
+      "id": "a887918a42e765e7",
+      "canonical_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOMzBpYWd6b2J3OGtFc0pCV0NJLWY0N21xWkdiWFZTbUZoUHVOQmFUcG9MYlAyUUNUS0FWYWZSOUpUSFloMmdiTVJwNFJWUi1oSnZ1SmVUNFhTZTI0bXp2OVpoZmdFR3BWeUk2Rl9pc2FMdE1BbFNKbDNlSEtkdDRxbEtIdkVwZUY3SmxOemppTk9fQ0Q0OWhj?oc=5",
+      "title": "World in Brief: OpenAI’s astra-nomical new model; Nvidia buys Hugging Face - The Economist",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T13:26:38+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "fcb9ed4d7638d947": {
+      "id": "fcb9ed4d7638d947",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPVnh6LThXX1NqYjZ5LW53aDEySG03aHZYVE85Qy1uelhEeGJxNGh4TUR4R2Q5QXZvaXpBbmlSRmV4MXdiekZwNnNHeXMzWWV0dUhtNFdFV1RIZEpsWkV2NEQzRzJfTTNNTHZwYWZPMXJyMUVSX3JQQXlzYVR6aVpraWtqb2haOHBSSGUxSS14S2FfT1JRS0lXMw?oc=5",
+      "title": "Nvidia Is Backstopping AI Boom as 'Buyer of Last Resort,' Prominent Economist Tells 'Prof G' - Benzinga",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T16:41:38+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "c0d6e2af1c933f88": {
+      "id": "c0d6e2af1c933f88",
+      "canonical_url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE4zWTJEVmltQkdCd2dlTjlIYXZGczZNM0JpOVUwWlc4YUFmM1dZZjZRR0c5NU5yQ3FhQnVyVFVKVWJ3V1IzLUpVeWZfcGM3elphMGRqMW0wVVlqN0w5bkoyMkJiWkJoLUZEbjVlNm5EOWNzR210NVV0dFlXTDE?oc=5",
+      "title": "How safe is Nvidia’s empire? - The Economist",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-03T17:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "ba097269079bcceb": {
+      "id": "ba097269079bcceb",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOWGRPTm84eHVDLVRzQWllNjgzLXJEWjlLN3VGUng1Wi1FdWJTdER4WTR0WmZjeGI1XzQ4S3ZTUGNLYzQ2T1lDTEhfX0Z1Rmx1b3NPekZ2d1FBcHVCWlV4ekNncGt2V0ZRekk5SW5ucjhMMTVmZDRuMVlUM2J4cEQzNVBWS1RIQUdXUGx3dlNFamJQdDdUUmlUVU1YODhNMnNSXzZzdkhZTFpwTVJOejVxeE41ZzExd2FtVXZTeVNqMUNXa0dWVGJNUzJ2Qkp0VlRpakFpWlUzb0w?oc=5",
+      "title": "Nvidia acquires Hugging Face after Stripe nabs OpenRouter: here's what open source AI builders should do - venturebeat.com",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T20:43:31+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "7300897622399c9a": {
+      "id": "7300897622399c9a",
+      "canonical_url": "https://news.google.com/rss/articles/CBMivwJBVV95cUxNMS10VUk0Vl9abERwMlJrclRSb2NkS2V2cVJBUG5FVGJqaWNSazhULTEwMTdVZEdvOHBIWUxYU09YcXZGU0FHQlJUSmVTMGlmYUtZZEhxS3BsOVM2NUVOaS1sSTBrWnFNQXJKZ1FuR3pLNkxaZk50ZHdUYXZiTm5yMmhHWHgxUHpXVnU0aTVOckt2WFdldkF3VUNSVUJiazh3TDNUUWpFM0hWam1HUmVoZ3lKUEd4cGNEOFBCdFRQOGRHMEtlOW94WHYtUlJ2ODhmV0JvSzBtcnRBaTIxZjVQaEd6aHJXeHZoQ2dvdFNsdTQ1ZUFKOWF6SHJjaFpUbWMtNmlfd092SHAyb25SWmpiTEpPZnhwRmZZdm1qbG5GVmZJbmhiblhTMGFIdGdTTGVrSkhaeV9qUktQLUVDUEhV?oc=5",
+      "title": "Nvidia PAIR utility joins every GPU in your home into a cluster for agentic AI tasks - Tom's Hardware",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-03T16:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "05e9a552a0c78b4b": {
+      "id": "05e9a552a0c78b4b",
+      "canonical_url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNQ0VWYXd5MnAyUzdGRDB5YkJsdzk4ZW5zbDZnTUdRNVZDS1d1dE5ISUVkVzUyUmRLcDBjNzJLQ1dWMUNkUUI3MWxIT2xZWHp6bndLYy1hM2I2ZnF1emNZRWh5ZzAxQzVYWEI3ZTFVZzJpUjhLQ05rTmVybjVkeWNfMmtMQlFPSTZGX0ZPNnRIdDJ5bmoyZlJ6TVppbHVkWnJnVmJlMU1JNDhpV1VY?oc=5",
+      "title": "SpaceXAI Adopts NVIDIA Vera CPU to Accelerate Agentic AI at Massive Scale - NVIDIA Newsroom",
+      "source": "\"NVIDIA\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-08-24T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — NVIDIA"
+    },
+    "24a2c5182ed1f16f": {
+      "id": "24a2c5182ed1f16f",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPbVBwTWdVcGJuWDgtTXh1T0UxS0FwZTREMUFvZDlUY3NIaGZBWkd5Smpwb3NJTXN2VnNaQ0NJM2J4NkZVdVExZ21OS1VOMU1OUFgwVHZpZ2c5Qm9VZG51OFR0UmZPQlR1RkFjMGxrVEo2NmJmMERZQmgxYlFHekFkM1JGZURRWnpxaTNIVl9Ja3VMVUlKTUZxakxYVVRHeXNmZWJVMEQzb3BFXy1qMVdMOENCVDlhcVNuNk44LTkxSEdlbjhYVmU4Rg?oc=5",
+      "title": "Daily News, NY Times want 'fair use' claim tossed in copyright case against OpenAI, Microsoft - New York Daily News",
+      "source": "\"OpenAI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T22:14:36+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — OpenAI"
+    },
+    "89641f4756cc6b47": {
+      "id": "89641f4756cc6b47",
+      "canonical_url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQU1FaSml1bWtBUGEwd3UwVHFHU2RNSUFlZmZySkxUeW9nclUtbGtfMzg0S2RiNVVnTmkzV0pJbEtSczkxeVAzX2F2dHZmeDZRUVNvTlJtLWI4WVRma1YyOVJsX3BHblNLV2QtWW1wTkE4UXlqZGktSUJmTjdzWXlaaE9Wc1JiTEU?oc=5",
+      "title": "Rogue OpenAI agents hijacked a German website and kept it secret for months - qz.com",
+      "source": "\"OpenAI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T12:36:25+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — OpenAI"
+    },
+    "01f22ada95e9d39e": {
+      "id": "01f22ada95e9d39e",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOelVXQWlzb3h4WUtPX1Y0R3dKOVg2U1paUnhnblJ3b1hDb0J3ZFE0QXZDQno5Sms0LVJSVktkeEJ0TG5SdkZHZnQwam1JOU5ENUtVeW02RmV4SkdmUmFmWndDTWJ4dmRzMDR5WUpBLUJrM0hzUVV4eVdoQ1pMM3BhLUxNa0ZHZGZjekgwRDloWDc1Zms?oc=5",
+      "title": "OpenAI Is Now Facing Over 50 Consumer Harm and Wrongful Death Lawsuits - Futurism",
+      "source": "\"OpenAI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T16:52:26+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — OpenAI"
+    },
+    "be7c2aea2f00b9c0": {
+      "id": "be7c2aea2f00b9c0",
+      "canonical_url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPN1R4WTNaNHotM1ludFJsdHZGMktleF9SaFk5YVBMbU9OTVE5UHpfVUo4Sm1kaER3aHBqTmpacEljaU1fMHBKdVJXUkwta3JISkdvM1A3ajdhVjNhM0Z0NjUzRDVRaVZSWmpoNGV4WV8zajZLT0VabHp2WVU3VkZ2WFRVZms1NUhEWWhkRDF3dU1MNjM0?oc=5",
+      "title": "OpenAI’s Astra Is Here: What to Know About GPT-6 - CNET",
+      "source": "\"OpenAI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-03T18:00:20+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — OpenAI"
+    },
+    "93d68d1b658637b8": {
+      "id": "93d68d1b658637b8",
+      "canonical_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNUnVrQ0VqZ1FpRW9jTDdTaG1wS3FUc0VsODlDbFlqdjdhbWlsT1B0QjNwWHVISW1renJyZFAxMUpRVkl2bHd4MnJpc2tzajM1M2lTdm5wWEs5S0RRQXU0OEd6YW8zeWlZVUZXdUFJT3lYbE9YbEJMU1Qya1ZGVWtvbVZBNUVLTnRNNjIyOUdKc2FFSXpHNlE?oc=5",
+      "title": "OpenAI’s new reasoning technique alarms AI safety experts - TechCrunch",
+      "source": "\"OpenAI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-02T20:19:14+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — OpenAI"
+    },
+    "f9c4da71a173e20f": {
+      "id": "f9c4da71a173e20f",
+      "canonical_url": "https://news.google.com/rss/articles/CBMirwJBVV95cUxNcmhXZXBxMGhCM0YwZ3pPRFdVRW9QUTQ1aXFZQ2lHaS1pTHpJb1VZOEFaUWFuaGNxMTFFcEMzcUFMcGk1NG5TSHA4M0EwMTY4UTNBVE42b1hIbnluQVA5M1pPMDZzLW9hUUMzbWlLQmdDUERDZ1Q2azlYaTZWMWo2NlRKWUg5NmtKNlRFQ2liS1Q2VGVwV3hmOXFKSzhkRktuYzlkRlhzM09oMDJoVXVOWkc5NmJDX09lOWR6cmtVSlVIVXp1NTU1SS11b3QzQ3hzREFhN0F4QWhFMEV4aG5VYTVQNWU2SjF0OGlXV2NqQmpybUdXT05FMHBDVjh3UVpZY3BBc3pfLXFxRnRmcUxjV3BVS2VpcVRTaTI4bFEyR1VmRFlaQlh5MW8xa2ZSOWs?oc=5",
+      "title": "ERROR: Requests to this API generativelanguage.googleapis.com method google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent are blocked. - Movieguide",
+      "source": "\"Google AI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-04T22:05:43+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Google AI"
+    },
+    "ccbc0e40db472667": {
+      "id": "ccbc0e40db472667",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMWtCaDJQd1NGR01INTR4UkNNd1RNOEZUUWR5d0lFMkhibFg0cG91Nm9BVV9zd1dldG5kZFh1SGpvTE5aU3JrVkE0VS13WDFfaXMtWmpiLTVYWnA5VEt5T21NejVwYUhhNU90M1VyR3ZVX3F0ck9YekluSE8wRUlWTERncDcxVUkzZjc3OTlGNkc3dmRqTkh2V2VFUzBxS0lTWjBN?oc=5",
+      "title": "Google Brings Its Pics Image Editor To AI Pro And Ultra Subscribers - Engadget",
+      "source": "\"Google AI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-09-01T16:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Google AI"
+    },
+    "e8db37001e4da919": {
+      "id": "e8db37001e4da919",
+      "canonical_url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5pSmtVS0ZueXRpMUtCWTA2T2NsdkFTbjQxdExRd1lfN2lsZFBZWVRMaTFpVDdhWXcwSVlyUktTUkhtRWdxRGcwLXpxVk9YQkU4clBhUU40T25Db3J6NHJpYUFNZ1g3WEstOEstZF9jVTN2YTdLa1l1Ug?oc=5",
+      "title": "Tell us: do you think AI has made Google search better or worse? - The Guardian",
+      "source": "\"Google AI\" - Google News",
+      "tier": 3,
+      "category": "technology",
+      "published_at": "2026-08-25T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Google AI"
+    },
+    "c2439ab9fcd3e1dc": {
+      "id": "c2439ab9fcd3e1dc",
+      "canonical_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQc2IyY1RfVnpodThhamFUSERnTEw4bm9tU1BXUXUzX1I3SjNmal9ZTWdVT1dQMVZtYU9LQmY3dm5kLTRnWktrVFJBSWlVX2hKOFk1dWFjaV82dDlWaWFkd2RmUlBNQjUtcDhGeC1WWjNEbTNvQ01UWDRSR3cteENlRUVhWUh1eW1oWV93NzNmdW9XandyU0lyclM1bmxPeFVScnlraEdXZzFzN3VMYjlnNQ?oc=5",
+      "title": "Stock Market Today: Stocks close lower as strong jobs data stir rate-hike jitters; Treasury yields tick up - MarketWatch",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T22:12:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "2e95f475d3aca1d4": {
+      "id": "2e95f475d3aca1d4",
+      "canonical_url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOYkUyaVlUWHNXSGZvWXY0ZFVyMk1mZWxWVm8yVmR3MkI0cWNSNE9XV09MZmw2Wk5CNHV5Z0p5bENxU3pmMkc5MjhzMWN3M19SSnVmQVNKNEpQRGE5Uks3cW54a05FaFNUdVVLN3lnMDlyR1RiSXZpX2h6MER0aXBmQWJoLXV6bmxjeldhVV9DSlEtMG1Bc1JDZnJIZkdyQmo1X3c1WEdRLVRtR2JSa0VSdzNJWkFzZw?oc=5",
+      "title": "Stock Market Today: Dow Sinks Amid Rate Fears; Sandisk, KLA Lead Nasdaq-100 As Utilities Gain - Investor's Business Daily",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T20:55:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "8eab8de28219f0ab": {
+      "id": "8eab8de28219f0ab",
+      "canonical_url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQZUl4RjhSVlFLRXRXcjYxVHhGSDh2ZTF6VlNPNEpZbFVEZ2dkdmluUnRHaGt4WkZRWTVpUHp1bzZ6T3E1NzRadFI3VEJvUmNXd25UcDM3YUU5VEhXU2hYTVhDOUR1OGVsa2lKbFAzX0RBbWZ6b0NUaDRJNEhRM2NPRGEyZlZBR3JyaEZ6aXVnb1UtN1N0Q0NFcmpKa0ZWNG1TZ1paeEZ5S21CMEdHWURIZtIBtgFBVV95cUxOcUdtQ2JmZDFUZDU0R2d0aVhfZVE0ZHR1Um05M3ZqbE0wVDFyRElNQVplVW5zWXd0WVJENVFoNVY1R05qRXlsVGRGSVZjRnBTMzdUU2ZRRHNkemR4a1NidHhRbXhKcWk3SmtoLWlTZGY0RG1hdmN3ZklpTjhGLUpSSkQ0SXNEMTJvTnVjTWhrdnNOQWNRYkR4QkNCN3lsYW5QWVNQUEpvYy1rWjllMUNVNUtLRXRSZw?oc=5",
+      "title": "Traders are piling into this international stock market that just pulled ahead of the Nasdaq - CNBC",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-02T19:11:07+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "56fb017ee556bd6e": {
+      "id": "56fb017ee556bd6e",
+      "canonical_url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5CWWEzcDI3bDlYbmQwMXd3dXdEWFRfeFl1RnpKamFQcXk4cFZpeHk3b29CSENaam5iaWFUb3podkRBY1MySFVPdWhiR2tqMVNtODFOUXptNjVTR2xyaG4xUml3TDdyX0NmWWI5Y9IBckFVX3lxTFBEV2xVamRtYmZwNllaVV92YW5DSlBUbDhJSkJKX1ZKZFlPMXpFOHByaWhNeUs0Q2U4WWM5OVBLMTFMaTdPSGZBeTVESmZkOUh4aFdQWmZNNGpETFh0bVY2dFFsN2oxRnE3dXFVeHhwNnhXUQ?oc=5",
+      "title": "U.S. payrolls rose 162,000 in August, much more than expected; unemployment rate at 4.1% - CNBC",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T12:31:01+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "65be628ca3255181": {
+      "id": "65be628ca3255181",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRFdhVVpTbUFvSkpCZzNqNkdVNUpvNHV5dkpjVGFkbEtpdUhnX2pmXzRFQ3dWMWUzOHZlZlpudjJRaDB4NWNaelZSZXdZVkw2aVQ0a2FTWDVqaXZaaHJtSE96UkxUYTFLNkRvUU5MWDVyVmxTTVNJZUMxa1JPdEk3cmJKQTZGSnZUem5EaFRCSW1qdFVKTVBGVEY2UHVlYUUtdzluT2tnNk1zRVVEWXZsa19tMA?oc=5",
+      "title": "A Stock-Market Safe Haven Seen as ‘Canary in Coal Mine’ for Risk - bloomberg.com",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T11:48:12+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "72b86c8c9a596db6": {
+      "id": "72b86c8c9a596db6",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQZGVVLTRVY1hzVkhFakpLUWVfbmQyQkFUZXk2MVlpdzVuMlZpbGtSTW5zc2ZYQzN3QUgxM180RE8xalN1Sl9Na0dmeHhRNDlwWFFtZDNxTkpZTXVPV0VxVjBzWjJ4MkNCTEk5SWQxMnpYS0JmVkNxNGFIX0dmdm9fd1JXUjB1c1NucXhJTG9iTWRjSktsbms0M1JCYmw3T2Q5Tlp6VUlERm9nM0R4WjR3TVUwX04zSlVsVFphTEFiWG5KQ19EUWFTazdlTE9kb2x4UGxFYQ?oc=5",
+      "title": "Stocks fall after a surprisingly strong jobs report raises prospects of an interest rate hike - Los Angeles Times",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T21:36:52+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "7d74f30a9517fc5d": {
+      "id": "7d74f30a9517fc5d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPWm5uZGdhT2ZwWFpxUmhvOF9hY2pBVEk0c0RNckNfMmxhN2NJX25XYWpoX3k1U0I4SmQ1b2Y5NGstb3ZmRzI5RFpRNlMxdTgwTDBZaGJ4YS1KaW8yUFV1MEdFMDZfdWlWOC01S3kwQ2o4cFFxNTFuTEt2cW92MUlsWTQzdGJJWVQybkpVNzlPYUpHR0VBVDYzZzZJd0NmM3QxRnJiV0hYOHFHU2pidU9DWmd0RnYzQXp5MmY4Q0o1alJxbGVLbG8wWnZlMEI5Qy1EME90NlJiYks1OEw4Z1MzYlNGMA?oc=5",
+      "title": "Stock Market Midday, Sept. 4: Stocks Edge Lower on Strong Jobs Report as Lululemon Plummets - The Motley Fool",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T16:18:09+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "a61a51df38559f24": {
+      "id": "a61a51df38559f24",
+      "canonical_url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOSm4tQk9RbVZZMU1qVTF1Z3hxMmlDUjZwby1vWTlJdUstalo4WGdNVFB1UTZhMlhmZjRKN2pZcTNsLUlTWGZJYzJWTXpqODV3WU9xVjJaNkNramNSa25ROW1NU3ZnMm1Ma3ZidFQxQWhrODM4VFFkV2lsRzEzcTNhRnl4R3pOc0FCbEFmRHNLYlU3bFpTTWN2X0k2dDZsUnpyaWVVZzEwWTBjNnNwbHUtd2tNLVJ1Mm9TazhrZENISQ?oc=5",
+      "title": "Wall St Week Ahead Investors to pore over inflation data for signals on rate trajectory - Reuters",
+      "source": "\"stock market\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T21:51:26+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — stock market"
+    },
+    "bcba2b1b9ca46ecc": {
+      "id": "bcba2b1b9ca46ecc",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPd01QUFJEVHBmRERJNW81Y1JjeVhhSjRFdlROLUJoYkZGZkFJY1FNMS1qenNNZ2dZWlp2V1Foc3hKVktLOUhOQ0Nwelo0Yjh5U0Rwem4yRGg2M2tQLVE1QUlUMWthTmdrZTA0RUNsN0stRGQwWk5BQ1ZvdS0tWVF0VG9QNWNMcHhMSmRVdg?oc=5",
+      "title": "Hacienda Tulum opening at B2K’s Long Beach development - Long Island Business News",
+      "source": "\"business news\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T16:44:32+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — business news"
+    },
+    "2a0571bf248364b7": {
+      "id": "2a0571bf248364b7",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOODFreWNqeUpTTjl0c3lhakFXVlhzTWJsazNyN2hicmJTMmJ4YXdPV21uUXhUU2dUUXZYeEIxZHQ4N3JMWUtXM3E3V2lzemFPaDVQQlhfYzdNVThXblhBaDcxSXJRanpYX29fUTZIS3RsMUlwd0c2V01fMGgzZm1naHduUnBHRU9GdG03WmMwU2Q?oc=5",
+      "title": "Private equity faces existential crisis in US as unsold companies pile up - The Guardian",
+      "source": "\"business news\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T21:19:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — business news"
+    },
+    "634641bc6daad14e": {
+      "id": "634641bc6daad14e",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQVFJ0VTNfMnBQRWRhY3VkRGtGOWxOWHNkeGZBN2N5enZXR3FCd1hZaHRfdEEyZDdYaVo3c09yQWp2eE4tWUdnR0hWSS03ajFMN3Zyb1M1eUhhVUJuem5yYTl5YzFDN2lSN0R2LUphRWdDZ1VfbjZrNmxuUVVTSGx0b2JiU01ITnI3ejUtNQ?oc=5",
+      "title": "Suspect in string of Sacramento business burglaries arrested - CBS News",
+      "source": "\"business news\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T22:34:52+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — business news"
+    },
+    "6926aac4e9c229ff": {
+      "id": "6926aac4e9c229ff",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPR0t3NjN5ZXRyOHFJeF9mdjJSYTNtNWo3bnlZUXJ4T2JDb1ZGNlN2ZWZvUGNwcVp4aVhtbWlrdnRNWFRpR3Z6NVJxc0UxRXpTcmRpVjB5Y2hOM2lING9yWkdBVEJTV2pMbXFPWEEtekdrdEk2Mm12YU5CVV8zUnhGckRNbkltTHRGY1JsODg1QWNBTXYySEduWjA4WDRzdVFWTUlsWno5Uk42RFQ4YXVCYW0yYU9iM201YlF0dlp1bUkzWXdZSlNrcGpLNjBsNEktRmpXVmJPLXNRQQ?oc=5",
+      "title": "Detroit restaurant raided, owner accused of international money laundering - detroitnews.com",
+      "source": "\"business news\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-04T21:50:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — business news"
+    },
+    "fb073463d6b67af3": {
+      "id": "fb073463d6b67af3",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQbTdaQ3dEa29wZ01EUHZtdGNMZWpQZWxPS3BEcWJUSVBGRC1sWEpHbWRMczNZSU9IdXBXUWU2RUNENnRTeTBCSGxwdkpENXpBbG93dDRrYW5DWXR6bDg3S1g0U1M2WDFYUDJFQzV4ZXlyWkJxRElILU1DR3lFNXZlYi1sZVFXVlNFczdKZ21BZEwxRUFpYkJ3Q0tFWl9scFk4Q1h1eEQydw?oc=5",
+      "title": "Barilla expands pasta portfolio with Goodles acquisition - Food Business News",
+      "source": "\"business news\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-03T11:21:40+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — business news"
+    },
+    "99f782e222c280bb": {
+      "id": "99f782e222c280bb",
+      "canonical_url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOUkpSWlNzVzM2ODVteXM1SXFvZjRUajN0UklWazV0NWxaX1k0dWhXS1VDYlhQZ1Q0Ul9aQjcyX1NXUkJ0N3J4ZEtsX3Vwdlg2YWR4eHZJbUdvUGl6Sm1hbEh2bmVPWDItNDJMN1NqWlRvcWt3blpveDVjRG12RXB1REFYNE4zMnRYVmR6MWx6ZC05dzZrQjNrZkRn?oc=5",
+      "title": "General Mills wraps up sale of Brazil business - Food Business News",
+      "source": "\"business news\" - Google News",
+      "tier": 2,
+      "category": "business",
+      "published_at": "2026-09-03T15:22:52+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — business news"
+    },
+    "74069b5afdebfa9a": {
+      "id": "74069b5afdebfa9a",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOclppeEl2UUwxQWpvUG1yVDBMSV9IMzFpNEp4UWk4UjFpY1RfYXV6Ql9ZTUlfYjBQRXRudk55b0ZNTHp0NEo5ckJjTDRlS0VkRDdaZ21rM0FBMVFOR2t3NmJCR2k4TndteEFVUTFueEg1ZzlyYS0tMHZaLTFBRGZRT2hlQnZmTFlTaUNVbTJzVDVTNy1oTXRHMm1SOXlRY3FpWUszOGpNRWU?oc=5",
+      "title": "Elon Musk Insider Exposes His ‘Miserable’ Existence - Yahoo",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-02T21:27:40+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "25e9db446fc50763": {
+      "id": "25e9db446fc50763",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNRGhzVENST2pvakFwMW11UDQxdHN4QzN2bU9KUmp5azVOLVB4RnNIWnZzQWxXVTJzWklxUENrY1Y0Ri1DSldrU2o5Sm0zUXlITXhpV2h0TlhSY0s4OHFLNVQ1RGRSUmZuLU1DVGw5czdFd2pYRk1URzVkNzJDWU02NFRVWi13V0JreUdMXzdpbkpReVdVcjRSMjg5WlZuRXJDLVpIOHd2dFBjN2xxM1NoMGozT0w5NGRwa0Y4?oc=5",
+      "title": "Elon Musk makes his first spending push in key midterm races - seattletimes.com",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-04T20:19:37+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "4cbbf341c2c31d1b": {
+      "id": "4cbbf341c2c31d1b",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPZm5RMjdqR0RKSGpWRDhSemJVUlY2cG5hRl9QbkFPc3hGUGZEMlRuQnV2RWdvMGt0LU9DNnpEbmNMNzk5SU1qblNMMWc1X1ZiQ210NWZGb0hXWmRXcF9yNEtTRHFWZFY3eWdNdWpObnlsQnJQNllORmZyQXNnQXR3TFlCMGh0dGtncDd4cENuLVFqOXFVd01SelZpRVJRb1V3eXR4a1BKT0M0WTA0bkZBaXlCeWgybHJRV2NZUWZrbE9tQQ?oc=5",
+      "title": "Elon Musk’s super PAC starts spending to help GOP in midterms, including Texas’ Ken Paxton - Scripps News",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-04T07:13:20+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "e4541a245f9d58c8": {
+      "id": "e4541a245f9d58c8",
+      "canonical_url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOZnduN0FWeHRZYjE5aXJ1Uk9Rb0JwRzN6VXpsS21VQUplXzBXWUNvTDlvSXZzZmFhYnpkRDlVVXBOZkQ5a0tQbFdfWmJrU3psVUxzTlI2NkJRWkxCNmNjei15T0NKX1dtTjFOek5MRlREc1FvTGd5dk5xYmhsd3FzVDZSMTU4ZWpVUU55WFRMVEJ6MUtOQlE?oc=5",
+      "title": "Judge rejects Musk bid to halt Minnesota ban on AI nudifying - Courthouse News",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-04T18:22:30+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "91ad2d32fb000475": {
+      "id": "91ad2d32fb000475",
+      "canonical_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE55U1ozMnhrMWhiX09IR1FSaDNzb0hQVGxMMW0yaExUQ1JObDJRbTVRQ2RCMnl3d0EyQTVkYmxMQlcyNE9sX2oybXFtSXFDMEVESjRieHEzNHhTVXJzaE9kUnNuZG0zRHUtY2I5OFItMno4TkVaRzMw?oc=5",
+      "title": "Elon Musk wants to put data centers in space. Should we let him? - vox.com",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-03T14:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "f52fcd932326b020": {
+      "id": "f52fcd932326b020",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQaG9GaVAtV2Jndm5nOGRISE1NRVZZVEItaEtuaUYwV3ZHN3g5N3o1LTlLeEswNXBMMUZfSVkxeHZuYktFV2M2Q2tiY21qeGdTV19yZzhTZlhpRzBLUVpHUHdad2JKaHR4LWc4VGRHcVZlWFFZd3d0dGNEZXZDTmdLRV9RaC1ZQkFLUFYwUmFVQVRicW41QThwM0o3bnh0NUFyOFJ6T1FIY0staEtGQll1TWFUMHFFVERnbEVhem14UEdGSXlFWUx5dlB4V2hvd1N1dVhSYkZvUQ?oc=5",
+      "title": "WHO’S YOUR DADDY? Elon Musk Pours Money Behind Tom Kean Jr. to Thank Him for His Billionaire Tax Break - Insider NJ",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-03T18:22:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "11559007999fadea": {
+      "id": "11559007999fadea",
+      "canonical_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPeThnbExUTGl5ZXZ5VFpqWmZzUHoxR3Y5UlhuTzEtSHFYcW5Ca3J6SE9zSldOWGlmS1hOUDJZcWtsc2w3ZUhVN18zaEpwWVhBZV94S0FPblVEdldOSk5NcHFiRTFEaXdQR1FpRVFlOU13V2h2RzViTzV5T3JkRl9IekczdUlFVnNvcW9aZ3pfbWE0ODFXV1pvdzZSTkRzRldBTl95TWNvYjRMQnUxX2Y2R1FIcDBlbVpINGVXZXRWaFlJN0NkOXpWUmQ5VnZEel80bklWUTVzRG1CNXlh?oc=5",
+      "title": "Spanish space minister: Elon Musk's control of 2/3 of all operating satellites motivated Spain's Iris2 investment - Space Intel Report",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-03T20:09:22+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "9aed42363d7bd6c2": {
+      "id": "9aed42363d7bd6c2",
+      "canonical_url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOT2JzazZteG5oSFFqU0wzZXBzcjBRZHFKdEhWRTRaUUhKbDM4TGRZUjN6V1ZIbUE2cFRpb2RudXYtdGdQQXplRHhUWHo5Rk1ucU1jRWdBTXBKMFhkdzd0SFR5ODczTVZDcHY5VVNLaFIxcjk3X2htNVVqYmxiakZka2hqZnRUNUt1Y1lCXw?oc=5",
+      "title": "Elon Musk Noted Natural Gas Will Still Fuel Data Centers, Gene Munster Says 'Makes Sense' to Put 'New Money to Work in Power' - finance.yahoo.com",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-03T01:31:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "4f6ada00dc006b4b": {
+      "id": "4f6ada00dc006b4b",
+      "canonical_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOSUJPTzJiUjdyVW5PeFd2SDRXT1ZBLThReFJJamNCd00xT3laY1dBb09MXzV1RVdYd3A0dzVZdjVuMnlMaGVkZi1WTG9uWUJlbEVHVFQ1SWMxNWg1TGhmMVc5Y1NSTlVnUHFnZXZSYkN6M0RvbDBBdGQtazF0SVFYZjdKS2c3VWNLU0xVYllSSklFTEtKci1LOGYxVjMtenl6cVk3ckpjeGRSM2lKTm9ZaGRGTXg4WlVtUW82NmhzdkFYZ3M?oc=5",
+      "title": "Elon Musk’s super PAC starts spending on GOP in midterms, including in Texas - 2 News Oklahoma KJRH Tulsa",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-04T11:04:51+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "8fb97a554a59bb4f": {
+      "id": "8fb97a554a59bb4f",
+      "canonical_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQRlFDb0lfSV83S0tfSEh2TTJ3UGVRYVhCa1RGOVBOa3NxSTQ0ZDl2YlU2Q3NDY3JnWVFDc3R2aEhRbGxpZ1k4a1BEc0RTTmVoNXlMcnBmdF9pcE5uZkdTMU4wSEdnbUFzMjdJVEo2R09MdTJIcVRWUkxwT3hPTmM2X0U3dVdOWXpFM1pVVnhSd0c3ZGF1VncwRWxQb0NIMUlJQ2FXT3Nn0gG6AUFVX3lxTE5ZcWs4WFQtOUdmUk1aNDFnNXcyNHZhZjh3RWlOb3Q4XzAtWHIyQ0FRTFNGVHQ3cEJYbjNtek1LSDNBTUpWSGhpQWk4emZ6aC10VVhUZzl2YUpPaFB5bHRCd2JOcTV3YUNOQkZGU1hOQVRJU2xwZnhqUnZoQUJDeENBSVBxUEFKQTI5X1hScG9KX0tjX0N6RDNvb1d5RmItOWp5ZjU0TTVtSVNzWE9JU2R5XzJjX3dBZ2hHUQ?oc=5",
+      "title": "Elon Musk-connected company now controls over 4,600 acres in Grimes County - KBTX News 3",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-08-20T07:00:00+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "feed_name": "Google News — Elon Musk"
+    },
+    "048ab579a3c2872d": {
+      "id": "048ab579a3c2872d",
+      "canonical_url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNaTF4bDJINW5lZWJxb0tTcENxaHZWeEVldFZ4RVdtOUZ2Tkc0Qk9ZQUwyeEIydGNFQmtOel9aaGhqQm9saHF6NFhFZ3RXQWhUeG1HeTdiYzNUWURMQ1J2ZHNnWlJaTTJFdTVJVktfOVVVdjhoZXZDUFVlemxCWWFkdllxWVQ2ZzRnWHdiQU1zal9GQQ?oc=5",
+      "title": "Elon Musk’s Midterms Play: Ken Paxton, Susan Collins, Socialist Scaremongering - New York Magazine",
+      "source": "\"Elon Musk\" - Google News",
+      "tier": 3,
+      "category": "business",
+      "published_at": "2026-09-03T18:00:14+00:00",
+      "first_seen_at": "2026-09-04T23:01:50.897333+00:00",
+      "last_seen_at": "2026-09-04T23:01:50.897333+00:00",
       "feed_name": "Google News — Elon Musk"
     }
   },
@@ -45347,7 +46907,2349 @@
       "posts_generated": 0,
       "last_posted_at": null,
       "score": null
+    },
+    "1fe8dc5b42a5": {
+      "cluster_id": "1fe8dc5b42a5",
+      "member_ids": [
+        "6736297a1c35906c",
+        "ac4af652a8276cb6"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Federal judge extends block on Trump executive order seeking to limit mail voting in the midterms - abcnews.com",
+      "size": 2,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 1,
+      "last_posted_at": "2026-09-04T23:01:50.897333+00:00",
+      "score": null
+    },
+    "84ce5f3543e7": {
+      "cluster_id": "84ce5f3543e7",
+      "member_ids": [
+        "4cbbf341c2c31d1b",
+        "4f6ada00dc006b4b"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk’s super PAC starts spending to help GOP in midterms, including Texas’ Ken Paxton - Scripps News",
+      "size": 2,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "a4e8f3f06bbe": {
+      "cluster_id": "a4e8f3f06bbe",
+      "member_ids": [
+        "3bf14e589f78eeb8"
+      ],
+      "sources": [
+        "BBC News"
+      ],
+      "source_count": 1,
+      "representative_title": "Mistrial declared in Lindsay Clancy murder case, after jury deadlocks",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 1,
+      "last_posted_at": "2026-09-04T23:01:50.897333+00:00",
+      "score": null
+    },
+    "133094183e37": {
+      "cluster_id": "133094183e37",
+      "member_ids": [
+        "f8f4e230ee299d64"
+      ],
+      "sources": [
+        "BBC News"
+      ],
+      "source_count": 1,
+      "representative_title": "Isak finally arrives as Gakpo proves value to Liverpool",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "e575759359ad": {
+      "cluster_id": "e575759359ad",
+      "member_ids": [
+        "080322bf15655530"
+      ],
+      "sources": [
+        "BBC News"
+      ],
+      "source_count": 1,
+      "representative_title": "How London City proved they can live up to the hype",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "012630783b12": {
+      "cluster_id": "012630783b12",
+      "member_ids": [
+        "0ffbe521a4dd83ec"
+      ],
+      "sources": [
+        "BBC News"
+      ],
+      "source_count": 1,
+      "representative_title": "Greaves becomes first woman to win match on European Tour",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "c9c820c139a9": {
+      "cluster_id": "c9c820c139a9",
+      "member_ids": [
+        "ff4838346f3ace7e"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Lindsay Clancy Trial Live Updates: Judge Declares Mistrial in Triple-Murder Case - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "58928c09c726": {
+      "cluster_id": "58928c09c726",
+      "member_ids": [
+        "1696869cc201c3a2"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Judge again blocks Trump’s effort to restrict voting by mail as ballots start going out - NBC News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "6c84a3265a79": {
+      "cluster_id": "6c84a3265a79",
+      "member_ids": [
+        "5fe6921014db398d"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Longtime Fox News host Maria Bartiromo disputes reports of termination - CNBC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "dd0b157d2b16": {
+      "cluster_id": "dd0b157d2b16",
+      "member_ids": [
+        "cb138b7f38189051"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Two men pulled alive from Nepal hydropower plant tunnel nine days after floods - CNN",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "5c8ccbc78837": {
+      "cluster_id": "5c8ccbc78837",
+      "member_ids": [
+        "8249e4b27abb5002"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Missouri court refuses to delay congressional map ruling, setting up US Supreme Court appeal - Missouri Independent",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "180b7b1f7440": {
+      "cluster_id": "180b7b1f7440",
+      "member_ids": [
+        "ae630092b4515506"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "The Debate - German far right's breakout moment? AfD party eyes outright win in regional election - France 24",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "a85fc5c4fe38": {
+      "cluster_id": "a85fc5c4fe38",
+      "member_ids": [
+        "1448279a6981d6ad"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Russian drone strikes Ukraine's security service HQ, escalating air war - Reuters",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "9f1dc97a2b0c": {
+      "cluster_id": "9f1dc97a2b0c",
+      "member_ids": [
+        "69b84f771d3a2273"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Wall Street ends lower as solid jobs data fuels hawkish Fed bets - Reuters",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8fef43abc531": {
+      "cluster_id": "8fef43abc531",
+      "member_ids": [
+        "bdbf038b3b424e86"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Apple's Foldable iPhone Runs Into Early Trouble - finance.yahoo.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "3659d16c1dd4": {
+      "cluster_id": "3659d16c1dd4",
+      "member_ids": [
+        "a2d1d7b9c2906ad0"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "AMD Introduces Threadripper Halo Station at IFA 2026 - techpowerup.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "f19f874a0df9": {
+      "cluster_id": "f19f874a0df9",
+      "member_ids": [
+        "c4eab93dccaf9bcf"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Amber Eggers Dies: ‘Love After Lockup’ Star Was 41 - Deadline",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "af1213152281": {
+      "cluster_id": "af1213152281",
+      "member_ids": [
+        "6b1b9311269beca3"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Pro Football Hall of Fame Makes Rule Changes to Selection Process After Bill Belichick Snub - Bleacher Report",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "55aec4446133": {
+      "cluster_id": "55aec4446133",
+      "member_ids": [
+        "fd48c4650b214f21"
+      ],
+      "sources": [
+        "Top stories - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Infant died of measles in Pennsylvania, coroner confirms - The Washington Post",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "78d70a9a992a": {
+      "cluster_id": "78d70a9a992a",
+      "member_ids": [
+        "28959e96be35ddc6"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Judge Once Again Blocks Mail-In Ballot Rules - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "aaefd54aba36": {
+      "cluster_id": "aaefd54aba36",
+      "member_ids": [
+        "039ff956b8006e10"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Opinion | Trump’s new plan to lower interest rates? Extort the Fed. - The Washington Post",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "05ea89195a8d": {
+      "cluster_id": "05ea89195a8d",
+      "member_ids": [
+        "8748997920c37666"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Kushner and Witkoff to Go to Russia and Ukraine to Revive Peace Talks - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "845152dcd505": {
+      "cluster_id": "845152dcd505",
+      "member_ids": [
+        "1f1b0a1658db6597"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump threatens trade action over Fed interest rates - Cleveland 19 News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "3edcc269665a": {
+      "cluster_id": "3edcc269665a",
+      "member_ids": [
+        "ec8b30c1544e5d09"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Fake RNC midterm convention website redirects to DOJ Epstein files - NBC 5 Dallas-Fort Worth",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "bc310b0463c2": {
+      "cluster_id": "bc310b0463c2",
+      "member_ids": [
+        "c6cafe6fd81b0b6e"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Alejandro Betancourt, Trump’s Partner in Venezuelan Oil Deal, Has Faced Investigations - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8be1003bc257": {
+      "cluster_id": "8be1003bc257",
+      "member_ids": [
+        "37eeb65a927c663c"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Judge extends block on Trump’s mail-in ballot limits - MS NOW",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8df777229611": {
+      "cluster_id": "8df777229611",
+      "member_ids": [
+        "b0f89f674a90d5b1"
+      ],
+      "sources": [
+        "\"Donald Trump\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Gavin Newsom fires back at Trump after judge dismisses DOJ lawsuit over trans athletes in girls' sports - Fox News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "712f4241b051": {
+      "cluster_id": "712f4241b051",
+      "member_ids": [
+        "9e7d5fdf0ea485d5"
+      ],
+      "sources": [
+        "\"Trump legal\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump plans to break ground on Washington arch without final approval - Missouri Lawyers Media",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8318e35c1c47": {
+      "cluster_id": "8318e35c1c47",
+      "member_ids": [
+        "47457095b52b6c56"
+      ],
+      "sources": [
+        "\"Trump legal\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Election Experts See Few Legal Options For Trump To Meddle With Polling Places - Patch",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "fbf65e004496": {
+      "cluster_id": "fbf65e004496",
+      "member_ids": [
+        "b94d5a396f394015"
+      ],
+      "sources": [
+        "\"Trump legal\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Mail-in ballots go out as Trump asks Supreme Court to lift USPS voting plan block - WJAC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "f45ca659200d": {
+      "cluster_id": "f45ca659200d",
+      "member_ids": [
+        "75b30bd13bb26887"
+      ],
+      "sources": [
+        "\"Trump legal\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump Administration Attack on Southern Poverty Law Center Puts Democracy at Risk - American Civil Liberties Union",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "c8242934466c": {
+      "cluster_id": "c8242934466c",
+      "member_ids": [
+        "5acfdc2ae3a08ccc"
+      ],
+      "sources": [
+        "\"Trump legal\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump administration opens endangered species’ habitats to development, reversing 50 years of environmental law - CNN",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "b4ab88f70a9a": {
+      "cluster_id": "b4ab88f70a9a",
+      "member_ids": [
+        "c94997eab1357d7d"
+      ],
+      "sources": [
+        "\"US politics\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Tetris Owner Denounces Trump White House Clone of Game - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "211792a0636a": {
+      "cluster_id": "211792a0636a",
+      "member_ids": [
+        "033a2bab6f42d8e3"
+      ],
+      "sources": [
+        "\"US politics\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump’s Latest Clemency Grants Benefit Drug Offenders, Union Boss - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "77fda8a393c3": {
+      "cluster_id": "77fda8a393c3",
+      "member_ids": [
+        "351dcea151eb1b9b"
+      ],
+      "sources": [
+        "\"US politics\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Judge Suggests Trump Mail-In Voting Rules Could Cause ‘Major Disenfranchisement’ - The New York Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "9d07cc0530d7": {
+      "cluster_id": "9d07cc0530d7",
+      "member_ids": [
+        "04e037a245ce0270"
+      ],
+      "sources": [
+        "\"US politics\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Republicans ask the Supreme Court to give them a huge discount on ad spending - vox.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "254664cf2f38": {
+      "cluster_id": "254664cf2f38",
+      "member_ids": [
+        "c81a4d5499547cd2"
+      ],
+      "sources": [
+        "\"US politics\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump downplays war with Iran, in which 18 US service members have been killed so far, as ‘small potatoes’ – live - inkl",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "b8ee3c2da1df": {
+      "cluster_id": "b8ee3c2da1df",
+      "member_ids": [
+        "242753009f4d5409"
+      ],
+      "sources": [
+        "\"US politics\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Contrast between Trump, Obama; concerns about US politics | Letters - The Providence Journal",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "144fa981680f": {
+      "cluster_id": "144fa981680f",
+      "member_ids": [
+        "3db577420b977f6d"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "The coming verdict on Trump's Strait of Hormuz claims - Axios",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "6c718db9a5ad": {
+      "cluster_id": "6c718db9a5ad",
+      "member_ids": [
+        "85418f4cb4fb6448"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "White House launches retro games on border security, MAHA and Trump Accounts - KATU",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "27a37fa640a2": {
+      "cluster_id": "27a37fa640a2",
+      "member_ids": [
+        "71dc3f1b6a3e97b2"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "‘Johnny Doc' released from prison after sentence shortened by White House - NBC10 Philadelphia",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "310a5c122e55": {
+      "cluster_id": "310a5c122e55",
+      "member_ids": [
+        "2ea2844ffbdc09b0"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "The Tetris Company Wants Nothing To Do With The White House's New Copycat Game - Engadget",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "2a712d74316a": {
+      "cluster_id": "2a712d74316a",
+      "member_ids": [
+        "b3f910cb6309f309"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Tetris hits back at Trump over knockoff game, warns White House about copyright infringement - Mashable SEA",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "14341b7b126f": {
+      "cluster_id": "14341b7b126f",
+      "member_ids": [
+        "a38eb11ca837f26b"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Army secretary frequently warned White House about Hegseth before his departure: Sources - abcnews.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "1f530b4fae63": {
+      "cluster_id": "1f530b4fae63",
+      "member_ids": [
+        "c73a1d766bff133a"
+      ],
+      "sources": [
+        "\"White House\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Ex-White House teleprompter operator fined $172,000 for Trump speech bets - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "e7f778fa5a88": {
+      "cluster_id": "e7f778fa5a88",
+      "member_ids": [
+        "0ff9c72174e16111"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Breaking News, World News and Video from Al Jazeera - Al Jazeera",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "cea0a479fc31": {
+      "cluster_id": "cea0a479fc31",
+      "member_ids": [
+        "bed2805dc4072261"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "The U.N. backs a new world map showing Africa in its true relative size - KOSU",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "ba953a0e9302": {
+      "cluster_id": "ba953a0e9302",
+      "member_ids": [
+        "4e9cc5592b42985d"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Lindsay Clancy judge declares mistrial – what happens next? - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "5b8762e28297": {
+      "cluster_id": "5b8762e28297",
+      "member_ids": [
+        "65b54e2205450b27"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Brazilian Supreme Court justices at odds as election and probe into failed bank loom - Audacy",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "85226f5cee0c": {
+      "cluster_id": "85226f5cee0c",
+      "member_ids": [
+        "db94a6d6980f37b4"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "New York City police fatally shoot man who climbed up Brooklyn Bridge cables - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "86216f8121bb": {
+      "cluster_id": "86216f8121bb",
+      "member_ids": [
+        "db920ecbdacb9a64"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Couple in critical condition after lightning strike on popular Central Florida trail - channel3000.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "88eb2d9b5b93": {
+      "cluster_id": "88eb2d9b5b93",
+      "member_ids": [
+        "8dd9b698323563c2"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "70-year-old Kansas man, pastor charged with multiple child sex crimes - channel3000.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "0ad8d054de75": {
+      "cluster_id": "0ad8d054de75",
+      "member_ids": [
+        "a758f55987b15470"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Africa bigger, US smaller as UN votes to adopt a new world map - ABC News & Headlines – Australian Broadcasting Corporation",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "22c3c37baaaf": {
+      "cluster_id": "22c3c37baaaf",
+      "member_ids": [
+        "7e0b222c8d5f82f4"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Three hurricanes in Pacific show the power of El Nino - Sky News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "1a8224b4d7d1": {
+      "cluster_id": "1a8224b4d7d1",
+      "member_ids": [
+        "122977c71ec35de7"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "AI's 'warning shot': Tech companies, experts raise fears of more rogue swarms after alarming Hugging Face hack - CBC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "5ebec14a1e93": {
+      "cluster_id": "5ebec14a1e93",
+      "member_ids": [
+        "4c2e6e40db2d6d61"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Care workers and others fleeing UK modern slavery win visa reprieve - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "af6d707a24a5": {
+      "cluster_id": "af6d707a24a5",
+      "member_ids": [
+        "6c9f67f2992cd058"
+      ],
+      "sources": [
+        "\"world news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Milei: Give us a Hong Kong-style handover of Falklands - The Telegraph",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "4ed2ad5f4a32": {
+      "cluster_id": "4ed2ad5f4a32",
+      "member_ids": [
+        "00838ecc904cc810"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Russian general accused of masterminding the attack against Kyiv’s children’s hospital injured in assassination attempt - CNN",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "e2437aec8143": {
+      "cluster_id": "e2437aec8143",
+      "member_ids": [
+        "0b30866d073149cd"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Kushner and Witkoff head to Russia and Ukraine in search of a diplomatic win - MS NOW",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "fc7fd7e51436": {
+      "cluster_id": "fc7fd7e51436",
+      "member_ids": [
+        "dd291827ecef69f4"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Why Ukraine’s drained Kakhovka Dam is strategic for Russia - France 24",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "d9e6b55131a9": {
+      "cluster_id": "d9e6b55131a9",
+      "member_ids": [
+        "90acf35d04ce8f88"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Russia bombards Kyiv and other cities in onslaught testing Ukraine’s defenses - AP News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "bf91f8eebdff": {
+      "cluster_id": "bf91f8eebdff",
+      "member_ids": [
+        "d415c99475142fcc"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump says Witkoff, Kushner heading abroad in latest U.S. effort to end Ukraine war - CBC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "735154007639": {
+      "cluster_id": "735154007639",
+      "member_ids": [
+        "4a4c9a54d70122f7"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "The wars in Ukraine and Iran are becoming dangerously enmeshed | Christopher S Chivvis - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "c2206eeb0a3f": {
+      "cluster_id": "c2206eeb0a3f",
+      "member_ids": [
+        "c39f3b9c6b6ccdcb"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Ukraine Braces for Brutal Winter at Mercy of Russian Air Strikes - bloomberg.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "792156bb5beb": {
+      "cluster_id": "792156bb5beb",
+      "member_ids": [
+        "632481982f1c3195"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump's special envoys travel with proposal to end Russia-Ukraine war - upi.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "58e02f87eba5": {
+      "cluster_id": "58e02f87eba5",
+      "member_ids": [
+        "4ae3debee88adb78"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "US Treasury secretary blames Ukraine for global rise in energy prices - Українська правда",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "cab6f9c8b164": {
+      "cluster_id": "cab6f9c8b164",
+      "member_ids": [
+        "2f32aeb6ef3158ed"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Russian drone strikes Ukraine security service headquarters as US talks on the war are expected - The Boston Globe",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "53bdd80c21ec": {
+      "cluster_id": "53bdd80c21ec",
+      "member_ids": [
+        "133075765dc5742d"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Witkoff, Kushner Heading To Russia, Ukraine To Present Peace Deal: Trump - NDTV",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "19126779f2c1": {
+      "cluster_id": "19126779f2c1",
+      "member_ids": [
+        "0a8c50bab3409e1e"
+      ],
+      "sources": [
+        "\"Ukraine Russia\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Three dead in Ukraine after overnight Russia attacks as US plans peace effort - New York Post",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "011bb153d02c": {
+      "cluster_id": "011bb153d02c",
+      "member_ids": [
+        "163359e615ea01ba"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "China's Xi criticizes US actions in the Middle East during Cairo trip - Le Monde.fr",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "c4b168e6678e": {
+      "cluster_id": "c4b168e6678e",
+      "member_ids": [
+        "99856012321e97fb"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "'Secretive' UAE and Swiss-based firms found to be major crude suppliers to Israel, says report - Middle East Eye",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "9f2f53867a2a": {
+      "cluster_id": "9f2f53867a2a",
+      "member_ids": [
+        "2c116761c3ca2390"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Middle East’s 2nd-largest economy deports nearly 15,000 people in one week as Ethiopians account for 58% of illegal border arrests - Business Insider Africa",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "d5935e8654f8": {
+      "cluster_id": "d5935e8654f8",
+      "member_ids": [
+        "33dacf51cda704f0"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "USS Abraham Lincoln leaving Middle East after 9-month deployment - CBS News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "d968ea51262d": {
+      "cluster_id": "d968ea51262d",
+      "member_ids": [
+        "bc9050935474b108"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Trump says US fighting Iran to protect Israel, Middle East, West - Anadolu Ajansı",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "7d8cf9834899": {
+      "cluster_id": "7d8cf9834899",
+      "member_ids": [
+        "6bb57efc6744a379"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Iran attacks US bases in Middle East as it accuses Trump of ‘war crime’ over wedding strike - The Irish Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "3e4a68ec97ed": {
+      "cluster_id": "3e4a68ec97ed",
+      "member_ids": [
+        "060d77634f63730d"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Iran hits US bases across Middle East after deadly US strikes, wedding deaths - Malay Mail",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "eb994bac8bc0": {
+      "cluster_id": "eb994bac8bc0",
+      "member_ids": [
+        "5574cca7aa465cc4"
+      ],
+      "sources": [
+        "\"Middle East\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "US military disables ad trackers on troops’ phones amid security fears - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "4d6f282d0114": {
+      "cluster_id": "4d6f282d0114",
+      "member_ids": [
+        "cd26ddc3ff62ec87"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Helper or shortcut? Central New York families weigh where AI belongs in the classroom - WSTM",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "69ee7e77b8bd": {
+      "cluster_id": "69ee7e77b8bd",
+      "member_ids": [
+        "047b712902eb3d57"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Announcing Artificial Analysis Intelligence Index v4.2 - LinkedIn",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "ee39a6ea1a9c": {
+      "cluster_id": "ee39a6ea1a9c",
+      "member_ids": [
+        "7625f9ad0c0dfcb2"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "AI-generated ads have come to Oakland politics. Accessible solution — or risky deception? - The Oaklandside",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "1b00ac548114": {
+      "cluster_id": "1b00ac548114",
+      "member_ids": [
+        "52de0d0f9d52260f"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "SlideChat is a multimodal generative artificial intelligence assistant for whole-slide computational pathology across cancer types - nature.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "bf38a555f932": {
+      "cluster_id": "bf38a555f932",
+      "member_ids": [
+        "c7a3fcad9f420e44"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "UChicago Social Sciences Took a Stand Against AI and Devices. Why? - GovTech",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "051ec4dd2511": {
+      "cluster_id": "051ec4dd2511",
+      "member_ids": [
+        "63d1f7a0bbb07f06"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Local schools are figuring out how to teach kids to use AI without letting it do all the work for them - WHEC.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "011a00b4c8e0": {
+      "cluster_id": "011a00b4c8e0",
+      "member_ids": [
+        "c83cb9b4841c8e09"
+      ],
+      "sources": [
+        "\"artificial intelligence\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "OpenAI Says Humans Need to Be Able to Monitor How AI 'Thinks.' Astra Makes That Much Harder - Gizmodo",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "81f46e505bc4": {
+      "cluster_id": "81f46e505bc4",
+      "member_ids": [
+        "abde451995a77bc8"
+      ],
+      "sources": [
+        "\"AI technology\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Filmmakers tout AI’s use in Hollywood at the other film festival in Venice - Semafor",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "5854dca668d4": {
+      "cluster_id": "5854dca668d4",
+      "member_ids": [
+        "318f103224c41643"
+      ],
+      "sources": [
+        "\"AI technology\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "New $95 million Seattle accelerator aims to design biological tools with AI - The Business Journals",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "df9e10d95a69": {
+      "cluster_id": "df9e10d95a69",
+      "member_ids": [
+        "e1ceaea4c0d10f34"
+      ],
+      "sources": [
+        "\"AI technology\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Tech news: New Deloitte practice incorporates open source AI models - Accounting Today",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8cb3ba970e33": {
+      "cluster_id": "8cb3ba970e33",
+      "member_ids": [
+        "e996e794318110e2"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Nvidia will officially bring DLSS 5 to older GPUs — but won’t give gamers full control - The Verge",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "235cf41fd66a": {
+      "cluster_id": "235cf41fd66a",
+      "member_ids": [
+        "62d6201016eaf9a1"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "After Earnings, Is Nvidia Stock a Buy, a Sell, or Fairly Valued? - global.morningstar.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "f2cbe54f898b": {
+      "cluster_id": "f2cbe54f898b",
+      "member_ids": [
+        "e86f39553c7bd62d"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Nvidia's RTX Spark: The Reality of Next-Gen PCs! - How-To Geek",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "c42f9269ead0": {
+      "cluster_id": "c42f9269ead0",
+      "member_ids": [
+        "5262bd331830eb50"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Why Nvidia's 'defensive move' to acquire Hugging Face is about much more than chips - CNBC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "953f2cddc46f": {
+      "cluster_id": "953f2cddc46f",
+      "member_ids": [
+        "a887918a42e765e7"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "World in Brief: OpenAI’s astra-nomical new model; Nvidia buys Hugging Face - The Economist",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8baef4505a0c": {
+      "cluster_id": "8baef4505a0c",
+      "member_ids": [
+        "fcb9ed4d7638d947"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Nvidia Is Backstopping AI Boom as 'Buyer of Last Resort,' Prominent Economist Tells 'Prof G' - Benzinga",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "1d6d5ae73e87": {
+      "cluster_id": "1d6d5ae73e87",
+      "member_ids": [
+        "c0d6e2af1c933f88"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "How safe is Nvidia’s empire? - The Economist",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "54398d186db1": {
+      "cluster_id": "54398d186db1",
+      "member_ids": [
+        "ba097269079bcceb"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Nvidia acquires Hugging Face after Stripe nabs OpenRouter: here's what open source AI builders should do - venturebeat.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "d38c1dab4bc4": {
+      "cluster_id": "d38c1dab4bc4",
+      "member_ids": [
+        "7300897622399c9a"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Nvidia PAIR utility joins every GPU in your home into a cluster for agentic AI tasks - Tom's Hardware",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "ef4686e56a04": {
+      "cluster_id": "ef4686e56a04",
+      "member_ids": [
+        "05e9a552a0c78b4b"
+      ],
+      "sources": [
+        "\"NVIDIA\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "SpaceXAI Adopts NVIDIA Vera CPU to Accelerate Agentic AI at Massive Scale - NVIDIA Newsroom",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "b2cdb4117cd1": {
+      "cluster_id": "b2cdb4117cd1",
+      "member_ids": [
+        "24a2c5182ed1f16f"
+      ],
+      "sources": [
+        "\"OpenAI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Daily News, NY Times want 'fair use' claim tossed in copyright case against OpenAI, Microsoft - New York Daily News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "083717030284": {
+      "cluster_id": "083717030284",
+      "member_ids": [
+        "89641f4756cc6b47"
+      ],
+      "sources": [
+        "\"OpenAI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Rogue OpenAI agents hijacked a German website and kept it secret for months - qz.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "17b3a92e268c": {
+      "cluster_id": "17b3a92e268c",
+      "member_ids": [
+        "01f22ada95e9d39e"
+      ],
+      "sources": [
+        "\"OpenAI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "OpenAI Is Now Facing Over 50 Consumer Harm and Wrongful Death Lawsuits - Futurism",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "4724f58857da": {
+      "cluster_id": "4724f58857da",
+      "member_ids": [
+        "be7c2aea2f00b9c0"
+      ],
+      "sources": [
+        "\"OpenAI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "OpenAI’s Astra Is Here: What to Know About GPT-6 - CNET",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "8e0bcf8c43b8": {
+      "cluster_id": "8e0bcf8c43b8",
+      "member_ids": [
+        "93d68d1b658637b8"
+      ],
+      "sources": [
+        "\"OpenAI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "OpenAI’s new reasoning technique alarms AI safety experts - TechCrunch",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "b3c64f8a66bc": {
+      "cluster_id": "b3c64f8a66bc",
+      "member_ids": [
+        "f9c4da71a173e20f"
+      ],
+      "sources": [
+        "\"Google AI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "ERROR: Requests to this API generativelanguage.googleapis.com method google.ai.generativelanguage.v1beta.GenerativeService.GenerateContent are blocked. - Movieguide",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "23864a73af54": {
+      "cluster_id": "23864a73af54",
+      "member_ids": [
+        "ccbc0e40db472667"
+      ],
+      "sources": [
+        "\"Google AI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Google Brings Its Pics Image Editor To AI Pro And Ultra Subscribers - Engadget",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "3d40e8edccb7": {
+      "cluster_id": "3d40e8edccb7",
+      "member_ids": [
+        "e8db37001e4da919"
+      ],
+      "sources": [
+        "\"Google AI\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Tell us: do you think AI has made Google search better or worse? - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "4b924847e342": {
+      "cluster_id": "4b924847e342",
+      "member_ids": [
+        "c2439ab9fcd3e1dc"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Stock Market Today: Stocks close lower as strong jobs data stir rate-hike jitters; Treasury yields tick up - MarketWatch",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "c3ea43455b03": {
+      "cluster_id": "c3ea43455b03",
+      "member_ids": [
+        "2e95f475d3aca1d4"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Stock Market Today: Dow Sinks Amid Rate Fears; Sandisk, KLA Lead Nasdaq-100 As Utilities Gain - Investor's Business Daily",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "14ab8d585215": {
+      "cluster_id": "14ab8d585215",
+      "member_ids": [
+        "8eab8de28219f0ab"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Traders are piling into this international stock market that just pulled ahead of the Nasdaq - CNBC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "a899464d336c": {
+      "cluster_id": "a899464d336c",
+      "member_ids": [
+        "56fb017ee556bd6e"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "U.S. payrolls rose 162,000 in August, much more than expected; unemployment rate at 4.1% - CNBC",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "e713b5997b7f": {
+      "cluster_id": "e713b5997b7f",
+      "member_ids": [
+        "65be628ca3255181"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "A Stock-Market Safe Haven Seen as ‘Canary in Coal Mine’ for Risk - bloomberg.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "d6c166a7a580": {
+      "cluster_id": "d6c166a7a580",
+      "member_ids": [
+        "72b86c8c9a596db6"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Stocks fall after a surprisingly strong jobs report raises prospects of an interest rate hike - Los Angeles Times",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "d2523db0b6f2": {
+      "cluster_id": "d2523db0b6f2",
+      "member_ids": [
+        "7d74f30a9517fc5d"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Stock Market Midday, Sept. 4: Stocks Edge Lower on Strong Jobs Report as Lululemon Plummets - The Motley Fool",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "e25cb9259d86": {
+      "cluster_id": "e25cb9259d86",
+      "member_ids": [
+        "a61a51df38559f24"
+      ],
+      "sources": [
+        "\"stock market\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Wall St Week Ahead Investors to pore over inflation data for signals on rate trajectory - Reuters",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "f1af262930cc": {
+      "cluster_id": "f1af262930cc",
+      "member_ids": [
+        "bcba2b1b9ca46ecc"
+      ],
+      "sources": [
+        "\"business news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Hacienda Tulum opening at B2K’s Long Beach development - Long Island Business News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "677706b490bc": {
+      "cluster_id": "677706b490bc",
+      "member_ids": [
+        "2a0571bf248364b7"
+      ],
+      "sources": [
+        "\"business news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Private equity faces existential crisis in US as unsold companies pile up - The Guardian",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "9ee936c42bd7": {
+      "cluster_id": "9ee936c42bd7",
+      "member_ids": [
+        "634641bc6daad14e"
+      ],
+      "sources": [
+        "\"business news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Suspect in string of Sacramento business burglaries arrested - CBS News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "fd1c69d1624f": {
+      "cluster_id": "fd1c69d1624f",
+      "member_ids": [
+        "6926aac4e9c229ff"
+      ],
+      "sources": [
+        "\"business news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Detroit restaurant raided, owner accused of international money laundering - detroitnews.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "775f32f1dff6": {
+      "cluster_id": "775f32f1dff6",
+      "member_ids": [
+        "fb073463d6b67af3"
+      ],
+      "sources": [
+        "\"business news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Barilla expands pasta portfolio with Goodles acquisition - Food Business News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "04bac8ba8ce2": {
+      "cluster_id": "04bac8ba8ce2",
+      "member_ids": [
+        "99f782e222c280bb"
+      ],
+      "sources": [
+        "\"business news\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "General Mills wraps up sale of Brazil business - Food Business News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "90b61db11c8d": {
+      "cluster_id": "90b61db11c8d",
+      "member_ids": [
+        "74069b5afdebfa9a"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk Insider Exposes His ‘Miserable’ Existence - Yahoo",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "e65298886cd3": {
+      "cluster_id": "e65298886cd3",
+      "member_ids": [
+        "25e9db446fc50763"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk makes his first spending push in key midterm races - seattletimes.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "4cb47897d057": {
+      "cluster_id": "4cb47897d057",
+      "member_ids": [
+        "e4541a245f9d58c8"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Judge rejects Musk bid to halt Minnesota ban on AI nudifying - Courthouse News",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "45528e2b2ce4": {
+      "cluster_id": "45528e2b2ce4",
+      "member_ids": [
+        "91ad2d32fb000475"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk wants to put data centers in space. Should we let him? - vox.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "00d9f219c798": {
+      "cluster_id": "00d9f219c798",
+      "member_ids": [
+        "f52fcd932326b020"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "WHO’S YOUR DADDY? Elon Musk Pours Money Behind Tom Kean Jr. to Thank Him for His Billionaire Tax Break - Insider NJ",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "aef0ede956db": {
+      "cluster_id": "aef0ede956db",
+      "member_ids": [
+        "11559007999fadea"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Spanish space minister: Elon Musk's control of 2/3 of all operating satellites motivated Spain's Iris2 investment - Space Intel Report",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "a8a0c8a21bfd": {
+      "cluster_id": "a8a0c8a21bfd",
+      "member_ids": [
+        "9aed42363d7bd6c2"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk Noted Natural Gas Will Still Fuel Data Centers, Gene Munster Says 'Makes Sense' to Put 'New Money to Work in Power' - finance.yahoo.com",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "94c99f1f698a": {
+      "cluster_id": "94c99f1f698a",
+      "member_ids": [
+        "8fb97a554a59bb4f"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk-connected company now controls over 4,600 acres in Grimes County - KBTX News 3",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
+    },
+    "590b75341061": {
+      "cluster_id": "590b75341061",
+      "member_ids": [
+        "048ab579a3c2872d"
+      ],
+      "sources": [
+        "\"Elon Musk\" - Google News"
+      ],
+      "source_count": 1,
+      "representative_title": "Elon Musk’s Midterms Play: Ken Paxton, Susan Collins, Socialist Scaremongering - New York Magazine",
+      "size": 1,
+      "first_detected": "2026-09-04T23:01:50.897333+00:00",
+      "latest_activity": "2026-09-04T23:01:50.897333+00:00",
+      "development_level": 1,
+      "posts_generated": 0,
+      "last_posted_at": null,
+      "score": null
     }
   },
-  "posts": []
+  "posts": [
+    {
+      "post_id": "post_1fe8dc5b_202609042303",
+      "cluster_id": "1fe8dc5b42a5",
+      "article_ids": [
+        "6736297a1c35906c",
+        "ac4af652a8276cb6"
+      ],
+      "format": "BREAKING",
+      "text": "🚨 BREAKING NEWS A federal judge extended the block on Trump’s executive order that aimed to limit mail‑in voting for the 2026 midterms, keeping voting rules. The decision comes as states ready for the election and Trump pushes tighter absentee ballot rules.",
+      "priority": 90,
+      "scheduled_at": "2026-09-04T23:03:50.897333+00:00",
+      "due_at_iso": "2026-09-04T23:03:50.000Z",
+      "is_breaking": true,
+      "created_at": "2026-09-04T23:01:50.897333+00:00",
+      "day": "2026-09-04",
+      "status": "dry_run",
+      "buffer_post_id": null
+    },
+    {
+      "post_id": "post_a4e8f3f0_202609042303",
+      "cluster_id": "a4e8f3f06bbe",
+      "article_ids": [
+        "3bf14e589f78eeb8"
+      ],
+      "format": "DEVELOPING",
+      "text": "⚡ DEVELOPING Mistrial declared in Lindsay Clancy murder case after jury deadlocks, leaving the case and her future in limbo over possible criminal liability for her three children's deaths. The retrial could take months and may affect sentencing options.",
+      "priority": 75,
+      "scheduled_at": "2026-09-04T23:03:50.897333+00:00",
+      "due_at_iso": "2026-09-04T23:03:50.000Z",
+      "is_breaking": true,
+      "created_at": "2026-09-04T23:01:50.897333+00:00",
+      "day": "2026-09-04",
+      "status": "dry_run",
+      "buffer_post_id": null
+    }
+  ]
 }
