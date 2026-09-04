@@ -152,41 +152,68 @@ def _chat(
 # ── Public API ───────────────────────────────────────
 
 def editorial_select(candidates: list[dict]) -> list[dict]:
-    """Ask the model to select/reject candidates. Returns parsed array."""
+    """Ask the model to select/reject candidates. Returns parsed array. Rotates on JSON failure."""
     if not candidates:
         return []
     prompt = editorial.build_editorial_prompt(candidates)
-    content = _chat(
-        [{"role": "user", "content": prompt}],
-        temperature=0.4,
-        max_tokens=1500,
-    )
-    parsed = _extract_json(content)
-    if not isinstance(parsed, list):
-        raise ValueError(f"Editorial response must be a JSON array, got {type(parsed)}")
-    # Validate shape
-    out = []
-    for item in parsed:
-        if not isinstance(item, dict):
-            continue
-        if "story_id" not in item or "decision" not in item:
-            continue
-        out.append(item)
-    return out
+    models = [config.OPENROUTER_MODEL] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != config.OPENROUTER_MODEL]
+    last_err: Exception | None = None
+    for mdl in models:
+        try:
+            content = _chat(
+                [{"role": "user", "content": prompt}],
+                temperature=0.4,
+                max_tokens=1500,
+                model=mdl,
+            )
+            parsed = _extract_json(content)
+            if not isinstance(parsed, list):
+                raise ValueError(f"Editorial response must be a JSON array, got {type(parsed)}")
+            out = []
+            for item in parsed:
+                if not isinstance(item, dict):
+                    continue
+                if "story_id" not in item or "decision" not in item:
+                    continue
+                out.append(item)
+            return out
+        except Exception as exc:
+            last_err = exc
+            if mdl != models[-1]:
+                log.warning("Editorial %s failed (%s), rotating", mdl, str(exc)[:150])
+                continue
+            raise
+    if last_err:
+        raise last_err
+    return []
 
 
 def generate_post(story: dict, selected_format: str) -> dict:
-    """Generate one X post. Returns {post, confidence}."""
+    """Generate one X post. Returns {post, confidence}. Rotates on JSON failure."""
     prompt = editorial.build_generation_prompt(story, selected_format)
-    content = _chat(
-        [{"role": "user", "content": prompt}],
-        temperature=0.7,
-        max_tokens=600,
-    )
-    parsed = _extract_json(content)
-    if not isinstance(parsed, dict) or "post" not in parsed:
-        raise ValueError(f"Generation response must be {{\"post\": ...}}, got {parsed}")
-    post = str(parsed["post"]).strip()
-    if not post:
-        raise ValueError("Model returned empty post")
-    return {"post": post, "confidence": parsed.get("confidence", 0.8)}
+    models = [config.OPENROUTER_MODEL] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != config.OPENROUTER_MODEL]
+    last_err: Exception | None = None
+    for mdl in models:
+        try:
+            content = _chat(
+                [{"role": "user", "content": prompt}],
+                temperature=0.7,
+                max_tokens=600,
+                model=mdl,
+            )
+            parsed = _extract_json(content)
+            if not isinstance(parsed, dict) or "post" not in parsed:
+                raise ValueError(f"Generation response must be {{\"post\": ...}}, got {parsed}")
+            post = str(parsed["post"]).strip()
+            if not post:
+                raise ValueError("Model returned empty post")
+            return {"post": post, "confidence": parsed.get("confidence", 0.8)}
+        except Exception as exc:
+            last_err = exc
+            if mdl != models[-1]:
+                log.warning("Generate %s failed (%s), rotating", mdl, str(exc)[:150])
+                continue
+            raise
+    if last_err:
+        raise last_err
+    raise RuntimeError("Generate failed after trying all models")
