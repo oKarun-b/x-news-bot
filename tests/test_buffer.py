@@ -33,12 +33,15 @@ def test_get_scheduled_posts():
 
 
 def test_verify_channel_picks_x():
-    fake = {"account": {"organizations": [{"id": "org1", "channels": [
-        {"id": "ch_ig", "name": "IG", "service": "instagram"},
-        {"id": "ch_x", "name": "X", "service": "twitter"},
-    ]}]}}
-    with patch("app.buffer._gql", return_value=fake):
-        info = buf.verify_channel()
+    fake_orgs = {"account": {"organizations": [{"id": "org1", "name": "My Org"}]}}
+    fake_channels = {"channels": [
+        {"id": "ch_ig", "name": "IG", "service": "instagram", "type": "profile"},
+        {"id": "ch_x", "name": "X", "service": "twitter", "type": "profile"},
+    ]}
+    with patch("app.buffer._gql", side_effect=[fake_orgs, fake_channels]):
+        with patch.object(buf.config, "BUFFER_CHANNEL_ID", ""):
+            with patch.object(buf.config, "BUFFER_ORGANIZATION_ID", ""):
+                info = buf.verify_channel()
     assert info["channel_id"] == "ch_x"
     assert info["organization_id"] == "org1"
 
