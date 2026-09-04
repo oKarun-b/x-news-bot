@@ -108,7 +108,7 @@ RESERVED_FIXED_POSTS: int = _env_int("RESERVED_FIXED_POSTS", 2)
 MAX_BUFFER_AHEAD_POSTS: int = _env_int("MAX_BUFFER_AHEAD_POSTS", 3)
 MAX_SCHEDULE_HORIZON_MINUTES: int = _env_int("MAX_SCHEDULE_HORIZON_MINUTES", 180)
 MAX_NEW_POSTS_PER_RUN: int = _env_int("MAX_NEW_POSTS_PER_RUN", 2)
-MAX_AI_CALLS_PER_RUN: int = _env_int("MAX_AI_CALLS_PER_RUN", 2)
+MAX_AI_CALLS_PER_RUN: int = _env_int("MAX_AI_CALLS_PER_RUN", 3)
 TOP_CANDIDATES_PER_RUN: int = _env_int("TOP_CANDIDATES_PER_RUN", 6)
 
 # ── Gaps ─────────────────────────────────────────────
@@ -128,7 +128,7 @@ MIN_DEVELOPMENT_GAP_MINUTES: int = _env_int("MIN_DEVELOPMENT_GAP_MINUTES", 90)
 # ── Content / AI ─────────────────────────────────────
 MAX_POST_LENGTH: int = _env_int("MAX_POST_LENGTH", 260)
 HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
-OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "minimax/minimax-m2.7:free")
+OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free")
 CLUSTER_SIMILARITY_THRESHOLD: float = _env_float("CLUSTER_SIMILARITY_THRESHOLD", 0.45)
 STATE_RETENTION_DAYS: int = _env_int("STATE_RETENTION_DAYS", 7)
 FEED_TIMEOUT_SECONDS: int = _env_int("FEED_TIMEOUT_SECONDS", 15)
