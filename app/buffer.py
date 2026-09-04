@@ -66,23 +66,13 @@ def verify_channel() -> dict:
     """
     Verify credentials and resolve channel/organization.
     Returns {organization_id, channel_id, channel_name, service}.
-    Uses the account→organizations→channels path.
+    Uses account → organizations → channels(input:{organizationId}) path.
+    The nested account.organizations.channels is FORBIDDEN on some accounts;
+    the top-level channels(input:{organizationId}) works correctly.
     """
-    q = """
-    query Verify {
-      account {
-        organizations {
-          id
-          channels {
-            id
-            name
-            service
-          }
-        }
-      }
-    }
-    """
-    data = _gql(q)
+    # Step 1: discover organizations
+    q_orgs = "query { account { organizations { id name } } }"
+    data = _gql(q_orgs)
     orgs = (data.get("account") or {}).get("organizations") or []
     if not orgs:
         raise RuntimeError("No organizations found for this Buffer account")
@@ -101,7 +91,11 @@ def verify_channel() -> dict:
         target_org = orgs[0]
 
     org_id = target_org["id"]
-    channels = target_org.get("channels") or []
+
+    # Step 2: fetch channels for that org via top-level channels(input:)
+    q_channels = f'query {{ channels(input: {{organizationId: "{org_id}"}}) {{ id name service type }} }}'
+    data2 = _gql(q_channels)
+    channels = data2.get("channels") or []
 
     # Find X/Twitter channel
     target_ch = None
@@ -207,9 +201,9 @@ def delete_post(post_id: str) -> bool:
     """Delete a scheduled post. Returns True on success."""
     mutation = f'''
     mutation {{
-      deletePost(input: {{ postId: "{post_id}" }}) {{
-        ... on PostActionSuccess {{
-          post {{ id }}
+      deletePost(input: {{ id: "{post_id}" }}) {{
+        ... on DeletePostSuccess {{
+          __typename
         }}
         ... on MutationError {{
           message
