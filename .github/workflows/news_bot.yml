@@ -1,0 +1,75 @@
+name: news-bot
+
+on:
+  schedule:
+    # 10-min polling during active window (06:00-23:30 BOT time) plus overnight coverage.
+    # Staggered off the hour to reduce top-of-hour contention.
+    - cron: "3,13,23,33,43,53 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (no Buffer sends)"
+        type: boolean
+        default: false
+      force:
+        description: "Force run outside active window"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
+          BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
+          BOT_TIMEZONE: ${{ vars.BOT_TIMEZONE || 'UTC' }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          BUFFER_API_URL: https://api.buffer.com
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python -m app.main --dry-run ${{ inputs.force == true && '--force' || '' }}
+          else
+            python -m app.main ${{ inputs.force == true && '--force' || '' }}
+          fi
+
+      - name: Commit state if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Pull latest to avoid push conflicts when runs queue up
+          git pull --rebase --autostash || true
+          if ! git diff --quiet -- data/state.json 2>/dev/null; then
+            git add data/state.json
+            git commit -m "chore: update bot state [skip ci]"
+            git push
+          else
+            echo "No state changes to commit."
+          fi
