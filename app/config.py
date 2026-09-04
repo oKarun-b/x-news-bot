@@ -128,7 +128,7 @@ MIN_DEVELOPMENT_GAP_MINUTES: int = _env_int("MIN_DEVELOPMENT_GAP_MINUTES", 90)
 # ── Content / AI ─────────────────────────────────────
 MAX_POST_LENGTH: int = _env_int("MAX_POST_LENGTH", 260)
 HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
-OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
+OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "liquid/lfm-2.5-2.6b:free")
 CLUSTER_SIMILARITY_THRESHOLD: float = _env_float("CLUSTER_SIMILARITY_THRESHOLD", 0.45)
 STATE_RETENTION_DAYS: int = _env_int("STATE_RETENTION_DAYS", 7)
 FEED_TIMEOUT_SECONDS: int = _env_int("FEED_TIMEOUT_SECONDS", 15)
