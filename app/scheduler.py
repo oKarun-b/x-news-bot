@@ -59,11 +59,13 @@ def _next_slot_after(
 
     # Normal: respect gap from last scheduled post
     if last_scheduled:
-        gap = random.randint(config.MIN_NORMAL_GAP_MINUTES, config.MAX_NORMAL_GAP_MINUTES)
-        candidate = max(earliest, last_scheduled + timedelta(minutes=gap))
+        # Same-run second post should be 12-20 min after previous (user wants 10-20, not same time)
+        # Cross-run posts will naturally be ~15 min apart via cron, so use tighter gap for same-run
+        gap = random.randint(12, 20)
+        candidate = max(earliest + timedelta(minutes=12), last_scheduled + timedelta(minutes=gap))
     else:
-        # First post in queue: at least 10 min future so Buffer never rejects and AI latency is safe
-        offset = random.randint(10, max(15, config.MIN_NORMAL_GAP_MINUTES))
+        # First post in queue: at least 12 min future so Buffer never rejects, AI latency safe, and meets 10-20 min user request
+        offset = random.randint(12, 18)
         candidate = earliest + timedelta(minutes=offset)
 
     # Clamp to posting window
