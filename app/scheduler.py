@@ -62,8 +62,8 @@ def _next_slot_after(
         gap = random.randint(config.MIN_NORMAL_GAP_MINUTES, config.MAX_NORMAL_GAP_MINUTES)
         candidate = max(earliest, last_scheduled + timedelta(minutes=gap))
     else:
-        # First post in queue: small random offset from now
-        offset = random.randint(5, min(25, config.MIN_NORMAL_GAP_MINUTES))
+        # First post in queue: at least 10 min future so Buffer never rejects and AI latency is safe
+        offset = random.randint(10, max(15, config.MIN_NORMAL_GAP_MINUTES))
         candidate = earliest + timedelta(minutes=offset)
 
     # Clamp to posting window

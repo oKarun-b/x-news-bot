@@ -521,15 +521,16 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
 
     successes = 0
     for p in scheduled_posts:
-        # Re-validate dueAt is still in the future (OpenRouter can take minutes, so original slot may have expired)
+        # Re-validate dueAt is still safely in the future (Buffer requires >~60s, clock skew + AI latency can make original slot stale)
+        # Ensure at least 5 minutes future so Buffer never rejects "must be in the future"
         try:
             due_dt = datetime.fromisoformat(p["due_at_iso"].replace("Z", "+00:00"))
             if due_dt.tzinfo is None:
                 due_dt = due_dt.replace(tzinfo=timezone.utc)
-            min_future = datetime.now(timezone.utc) + timedelta(seconds=90)
+            min_future = datetime.now(timezone.utc) + timedelta(minutes=5)
             if due_dt <= min_future:
                 bumped = min_future + timedelta(seconds=30)
-                log.warning("Bumping %s dueAt %s → %s (was in near past)", p["cluster_id"][:8], p["due_at_iso"], format_due_at(bumped))
+                log.warning("Bumping %s dueAt %s → %s (was too close to now, Buffer requires future)", p["cluster_id"][:8], p["due_at_iso"], format_due_at(bumped))
                 p["due_at_iso"] = format_due_at(bumped)
                 p["scheduled_at"] = bumped.isoformat()
                 p["day"] = _today_key(bumped)

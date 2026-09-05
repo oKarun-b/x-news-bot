@@ -70,14 +70,15 @@ def _chat_once(
         "max_tokens": max_tokens,
     }
     last_exc: Exception | None = None
-    for attempt in range(3):
+    for attempt in range(2):  # quick retry, then rotate
         try:
             resp = requests.post(OPENROUTER_URL, headers=headers, json=body, timeout=30)
             if resp.status_code == 429:
-                wait = int(resp.headers.get("Retry-After", "8"))
-                log.warning("OpenRouter %s rate-limited, waiting %ds", model, wait)
-                time.sleep(min(wait, 20))
-                continue
+                # Don't wait long on shared free tier — rotate quickly
+                wait = int(resp.headers.get("Retry-After", "2"))
+                log.warning("OpenRouter %s rate-limited (429), rotating quickly (wait %ds)", model, wait)
+                time.sleep(min(wait, 3))
+                raise RuntimeError(f"Rate-limited 429 for {model}")
             if resp.status_code == 404:
                 # Model not found / no free endpoint — don't retry same model
                 raise RuntimeError(f"Model {model} not available (404): {resp.text[:300]}")
