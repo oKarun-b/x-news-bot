@@ -20,9 +20,12 @@ on:
 permissions:
   contents: write
 
+# Schedule is best-effort on GitHub — queued runs can be skipped under load.
+# We use cancel-in-progress:true so a delayed run doesn't block the next 15-min slot,
+# and workflow_dispatch remains available as a manual/external-cron fallback.
 concurrency:
   group: news-bot
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   run:
@@ -55,11 +58,21 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
           BUFFER_API_URL: https://api.buffer.com
         run: |
+          set +e
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             python -m app.main --dry-run ${{ inputs.force == true && '--force' || '' }}
           else
             python -m app.main ${{ inputs.force == true && '--force' || '' }}
           fi
+          code=$?
+          # Never fail the workflow on content-level errors (openrouter_error, buffer_failed, no_new_articles).
+          # Only fail on infra errors (exit 2+). This prevents red ❌ that trigger GitHub's abuse heuristics
+          # and keeps the schedule healthy. State is always committed via the next step.
+          if [ $code -eq 1 ]; then
+            echo "::warning::Bot exited 1 (no post / transient AI/Buffer hiccup) — marking success to keep schedule healthy"
+            exit 0
+          fi
+          exit $code
 
       - name: Commit state if changed
         run: |

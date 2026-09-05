@@ -1,0 +1,28 @@
+name: keepalive
+
+# Prevent GitHub from auto-disabling scheduled workflows after 60 days of inactivity.
+# This workflow does nothing except keep the repo "active" for the scheduler.
+# It runs once a month and creates an empty commit if needed.
+
+on:
+  schedule:
+    - cron: "17 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v5
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Touch a keepalive file so the repo shows activity even if no news posts occur
+          mkdir -p data
+          date -u > data/.keepalive
+          git add data/.keepalive
+          git diff --cached --quiet || git commit -m "chore: keepalive [skip ci]" && git push || echo "No push needed"
