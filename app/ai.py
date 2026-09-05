@@ -164,7 +164,7 @@ def editorial_select(candidates: list[dict]) -> list[dict]:
             content = _chat(
                 [{"role": "user", "content": prompt}],
                 temperature=0.4,
-                max_tokens=1000,
+                max_tokens=1800,
                 model=mdl,
             )
             parsed = _extract_json(content)

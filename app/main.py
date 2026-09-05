@@ -309,10 +309,20 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
     except Exception as exc:
         OPENROUTER_FAILURES += 1
         log.error("OpenRouter editorial selection failed: %s", exc)
-        store.set_last_run({"at": now.isoformat(), "mode": "error", "result": f"openrouter_error: {exc}"})
-        store.save()
-        run_summary({**metrics, "result": "openrouter_error", "ai_calls": OPENROUTER_CALLS, "ai_failures": OPENROUTER_FAILURES})
-        return 1  # non-zero so Actions reports failure but state is saved
+        # Fallback: use local ranking instead of AI selection (so Buffer can still be tested)
+        log.warning("Falling back to local ranking for editorial selection")
+        selections = [
+            {"story_id": c["cluster_id"], "decision": "select", "urgency": 50, "format": "NEWS_UPDATE", "reason": "local fallback", "is_new_development": True}
+            for c in candidates[: min(2, len(candidates))]
+        ]
+        metrics["ai_calls"] = OPENROUTER_CALLS
+        metrics["ai_fallback"] = True
+        # Don't save as error, continue to generation
+        if not selections:
+            store.set_last_run({"at": now.isoformat(), "mode": "error", "result": f"openrouter_error: {exc}"})
+            store.save()
+            run_summary({**metrics, "result": "openrouter_error", "ai_calls": OPENROUTER_CALLS, "ai_failures": OPENROUTER_FAILURES})
+            return 1
 
     selected = [s for s in selections if s.get("decision") == "select"]
     # Cap to per-run limit
