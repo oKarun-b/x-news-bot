@@ -164,6 +164,16 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
     # History-aware dedupe — only keep genuinely new articles for clustering
     new_articles, history_dups = dedupe_against_history(articles, seen_canonical, seen_hashes)
     metrics["history_dups"] = history_dups
+    # Cap new articles to most recent 200 to keep clustering fast (prevents 400+ article slow runs)
+    if len(new_articles) > 200:
+        # Sort by published_at if available, newest first
+        def _sort_key(a):
+            pa = a.get("published_at")
+            return pa.timestamp() if pa else 0
+        new_articles.sort(key=_sort_key, reverse=True)
+        new_articles = new_articles[:200]
+        log.info("Capped new_articles to 200 most recent (was %d)", metrics["new_articles"])
+        metrics["new_articles_capped"] = len(new_articles)
     metrics["new_articles"] = len(new_articles)
 
     # Upsert NEW articles into state (preserve first_seen for truly new)

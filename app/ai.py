@@ -164,7 +164,7 @@ def editorial_select(candidates: list[dict]) -> list[dict]:
             content = _chat(
                 [{"role": "user", "content": prompt}],
                 temperature=0.4,
-                max_tokens=1500,
+                max_tokens=1000,
                 model=mdl,
             )
             parsed = _extract_json(content)
@@ -199,7 +199,7 @@ def generate_post(story: dict, selected_format: str) -> dict:
             content = _chat(
                 [{"role": "user", "content": prompt}],
                 temperature=0.7,
-                max_tokens=600,
+                max_tokens=400,
                 model=mdl,
             )
             parsed = _extract_json(content)
