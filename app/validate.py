@@ -109,6 +109,12 @@ def validate_post(
         log.warning("Post %d chars exceeds preferred %d but ≤%d — accepting with warning", wl, config.MAX_POST_LENGTH, config.HARD_MAX_POST_LENGTH)
         return True, post, "accepted-with-warning"
 
+    # Mention validation (verified registry only, 0-2, counts toward limit)
+    from app.accounts import validate_mentions
+    ok_m, reason_m = validate_mentions(post)
+    if not ok_m:
+        return False, post, f"mention violation: {reason_m}"
+
     # Basic malformed checks
     if len(post.strip()) < 20:
         return False, post, "post too short"

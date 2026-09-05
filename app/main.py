@@ -370,12 +370,23 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
             "cluster_sources": cluster.get("sources", []),
             "category": (cluster.get("representative_article") or {}).get("category", "general"),
         }
+        # Build mention context (recent handles for anti-repetition)
+        try:
+            from app.editorial import build_mention_context
+            recent_handles = []
+            for p in store.data.get("posts", [])[-8:]:
+                if p.get("status") in ("scheduled", "sent"):
+                    from app.accounts import extract_mentions
+                    recent_handles.extend(extract_mentions(p.get("text", "")))
+            mention_ctx = build_mention_context(story_for_gen, recent_handles)
+        except Exception:
+            mention_ctx = ""
         try:
             OPENROUTER_CALLS += 1
             if OPENROUTER_CALLS > config.MAX_AI_CALLS_PER_RUN:
                 log.warning("AI call budget exceeded (%d/%d), stopping generation", OPENROUTER_CALLS, config.MAX_AI_CALLS_PER_RUN)
                 break
-            res = generate_post(story_for_gen, fmt)
+            res = generate_post(story_for_gen, fmt, mention_context=mention_ctx)
             post_text = res["post"]
         except Exception as exc:
             OPENROUTER_FAILURES += 1

@@ -90,6 +90,19 @@ Constraints:
 - URLs are not included in post text (Buffer handles links separately if provided).
 """.strip()
 
+MENTION_RULES = """
+X mention rules (verified handles only):
+- You may use 0-2 @mentions per post, only from the verified registry provided.
+- Never invent a handle. If an entity isn't listed, write its plain name.
+- Use a handle only when that source is directly responsible for the reporting or the person is the direct subject and it adds useful context.
+- Do NOT add a mention merely because the handle exists.
+- Prefer natural placement at the end of a sentence: "The move reverses protections, @BBCNews reports." NOT "According to @BBCNews, Trump..."
+- For persons: "@elonmusk says xAI is preparing..." is good; don't mention incidentally.
+- Distinguish source (who reports) vs subject (who it's about); you don't need both.
+- 0 mentions is often correct. Never force @Reuters into every post.
+- Mentions count toward the 280 character limit.
+""".strip()
+
 
 def build_editorial_prompt(candidates: list[dict]) -> str:
     """Prompt that asks the model to select/reject stories from a compact candidate batch."""
@@ -120,15 +133,19 @@ def build_editorial_prompt(candidates: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def build_generation_prompt(story: dict, selected_format: str) -> str:
+def build_generation_prompt(story: dict, selected_format: str, mention_context: str = "") -> str:
     """Prompt that asks the model to write the final X post for ONE selected story."""
     label = FORMAT_LABELS.get(selected_format, selected_format)
-    return "\n".join([
+    parts = [
         "You are a news writer for an independent X account.",
         STYLE_RULES,
         ATTRIBUTION_RULES,
         WRITING_CONSTRAINTS,
-        "",
+        MENTION_RULES,
+    ]
+    if mention_context:
+        parts.append(mention_context)
+    parts.extend([
         f"Write ONE X post in format: {label}",
         f"Format intent: {FORMATS.get(selected_format, {}).get('intent', '')}",
         "",
@@ -143,3 +160,20 @@ def build_generation_prompt(story: dict, selected_format: str) -> str:
         "Then a space, then the post body.",
         "Return ONLY JSON: {\"post\": \"...full post including label...\", \"confidence\": 0.0-1.0}",
     ])
+    return "\n".join(parts)
+
+
+def build_mention_context(story: dict, recent_handles: list[str] | None = None) -> str:
+    """Build the registry + recency hint for the generation prompt."""
+    from app.accounts import format_registry_for_prompt, find_handles_for_story
+
+    candidates = find_handles_for_story(story)
+    lines = [format_registry_for_prompt()]
+    if candidates:
+        lines.append(f"\nRelevant handles for this story (use only if natural, 0-2 max): {', '.join(candidates)}")
+    else:
+        lines.append("\nNo verified handle is clearly relevant for this story — plain name attribution is fine (0 mentions).")
+    if recent_handles:
+        recent = ", ".join(recent_handles[-5:])
+        lines.append(f"Recent mentions (avoid repeating same handle if not essential): {recent}")
+    return "\n".join(lines)

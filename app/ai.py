@@ -189,9 +189,9 @@ def editorial_select(candidates: list[dict]) -> list[dict]:
     return []
 
 
-def generate_post(story: dict, selected_format: str) -> dict:
+def generate_post(story: dict, selected_format: str, mention_context: str = "") -> dict:
     """Generate one X post. Returns {post, confidence}. Rotates on JSON failure."""
-    prompt = editorial.build_generation_prompt(story, selected_format)
+    prompt = editorial.build_generation_prompt(story, selected_format, mention_context=mention_context)
     models = [config.OPENROUTER_MODEL] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != config.OPENROUTER_MODEL]
     last_err: Exception | None = None
     for mdl in models:
