@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import sys
 import traceback
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from app import config
 from app.article import enrich_top_candidates
@@ -358,7 +358,16 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
         except Exception as exc:
             OPENROUTER_FAILURES += 1
             log.error("Generation failed for %s: %s", cid[:8], exc)
-            continue
+            # Fallback: generate a simple post from title without AI, so Buffer can still be tested
+            fallback_label = __import__("app.editorial", fromlist=["FORMAT_LABELS"]).FORMAT_LABELS.get(fmt, fmt)
+            fallback_text = f"{fallback_label} {story_for_gen.get('title','')[:180]}"
+            # Ensure it validates (truncate if needed)
+            from app.normalize import weighted_length as _wl2
+            if _wl2(fallback_text) > config.HARD_MAX_POST_LENGTH:
+                fallback_text = fallback_text[: config.HARD_MAX_POST_LENGTH - 1] + "…"
+            log.warning("Using fallback post for %s: %s", cid[:8], fallback_text[:80])
+            post_text = fallback_text
+            # Continue to validation with fallback
 
         # ── Validate ────────────────────────────────
         from app.validate import validate_post as _validate
@@ -522,20 +531,22 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
     successes = 0
     for p in scheduled_posts:
         # Re-validate dueAt is still safely in the future (Buffer requires >~60s, clock skew + AI latency can make original slot stale)
-        # Ensure at least 5 minutes future so Buffer never rejects "must be in the future"
+        # Ensure at least 6 minutes future so Buffer never rejects "must be in the future" (add margin for server clock)
         try:
             due_dt = datetime.fromisoformat(p["due_at_iso"].replace("Z", "+00:00"))
             if due_dt.tzinfo is None:
                 due_dt = due_dt.replace(tzinfo=timezone.utc)
-            min_future = datetime.now(timezone.utc) + timedelta(minutes=5)
+            now_utc = datetime.now(timezone.utc)
+            min_future = now_utc + timedelta(minutes=6)
+            log.info("Buffer send check %s: due %s, now %s, min_future %s", p["cluster_id"][:8], p["due_at_iso"], format_due_at(now_utc), format_due_at(min_future))
             if due_dt <= min_future:
                 bumped = min_future + timedelta(seconds=30)
                 log.warning("Bumping %s dueAt %s → %s (was too close to now, Buffer requires future)", p["cluster_id"][:8], p["due_at_iso"], format_due_at(bumped))
                 p["due_at_iso"] = format_due_at(bumped)
                 p["scheduled_at"] = bumped.isoformat()
                 p["day"] = _today_key(bumped)
-        except Exception:
-            pass
+        except Exception as exc:
+            log.warning("DueAt bump check failed for %s: %s", p["cluster_id"][:8], exc)
         # Re-check total limit right before each send (race with queue)
         day = p["day"]
         counts_day = store.daily_counts_for(day)
@@ -550,7 +561,20 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
         try:
             BUFFER_CALLS += 1
             from app.buffer import create_scheduled_post
-            result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"])
+            try:
+                result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"])
+            except Exception as first_exc:
+                # Retry once with a later due if Buffer says "must be in the future" (clock skew)
+                if "future" in str(first_exc).lower():
+                    bumped2 = datetime.now(timezone.utc) + timedelta(minutes=7)
+                    new_due = format_due_at(bumped2)
+                    log.warning("Buffer rejected dueAt in past, retrying %s with %s", p["cluster_id"][:8], new_due)
+                    p["due_at_iso"] = new_due
+                    p["scheduled_at"] = bumped2.isoformat()
+                    p["day"] = _today_key(bumped2)
+                    result = create_scheduled_post(ctx["channel_id"], p["text"], new_due)
+                else:
+                    raise
             p["buffer_post_id"] = result.get("id")
             p["status"] = "scheduled"
             store.add_post(p)
