@@ -160,7 +160,10 @@ def build_editorial_prompt(candidates: list[dict]) -> str:
             f'published={c.get("published")} category={c.get("category")} '
             f'summary="{(c.get("summary") or "")[:300]}" '
             f'sources={c.get("source_count", 1)} cluster_sources={c.get("cluster_sources", [])}'
+            f'{" [PHOTO AVAILABLE]" if c.get("has_image") else ""}'
         )
+    lines.append("")
+    lines.append("Stories marked [PHOTO AVAILABLE] can be published with a photo — when two stories are editorially comparable, prefer the one with a photo.")
     lines.append("")
     lines.append("Return JSON array only, no prose.")
     return "\n".join(lines)

@@ -362,8 +362,38 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     n_cand = min(n_cand, len(ranked))
     candidates = ranked[:n_cand]
     candidates = [c for c in candidates if c.get("_score", 0) >= score_floor]
-    metrics["candidates"] = len(candidates)
     store.set_last_discovery(now)  # §23 state-driven cadence marker
+
+    # §images: ensure image-capable candidates exist when image budget remains
+    def _cluster_has_image(c: dict) -> bool:
+        if c.get("og_image"):
+            return True
+        rep = c.get("representative_article") or {}
+        for a in [rep] + (c.get("articles") or []):
+            if isinstance(a, dict) and any(u.startswith("https://") for u in (a.get("image_urls") or [])):
+                return True
+        return False
+
+    image_budget_left = config.ENABLE_IMAGES and store.image_quota_remaining() > 0
+    if image_budget_left:
+        for c in candidates:
+            c["has_image"] = _cluster_has_image(c)
+        if not any(c.get("has_image") for c in candidates):
+            extras = [c for c in ranked if c not in candidates and _cluster_has_image(c)]
+            extras = [c for c in extras if c.get("_score", 0) >= score_floor * 0.6][:2]
+            for c in extras:
+                c["has_image"] = True
+            if extras:
+                log.info("§images: no image-bearing candidates in top-%d — adding %d from deeper ranks", n_cand, len(extras))
+                candidates.extend(extras)
+        # Prefer image-bearing among near-equal scores (within 15% of top)
+        if candidates:
+            top_score = candidates[0].get("_score", 0)
+            near = [c for c in candidates if c.get("_score", 0) >= top_score * 0.85]
+            far = [c for c in candidates if c.get("_score", 0) < top_score * 0.85]
+            near.sort(key=lambda c: not c.get("has_image", False))
+            candidates = near + far
+    metrics["candidates"] = len(candidates)
     if not candidates:
         log.info("No candidates above threshold (%s), exiting without AI", score_floor)
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "no_candidates"})
