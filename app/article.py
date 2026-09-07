@@ -37,13 +37,41 @@ def _allowed_by_robots(url: str, user_agent: str = "x-news-bot") -> bool:
         return True
 
 
-def fetch_article_text(url: str, max_chars: int = 2500) -> str | None:
-    """Fetch and extract article text. Returns None on any failure (caller falls back to RSS)."""
-    if not url or not url.startswith("http"):
+# og:image / twitter:image extraction (same HTML fetch as text — no extra request)
+_OG_IMAGE_RE = re.compile(
+    r'<meta[^>]+(?:property|name)=["\'](?:og:image(?::secure_url)?|twitter:image(?::src)?)["\'][^>]+content=["\']([^"\']+)["\']',
+    re.IGNORECASE,
+)
+_ALT_OG_IMAGE_RE = re.compile(
+    r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'](?:og:image(?::secure_url)?|twitter:image(?::src)?)["\']',
+    re.IGNORECASE,
+)
+
+
+def extract_og_image(html_text: str) -> str | None:
+    """Extract og:image / twitter:image URL from HTML. Returns https URL or None."""
+    if not html_text:
         return None
+    m = _OG_IMAGE_RE.search(html_text) or _ALT_OG_IMAGE_RE.search(html_text)
+    if not m:
+        return None
+    url = m.group(1).strip().replace("&amp;", "&")
+    # Only public https images (Buffer requires stable public https URLs)
+    if not url.startswith("https://"):
+        return None
+    if url.lower().startswith(("data:", "blob:")) or "pixel" in url.lower() or "spacer" in url.lower():
+        return None
+    return url
+
+
+def fetch_article_text(url: str, max_chars: int = 2500, want_image: bool = False) -> tuple[str | None, str | None]:
+    """Fetch and extract article text (and og:image if requested).
+    Returns (text, image_url). Either may be None on failure (caller falls back to RSS)."""
+    if not url or not url.startswith("http"):
+        return None, None
     if not _allowed_by_robots(url):
         log.info("Robots disallow: %s", url)
-        return None
+        return None, None
     try:
         resp = requests.get(
             url,
@@ -54,7 +82,7 @@ def fetch_article_text(url: str, max_chars: int = 2500) -> str | None:
         resp.raise_for_status()
         ctype = resp.headers.get("content-type", "")
         if "html" not in ctype.lower() and "<html" not in resp.text[:2000].lower():
-            return None
+            return None, None
         # Extract text
         text = strip_html(resp.text)
         # Remove boilerplate lines
@@ -69,17 +97,19 @@ def fetch_article_text(url: str, max_chars: int = 2500) -> str | None:
             if sum(len(x) for x in kept) > max_chars:
                 break
         result = " ".join(kept)[:max_chars].strip()
-        return result if len(result) > 80 else None
+        text_out = result if len(result) > 80 else None
+        image_out = extract_og_image(resp.text) if (want_image and config.ENABLE_IMAGES) else None
+        return text_out, image_out
     except requests.RequestException as exc:
         log.info("Article fetch failed %s: %s", url, exc)
-        return None
+        return None, None
     except Exception as exc:
         log.info("Article extraction failed %s: %s", url, exc)
-        return None
+        return None, None
 
 
 def enrich_top_candidates(candidates: list[dict], max_fetch: int | None = None) -> None:
-    """Mutates candidates in-place, adding 'article_text' where fetch succeeds."""
+    """Mutates candidates in-place, adding 'article_text' and 'og_image' where fetch succeeds."""
     limit = max_fetch if max_fetch is not None else config.ARTICLE_FETCH_MAX
     fetched = 0
     for c in candidates:
@@ -95,8 +125,10 @@ def enrich_top_candidates(candidates: list[dict], max_fetch: int | None = None) 
                 link = arts[0].get("link", "")
         if not link:
             continue
-        text = fetch_article_text(link)
+        text, image = fetch_article_text(link, want_image=True)
         if text:
             c["article_text"] = text
             fetched += 1
             time.sleep(0.5)  # politeness
+        if image and "og_image" not in c:
+            c["og_image"] = image

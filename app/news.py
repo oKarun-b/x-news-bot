@@ -19,6 +19,33 @@ log = get_logger("x-news-bot.news")
 USER_AGENT = "x-news-bot/1.0 (+https://github.com/x-news-bot)"
 
 
+def _extract_media_urls(e) -> list[str]:
+    """Pull image URLs from RSS media tags (media:content, media:thumbnail, enclosures)."""
+    urls: list[str] = []
+    img_exts = (".jpg", ".jpeg", ".png", ".webp")
+    # media:content / media:thumbnail (feedparser normalizes to media_content/media_thumbnail)
+    for key in ("media_content", "media_thumbnail"):
+        for m in (e.get(key) or []):
+            u = (m.get("url") or "").strip()
+            t = (m.get("type") or "").lower()
+            if u.startswith("https://") and (t.startswith("image") or u.lower().endswith(img_exts)):
+                urls.append(u)
+    # enclosures
+    for enc in (e.get("enclosures") or []):
+        u = (enc.get("href") or enc.get("url") or "").strip()
+        t = (enc.get("type") or "").lower()
+        if u.startswith("https://") and (t.startswith("image") or u.lower().endswith(img_exts)):
+            urls.append(u)
+    # dedupe preserve order, cap 2
+    seen = set()
+    out = []
+    for u in urls:
+        if u not in seen:
+            seen.add(u)
+            out.append(u)
+    return out[:2]
+
+
 def _fetch_one(feed) -> tuple[list[dict], str | None]:
     """Fetch and parse a single feed. Returns (articles, error). Never raises."""
     url = feed.url
@@ -96,6 +123,7 @@ def _fetch_one(feed) -> tuple[list[dict], str | None]:
                 "tier": feed.tier,
                 "feed_name": name,
                 "guid": guid,
+                "image_urls": _extract_media_urls(e) if config.ENABLE_IMAGES else [],
             })
         except Exception as exc:
             log.warning("Skipping entry in %s: %s", name, exc)

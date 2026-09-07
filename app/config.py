@@ -150,6 +150,10 @@ PREFERRED_POST_MIN: int = _env_int("PREFERRED_POST_MIN", 100)
 PREFERRED_POST_MAX: int = _env_int("PREFERRED_POST_MAX", 220)
 HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
 ALLOW_HASHTAGS: bool = _env_bool("ALLOW_HASHTAGS", False)
+# ── Images (§images) ─────────────────────────────────
+ENABLE_IMAGES: bool = _env_bool("ENABLE_IMAGES", True)
+MAX_IMAGES_PER_POST: int = _env_int("MAX_IMAGES_PER_POST", 1)
+MAX_IMAGE_POSTS_PER_DAY: int = _env_int("MAX_IMAGE_POSTS_PER_DAY", 4)
 LANGUAGE: str = _env_str("LANGUAGE", "en")
 TARGET_MARKETS: list[str] = [s.strip() for s in _env_str("TARGET_MARKETS", "US,UK,EU,GLOBAL").split(",") if s.strip()]
 OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free")

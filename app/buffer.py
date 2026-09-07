@@ -159,14 +159,27 @@ def get_scheduled_posts(organization_id: str, channel_id: str, limit: int = 20) 
     return [e.get("node") for e in edges if e.get("node")]
 
 
-def create_scheduled_post(channel_id: str, text: str, due_at_iso: str) -> dict:
+def create_scheduled_post(channel_id: str, text: str, due_at_iso: str, image_urls: list[str] | None = None) -> dict:
     """
     Create a scheduled post via createPost(customScheduled).
     due_at_iso must be ISO 8601 UTC (e.g. 2026-03-26T10:28:47.000Z).
+    image_urls: optional list of publicly hosted https image URLs → assets array (1-2).
     Returns {id, dueAt} on success.
     """
     # Escape text for GraphQL string literal
     escaped = text.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
+
+    assets_block = ""
+    if image_urls:
+        asset_parts = []
+        for u in image_urls[: config.MAX_IMAGES_PER_POST]:
+            if not u.startswith("https://"):
+                continue  # Buffer requires public https; skip anything else
+            eu = u.replace("\\", "").replace('"', '\\"')
+            asset_parts.append(f"{{ image: {{ url: \"{eu}\" }} }}")
+        if asset_parts:
+            assets_block = f", assets: [{', '.join(asset_parts)}]"
+
     mutation = f'''
     mutation {{
       createPost(input: {{
@@ -174,7 +187,7 @@ def create_scheduled_post(channel_id: str, text: str, due_at_iso: str) -> dict:
         channelId: "{channel_id}",
         schedulingType: automatic,
         mode: customScheduled,
-        dueAt: "{due_at_iso}"
+        dueAt: "{due_at_iso}"{assets_block}
       }}) {{
         ... on PostActionSuccess {{
           post {{ id dueAt status }}

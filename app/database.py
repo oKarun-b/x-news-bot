@@ -250,14 +250,22 @@ class StateStore:
             "ai_calls": dc.get("ai_calls", 0),
             "rejected": dc.get("rejected", 0),
             "failed": dc.get("failed", 0),
+            "image_posts": dc.get("image_posts", 0),
         }
 
     def increment_daily(self, day: str, kind: str = "ai_scheduled", amount: int = 1) -> None:
         dc = self.data.setdefault("daily_counts", {})
-        rec = dc.setdefault(day, {"ai_scheduled": 0, "fixed_scheduled": 0, "total": 0, "published": 0, "ai_calls": 0, "rejected": 0, "failed": 0})
+        rec = dc.setdefault(day, {"ai_scheduled": 0, "fixed_scheduled": 0, "total": 0, "published": 0, "ai_calls": 0, "rejected": 0, "failed": 0, "image_posts": 0})
         rec[kind] = rec.get(kind, 0) + amount
         if kind in ("ai_scheduled", "fixed_scheduled"):
             rec["total"] = rec.get("ai_scheduled", 0) + rec.get("fixed_scheduled", 0)
+
+    def image_quota_remaining(self, day: str | None = None) -> int:
+        """§images: how many image-attached posts remain in today's budget."""
+        if day is None:
+            day = _today_key()
+        counts = self.daily_counts_for(day)
+        return max(0, config.MAX_IMAGE_POSTS_PER_DAY - counts.get("image_posts", 0))
 
     def remaining_capacity(self, day: str | None = None) -> dict[str, int]:
         if day is None:

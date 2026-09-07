@@ -442,7 +442,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "score": c.get("_score"),
         })
 
-    # Optionally enrich top 2-3 candidates with article text (capped)
+    # Optionally enrich top 2-3 candidates with article text + og:image (capped)
     # Only after passing queue/capacity gates to avoid wasted fetches
     enrich_top_candidates(candidates[:2])
 
@@ -657,6 +657,29 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         if reason in ("rewritten", "accepted-with-warning", "hard-truncated"):
             log.info("Post for %s: %s (%d chars)", cid[:8], reason, _wl(final_post))
         existing_texts.add(final_post)
+
+        # ── Image selection (§images) ───────────────
+        # Priority: RSS media URLs (from articles) → og:image (from enrich fetch)
+        image_url = None
+        if config.ENABLE_IMAGES and store.image_quota_remaining() > 0:
+            rep = cluster.get("representative_article") or {}
+            arts = cluster.get("articles") or []
+            # 1) og:image from enrich fetch (best quality, verified https)
+            if cluster.get("og_image"):
+                image_url = cluster["og_image"]
+            # 2) RSS media from any article in the cluster
+            else:
+                for a in [rep] + arts:
+                    media = (a.get("image_urls") or []) if isinstance(a, dict) else []
+                    https_media = [u for u in media if u.startswith("https://")]
+                    if https_media:
+                        image_url = https_media[0]
+                        break
+            if image_url:
+                log.info("Image attached to %s (budget left: %d): %s", cid[:8], store.image_quota_remaining(), image_url[:80])
+            else:
+                log.info("No image found for %s — text-only", cid[:8])
+
         is_breaking = fmt in ("BREAKING", "DEVELOPING") or urgency >= 90
         generated.append({
             "story_id": cid,
@@ -665,6 +688,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "urgency": urgency,
             "text": final_post,
             "is_breaking": is_breaking,
+            "image_url": image_url,
         })
         metrics["posts_generated"] += 1
 
@@ -713,6 +737,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "article_ids": gen["cluster"].get("member_ids", []),
             "format": gen["format"],
             "text": gen["text"],
+            "image_url": gen.get("image_url"),
             "priority": gen["urgency"],
             "scheduled_at": due.isoformat(),
             "due_at_iso": format_due_at(due),
@@ -807,24 +832,36 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         try:
             BUFFER_CALLS += 1
             from app.buffer import create_scheduled_post
+            # §images: attach image only if daily image budget allows
+            img = None
+            if config.ENABLE_IMAGES and p.get("image_url") and store.image_quota_remaining(day) > 0:
+                img = [p["image_url"]]
             try:
-                result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"])
+                result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"], image_urls=img)
             except Exception as first_exc:
-                # Retry once with a later due if Buffer says "must be in the future" (clock skew)
-                if "future" in str(first_exc).lower():
+                err_low = str(first_exc).lower()
+                if "future" in err_low:
                     bumped2 = datetime.now(timezone.utc) + timedelta(minutes=7)
                     new_due = format_due_at(bumped2)
                     log.warning("Buffer rejected dueAt in past, retrying %s with %s", p["cluster_id"][:8], new_due)
                     p["due_at_iso"] = new_due
                     p["scheduled_at"] = bumped2.isoformat()
                     p["day"] = _today_key(bumped2)
-                    result = create_scheduled_post(ctx["channel_id"], p["text"], new_due)
+                    result = create_scheduled_post(ctx["channel_id"], p["text"], new_due, image_urls=img)
+                elif img and ("image" in err_low or "fetch" in err_low or "asset" in err_low):
+                    # Image rejected (unreachable/expire URL) → retry text-only, never block the post
+                    log.warning("Buffer rejected image for %s (%.120s) — retrying text-only", p["cluster_id"][:8], err_low)
+                    img = None
+                    result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"])
                 else:
                     raise
             p["buffer_post_id"] = result.get("id")
             p["status"] = "scheduled"
             store.add_post(p)
             store.increment_daily(day, "ai_scheduled", 1)
+            if img:
+                store.increment_daily(day, "image_posts", 1)
+                metrics["image_posts_today"] = store.daily_counts_for(day).get("image_posts", 0)
             successes += 1
         except Exception as exc:
             BUFFER_FAILURES += 1
