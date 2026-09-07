@@ -12,7 +12,7 @@ def _story(published_at=None):
 def test_validate_missing_prefix_rejected():
     ok, _, reason = validate_post("Hello world this is a long enough post to pass length checks.", "BREAKING", _story())
     assert ok is False
-    assert "prefix" in reason
+    assert "JUST IN" in reason
 
 
 def test_validate_breaking_old_rejected():
@@ -41,7 +41,7 @@ def test_validate_preferred_length_ok():
 def test_validate_261_280_accepted_with_warning():
     from app.normalize import weighted_length
     prefix = editorial.FORMAT_LABELS["NEWS_UPDATE"] + " "
-    # Build a post that is >260 but ≤280 weighted
+    # New spec: preferred 100-220, hard 280 — 261-280 is above preferred but within hard, accepted (log warns)
     body_len = 261 - len(prefix) + 5
     body = "a" * body_len
     post = prefix + body
@@ -49,7 +49,8 @@ def test_validate_261_280_accepted_with_warning():
     assert 261 <= wl <= 280, f"wl={wl}"
     ok, _, reason = validate_post(post, "NEWS_UPDATE", _story())
     assert ok is True
-    assert "warning" in reason
+    # Reason is ok (warning is logged, not in reason)
+    assert reason in ("ok", "accepted-with-warning")
 
 
 def test_validate_hard_limit_rejected():
@@ -66,9 +67,10 @@ def test_validate_hard_limit_rejected():
 def test_validate_rewrite_attempt():
     from app.normalize import weighted_length
     prefix = editorial.FORMAT_LABELS["NEWS_UPDATE"] + " "
-    body_len = 261 - len(prefix) + 10
+    # New spec: rewrite only for >280, not for 261-280
+    body_len = 281 - len(prefix) + 10
     post = prefix + "a" * body_len
-    assert weighted_length(post) > 260
+    assert weighted_length(post) > 280
     short = editorial.FORMAT_LABELS["NEWS_UPDATE"] + " Short rewritten post."
     def fake_rewrite(story, fmt, old_post, wl):
         return short
@@ -105,7 +107,8 @@ def test_ai_editorial_select_mocked():
 
 def test_ai_generate_mocked():
     from app.ai import generate_post
-    fake = '{"post": "📰 NEWS UPDATE Something happened", "confidence": 0.9}'
+    fake = '{"post": "JUST IN: Something happened", "country_codes": ["US"], "confidence": 0.9}'
     with patch("app.ai._chat", return_value=fake):
         out = generate_post({"title": "T", "source": "BBC", "published": "now", "summary": "hi"}, "NEWS_UPDATE")
-    assert out["post"].startswith("📰")
+    assert out["post"].startswith("JUST IN:")
+    assert out["country_codes"] == ["US"]

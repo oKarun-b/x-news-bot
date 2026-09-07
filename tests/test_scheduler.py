@@ -34,9 +34,10 @@ def test_normal_respects_gap():
     sched = compute_schedule(stories, existing_scheduled=existing, now=now)
     assert len(sched) == 1
     due = sched[0]["due_at"]
-    # Must be at least MIN_NORMAL_GAP after last scheduled
+    # Must be 12-20 min after last scheduled (per 10-20 user request, not old 25)
     last = datetime.fromisoformat(existing[0]["dueAt"])
-    assert (due - last).total_seconds() / 60 >= config.MIN_NORMAL_GAP_MINUTES - 0.1
+    gap = (due - last).total_seconds() / 60
+    assert 12 - 0.1 <= gap <= 20 + 0.1, f"gap {gap} not in 12-20"
 
 
 def test_queue_capacity_defers_normal():

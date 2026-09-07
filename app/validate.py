@@ -1,4 +1,4 @@
-"""Quality control — pre-Buffer gate. Length rewrite loop, format/age rules, dupes, limits."""
+"""Quality control — pre-Buffer gate. JUST IN brand, flags, mentions, no URL, 280 hard."""
 from __future__ import annotations
 
 import re
@@ -14,20 +14,40 @@ log = get_logger("x-news-bot.validate")
 def _emergency_truncate(text: str, hard_max: int) -> str:
     if weighted_length(text) <= hard_max:
         return text
-    # Truncate on word boundary, never mid-sentence silently if avoidable.
-    # Find last sentence boundary before limit.
     truncated = text[: hard_max - 1].rstrip()
-    # Try to cut at last ". " or "! " or "? "
     m = re.search(r".*[.!?]\s", truncated)
     if m:
         cut = m.group(0).rstrip()
         if weighted_length(cut) <= hard_max and len(cut) > hard_max * 0.6:
             return cut
-    # Fallback: word boundary + ellipsis
     last_space = truncated.rfind(" ")
     if last_space > hard_max * 0.5:
         truncated = truncated[:last_space].rstrip()
     return truncated + "…"
+
+
+# ── Prohibited visible labels (old brand) ────────────
+# Flag old multi-word labels anywhere, and emoji+single-word labels. Don't flag normal words like "context" alone.
+_PROHIBITED_RE = re.compile(r"(NEWS UPDATE|BREAKING NEWS|KEY DETAIL|📰\s*NEWS UPDATE|🚨\s*BREAKING NEWS|⚡\s*DEVELOPING|🔎\s*CONTEXT|📌\s*KEY DETAIL)", re.IGNORECASE)
+
+# ── Boilerplate Phrases ──────────────────────────────
+_BOILERPLATE_PHRASES = [
+    "this marks a significant development",
+    "this comes amid",
+    "sparked widespread debate",
+    "could have major implications",
+    "in a major development",
+    "experts say this could",
+    "this could have major",
+    "significant development",
+]
+
+def _contains_boilerplate(text: str) -> str | None:
+    low = text.lower()
+    for phrase in _BOILERPLATE_PHRASES:
+        if phrase in low:
+            return phrase
+    return None
 
 
 def validate_post(
@@ -38,20 +58,45 @@ def validate_post(
     ai_generate_fn=None,
 ) -> tuple[bool, str, str]:
     """
-    Validate a generated post.
-    If ai_generate_fn is provided and post is 261-280, attempt one AI rewrite.
-
-    Returns (ok, final_post, reason). If ok is False, reason explains rejection.
+    Validate final post (after flags + mentions inserted).
+    Returns (ok, final_post, reason).
     """
     if not post or not post.strip():
         return False, post, "empty post"
 
-    # Format prefix check
-    expected_label = editorial.FORMAT_LABELS.get(selected_format, "")
-    if expected_label and not post.strip().startswith(expected_label):
-        return False, post, f"missing format prefix {expected_label!r}"
+    stripped = post.strip()
 
-    # Breaking freshness check
+    # ── JUST IN: check (after optional 0-2 flags) ────
+    # Flags are 2-char regional indicators, count them
+    from app.countries import count_flags, contains_url as _contains_url
+    flag_count = count_flags(stripped)
+    if flag_count > 2:
+        return False, post, f"too many flags ({flag_count} > 2)"
+    # Remove leading flags + space to check JUST IN:
+    without_flags = stripped
+    # Flags are at start, each flag is 2 code units but 1 grapheme — our regex finds them
+    # Strip them sequentially
+    import re as _re
+    _flag_re = _re.compile(r"^([\U0001F1E6-\U0001F1FF]{2}\s*)+")
+    m = _flag_re.match(without_flags)
+    if m:
+        without_flags = without_flags[m.end():].lstrip()
+    if not without_flags.startswith("JUST IN:"):
+        return False, post, "post must start with JUST IN: after optional flags"
+    # Ensure "JUST IN:" is followed by space and content
+    after_just_in = without_flags[len("JUST IN:"):].strip()
+    if not after_just_in or len(after_just_in) < 5:
+        return False, post, "JUST IN: must be followed by content"
+
+    # ── Prohibited old labels ────────────────────────
+    if _PROHIBITED_RE.search(post):
+        return False, post, "contains prohibited visible label (NEWS UPDATE/BREAKING NEWS etc)"
+
+    # ── No URLs ──────────────────────────────────────
+    if _contains_url(post):
+        return False, post, "post must not contain URLs"
+
+    # ── Breaking freshness ───────────────────────────
     if selected_format in ("BREAKING", "DEVELOPING") and story:
         pub = story.get("published_at")
         if pub is not None:
@@ -63,59 +108,59 @@ def validate_post(
             except Exception:
                 pass
 
-    # Duplicate post text
+    # ── Duplicate ────────────────────────────────────
     if existing_post_texts and post.strip() in existing_post_texts:
         return False, post, "duplicate post text"
 
     wl = weighted_length(post)
 
-    if wl > config.HARD_MAX_POST_LENGTH:
-        # Never publish >280. Try AI rewrite if available; otherwise reject (hard-truncate only if rewrite was attempted).
+    # ── Hard max 280 ─────────────────────────────────
+    if wl > 280:
         if ai_generate_fn is not None and wl <= 400:
             try:
                 retry = ai_generate_fn(story, selected_format, post, wl)
                 if retry:
                     wl2 = weighted_length(retry)
-                    if wl2 <= config.HARD_MAX_POST_LENGTH:
+                    if wl2 <= 280:
                         ok, final, reason = validate_post(retry, selected_format, story, existing_post_texts, ai_generate_fn=None)
                         if ok:
                             return True, final, "rewritten"
                         return False, retry, reason
-                    # Emergency truncate only after a failed rewrite attempt
-                    truncated = _emergency_truncate(retry, config.HARD_MAX_POST_LENGTH)
-                    if weighted_length(truncated) <= config.HARD_MAX_POST_LENGTH and len(truncated) > config.HARD_MAX_POST_LENGTH * 0.5:
+                    truncated = _emergency_truncate(retry, 280)
+                    if weighted_length(truncated) <= 280 and len(truncated) > 280 * 0.5:
                         log.warning("Post hard-truncated %d→%d chars (emergency after rewrite)", wl2, weighted_length(truncated))
                         return True, truncated, "hard-truncated"
             except Exception as exc:
                 log.warning("Rewrite attempt failed: %s", exc)
-        return False, post, f"exceeds hard limit {wl} > {config.HARD_MAX_POST_LENGTH}"
+        return False, post, f"exceeds hard limit {wl} > 280"
 
-    if wl > config.MAX_POST_LENGTH:
-        # 261-280: try AI rewrite if available, otherwise accept with warning (spec: prefer <=260)
-        if ai_generate_fn is not None:
-            try:
-                retry = ai_generate_fn(story, selected_format, post, wl)
-                if retry:
-                    wl2 = weighted_length(retry)
-                    if wl2 <= config.MAX_POST_LENGTH:
-                        return True, retry, "rewritten"
-                    if wl2 <= config.HARD_MAX_POST_LENGTH:
-                        log.warning("Post %d chars after rewrite (still >%d but ≤%d) — accepting with warning", wl2, config.MAX_POST_LENGTH, config.HARD_MAX_POST_LENGTH)
-                        return True, retry, "accepted-with-warning"
-                    # still too long → reject
-                    return False, retry, f"still too long after rewrite ({wl2})"
-            except Exception as exc:
-                log.warning("Rewrite attempt failed: %s", exc)
-        log.warning("Post %d chars exceeds preferred %d but ≤%d — accepting with warning", wl, config.MAX_POST_LENGTH, config.HARD_MAX_POST_LENGTH)
-        return True, post, "accepted-with-warning"
+    # ── Preferred 100-220 (warn but accept) ──────────
+    if wl < 100:
+        log.warning("Post %d chars below preferred 100-220 (too short) — accepting", wl)
+    elif wl > 220:
+        log.warning("Post %d chars above preferred 100-220 (up to 280 allowed) — accepting", wl)
 
-    # Mention validation (verified registry only, 0-2, counts toward limit)
+    # ── Mention validation ───────────────────────────
     from app.accounts import validate_mentions
     ok_m, reason_m = validate_mentions(post)
     if not ok_m:
         return False, post, f"mention violation: {reason_m}"
 
-    # Basic malformed checks
+    # ── Paragraph check (1-2, no unnecessary second) ─
+    paragraphs = [p.strip() for p in post.split("\n\n") if p.strip()]
+    # Also handle single newlines as paragraph breaks for lenient check
+    if len(paragraphs) > 2:
+        return False, post, f"too many paragraphs ({len(paragraphs)} > 2)"
+    # If 2 paragraphs, second should not be trivial filler
+    if len(paragraphs) == 2 and len(paragraphs[1]) < 15:
+        return False, post, "second paragraph too short / filler"
+
+    # ── Boilerplate ──────────────────────────────────
+    boiler = _contains_boilerplate(post)
+    if boiler:
+        return False, post, f"contains AI boilerplate: {boiler!r}"
+
+    # ── Basic malformed ──────────────────────────────
     if len(post.strip()) < 20:
         return False, post, "post too short"
 

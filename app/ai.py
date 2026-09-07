@@ -190,7 +190,7 @@ def editorial_select(candidates: list[dict]) -> list[dict]:
 
 
 def generate_post(story: dict, selected_format: str, mention_context: str = "") -> dict:
-    """Generate one X post. Returns {post, confidence}. Rotates on JSON failure."""
+    """Generate one X post. Returns {post, country_codes, source_handle, ...}. Rotates on JSON failure."""
     prompt = editorial.build_generation_prompt(story, selected_format, mention_context=mention_context)
     models = [config.OPENROUTER_MODEL] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != config.OPENROUTER_MODEL]
     last_err: Exception | None = None
@@ -208,7 +208,39 @@ def generate_post(story: dict, selected_format: str, mention_context: str = "") 
             post = str(parsed["post"]).strip()
             if not post:
                 raise ValueError("Model returned empty post")
-            return {"post": post, "confidence": parsed.get("confidence", 0.8)}
+            # Extract and validate country_codes (new brand)
+            country_codes = parsed.get("country_codes", [])
+            if country_codes is None:
+                country_codes = []
+            if not isinstance(country_codes, list):
+                raise ValueError(f"country_codes must be a list, got {type(country_codes)}")
+            # Normalize to upper, strip
+            country_codes = [str(c).strip().upper() for c in country_codes if str(c).strip()]
+            # Validate via countries module (max 2, known codes)
+            from app.countries import validate_flags as _validate_flags
+            ok_f, reason_f = _validate_flags(country_codes)
+            if not ok_f:
+                raise ValueError(f"Invalid country_codes {country_codes}: {reason_f}")
+            # Extract handles if provided (optional)
+            source = parsed.get("source", story.get("source", ""))
+            source_handle = parsed.get("source_handle")
+            subject_handles = parsed.get("subject_handles", [])
+            if subject_handles is None:
+                subject_handles = []
+            # Normalize handles: allow null
+            if source_handle is not None:
+                source_handle = str(source_handle).strip() or None
+            subject_handles = [str(h).strip() for h in subject_handles if str(h).strip()] if isinstance(subject_handles, list) else []
+            return {
+                "post": post,
+                "country_codes": country_codes,
+                "source": source,
+                "source_handle": source_handle,
+                "subject_handles": subject_handles,
+                "format": parsed.get("format", selected_format),
+                "story_id": parsed.get("story_id", ""),
+                "confidence": parsed.get("confidence", 0.8),
+            }
         except Exception as exc:
             last_err = exc
             if mdl != models[-1]:

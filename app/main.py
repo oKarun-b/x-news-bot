@@ -387,19 +387,67 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
                 log.warning("AI call budget exceeded (%d/%d), stopping generation", OPENROUTER_CALLS, config.MAX_AI_CALLS_PER_RUN)
                 break
             res = generate_post(story_for_gen, fmt, mention_context=mention_ctx)
-            post_text = res["post"]
+            # New brand: AI returns post starting with JUST IN: (no flags) + country_codes
+            raw_post = res.get("post", "").strip()
+            country_codes = res.get("country_codes", [])
+            # Convert codes to flags (app is responsible, not model)
+            try:
+                from app.countries import codes_to_flags
+                flags = codes_to_flags(country_codes) if country_codes else ""
+            except Exception as flag_exc:
+                log.warning("Invalid country_codes %s for %s: %s — using 0 flags", country_codes, cid[:8], flag_exc)
+                flags = ""
+                country_codes = []
+            if flags:
+                if raw_post.startswith("JUST IN:"):
+                    post_text = f"{flags} {raw_post}"
+                else:
+                    # Model didn't follow instruction — fix it
+                    cleaned = raw_post.lstrip()
+                    # Remove any old prohibited label if present
+                    for bad in ["NEWS UPDATE", "BREAKING NEWS", "DEVELOPING", "CONTEXT", "KEY DETAIL"]:
+                        if cleaned.upper().startswith(bad):
+                            cleaned = cleaned[len(bad):].lstrip(" :—-")
+                    if not cleaned.startswith("JUST IN:"):
+                        cleaned = f"JUST IN: {cleaned}"
+                    post_text = f"{flags} {cleaned}"
+            else:
+                post_text = raw_post
+                if not post_text.startswith("JUST IN:"):
+                    # Ensure brand
+                    for bad in ["NEWS UPDATE", "BREAKING NEWS", "DEVELOPING", "CONTEXT", "KEY DETAIL"]:
+                        if post_text.upper().startswith(bad):
+                            post_text = post_text[len(bad):].lstrip(" :—-")
+                    if not post_text.startswith("JUST IN:"):
+                        post_text = f"JUST IN: {post_text.lstrip()}"
+            # Store for later use / debugging
+            res_country_codes = country_codes
         except Exception as exc:
             OPENROUTER_FAILURES += 1
             log.error("Generation failed for %s: %s", cid[:8], exc)
-            # Fallback: generate a simple post from title without AI, so Buffer can still be tested
-            fallback_label = __import__("app.editorial", fromlist=["FORMAT_LABELS"]).FORMAT_LABELS.get(fmt, fmt)
-            fallback_text = f"{fallback_label} {story_for_gen.get('title','')[:180]}"
-            # Ensure it validates (truncate if needed)
+            # Fallback: simple JUST IN: post, try to infer flags locally
+            try:
+                from app.countries import NAME_TO_CODE
+                title_low = story_for_gen.get("title","").lower()
+                inferred = []
+                for name, code in NAME_TO_CODE.items():
+                    if name in title_low and code not in inferred:
+                        inferred.append(code)
+                    if len(inferred) >= 2:
+                        break
+                from app.countries import codes_to_flags
+                flags = codes_to_flags(inferred[:2]) if inferred else ""
+            except Exception:
+                flags = ""
+            fallback_body = story_for_gen.get('title','')[:160].strip()
+            # Ensure fallback doesn't start with old label
+            fallback_raw = f"JUST IN: {fallback_body}"
+            post_text = f"{flags} {fallback_raw}" if flags else fallback_raw
             from app.normalize import weighted_length as _wl2
-            if _wl2(fallback_text) > config.HARD_MAX_POST_LENGTH:
-                fallback_text = fallback_text[: config.HARD_MAX_POST_LENGTH - 1] + "…"
-            log.warning("Using fallback post for %s: %s", cid[:8], fallback_text[:80])
-            post_text = fallback_text
+            if _wl2(post_text) > 280:
+                post_text = post_text[: 279] + "…"
+            log.warning("Using fallback post for %s: %s", cid[:8], post_text[:80])
+            res_country_codes = inferred if 'inferred' in locals() else []
             # Continue to validation with fallback
 
         # ── Validate ────────────────────────────────

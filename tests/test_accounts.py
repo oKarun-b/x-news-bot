@@ -53,36 +53,39 @@ def test_find_handles_for_story():
 
 
 def test_post_with_verified_mention_passes():
-    post = "📰 NEWS UPDATE Trump orders gray wolves removed from protections.\n\nThe move reverses federal protections for the species, @BBCNews reports. " + "x" * 80
+    post = "🇺🇸 JUST IN: Trump orders gray wolves removed from protections.\n\nThe move reverses federal protections for the species, @BBCNews reports. " + "x" * 40
     ok, _, _ = validate_post(post, "NEWS_UPDATE", story=None)
-    # Should pass (if length ok, mentions valid)
+    assert ok
     # Build a well-sized post
-    post2 = "📰 NEWS UPDATE Trump orders gray wolves removed from the endangered species list. The move reverses federal protections, @BBCNews reports. Conservation groups said they will review the decision."
+    post2 = "🇺🇸 JUST IN: Trump orders gray wolves removed from the endangered species list. The move reverses federal protections, @BBCNews reports. Conservation groups said they will review the decision."
     assert len(post2) <= 280
     ok, final, _ = validate_post(post2, "NEWS_UPDATE")
     assert ok
     assert "@BBCNews" in final
+    assert final.startswith("🇺🇸 JUST IN:")
 
 
 def test_post_with_invented_handle_rejected():
-    post = "📰 NEWS UPDATE Something happened according to @fakehandle123 today in Washington."
+    post = "JUST IN: Something happened according to @fakehandle123 today in Washington. Extra text to make it long enough for validation."
     ok, _, reason = validate_post(post, "NEWS_UPDATE")
     assert not ok
     assert "mention violation" in reason
 
 
 def test_post_with_three_mentions_rejected():
-    post = "📰 NEWS UPDATE Big news today @BBCNews @Reuters @AP all report this development in Washington. Extra text to reach length."
+    post = "JUST IN: Big news today @BBCNews @Reuters @AP all report this development in Washington. Extra text to reach length and pass other checks."
     ok, _, reason = validate_post(post, "NEWS_UPDATE")
     assert not ok
+    assert "mention violation" in reason or "too many" in reason
 
 
 def test_character_count_includes_mentions():
-    # Mention must count toward limit
-    base = "📰 NEWS UPDATE " + "a" * 240 + " @BBCNews"
+    # Mention must count toward limit (flags + JUST IN: + mention)
+    base = "🇺🇸 JUST IN: " + "a" * 240 + " @BBCNews"
     from app.normalize import weighted_length
     wl = weighted_length(base)
-    assert wl > 260  # should be over due to mention
+    assert wl > 240  # should be over due to mention + flags
     ok, _, reason = validate_post(base, "NEWS_UPDATE")
-    # Should be accepted with warning (261-280) or rejected if >280, but mention is counted
-    assert ok or "exceeds" in reason or "warning" in reason
+    # Should be accepted (with warning for >220) or still ok until 280
+    assert wl <= 280
+    assert ok
