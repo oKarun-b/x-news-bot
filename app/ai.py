@@ -15,6 +15,38 @@ log = get_logger("x-news-bot.ai")
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+# ── Daily rate-limit memory (OpenRouter free tier = 50 req/day across ALL free models) ──
+# Every request — including 429 rotations — burns budget. Models that 429 with
+# limit_source=openrouter_free_tier_daily are dead until the daily reset (00:00 UTC),
+# so skip them for the rest of the day instead of burning 3 more requests re-testing.
+_rate_limited_models: dict[str, str] = {}  # model -> "YYYY-MM-DD"
+
+
+def _utc_today() -> str:
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def mark_rate_limited(model: str) -> None:
+    _rate_limited_models[model] = _utc_today()
+
+
+def set_rate_limited_models(saved: dict[str, str]) -> None:
+    """Restore from state (only entries for today count)."""
+    today = _utc_today()
+    for m, day in (saved or {}).items():
+        if day == today:
+            _rate_limited_models[m] = day
+
+
+def get_rate_limited_models() -> dict[str, str]:
+    today = _utc_today()
+    return {m: d for m, d in _rate_limited_models.items() if d == today}
+
+
+def _is_rate_limited_today(model: str) -> bool:
+    return _rate_limited_models.get(model) == _utc_today()
+
 # ── JSON helpers ─────────────────────────────────────
 
 _FENCE_RE = re.compile(r"```(?:json)?\s*(.*?)\s*```", re.DOTALL)
@@ -74,7 +106,18 @@ def _chat_once(
         try:
             resp = requests.post(OPENROUTER_URL, headers=headers, json=body, timeout=30)
             if resp.status_code == 429:
-                # Don't wait long on shared free tier — rotate quickly
+                meta = {}
+                try:
+                    meta = (resp.json().get("error") or {}).get("metadata") or {}
+                except Exception:
+                    pass
+                limit_source = meta.get("limit_source", "")
+                if limit_source == "openrouter_free_tier_daily":
+                    # Daily pool exhausted — model is dead until midnight UTC, stop re-testing it
+                    mark_rate_limited(model)
+                    log.warning("OpenRouter %s: free-tier DAILY limit exhausted (resets 00:00 UTC)", model)
+                    raise RuntimeError(f"Daily free-tier limit exhausted for {model}")
+                # Per-model transient 429 — quick wait, then rotate
                 wait = int(resp.headers.get("Retry-After", "2"))
                 log.warning("OpenRouter %s rate-limited (429), rotating quickly (wait %ds)", model, wait)
                 time.sleep(min(wait, 3))
@@ -128,6 +171,11 @@ def _chat(
         raise RuntimeError("OPENROUTER_API_KEY not set")
     primary = model or config.OPENROUTER_MODEL
     candidates = [primary] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != primary]
+    # Skip models already known to be daily-limited today (saves budget)
+    live = [m for m in candidates if not _is_rate_limited_today(m)]
+    if not live:
+        raise RuntimeError("All OpenRouter free models are daily-limited until 00:00 UTC reset")
+    candidates = live
     last_err: Exception | None = None
     for mdl in candidates:
         try:
@@ -136,7 +184,7 @@ def _chat(
             last_err = exc
             msg = str(exc)
             # Only rotate on model-level failures (404, empty content, 429 exhausted)
-            rotatable = any(k in msg for k in ("404", "not available", "Empty content", "rate-limited"))
+            rotatable = any(k in msg for k in ("404", "not available", "Empty content", "rate-limited", "Daily free-tier limit"))
             if rotatable and mdl != candidates[-1]:
                 log.warning("Model %s failed (%s), rotating to next fallback", mdl, msg[:120])
                 continue

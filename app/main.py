@@ -167,6 +167,15 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     store.load()
     now = datetime.now(timezone.utc)
 
+    # §13: restore OpenRouter daily rate-limit memory (skip dead models across chained runs)
+    try:
+        from app.ai import set_rate_limited_models, get_rate_limited_models
+        ai_state = store.data.get("ai_state") or {}
+        if ai_state.get("date") == now.strftime("%Y-%m-%d"):
+            set_rate_limited_models(ai_state.get("rate_limited", {}))
+    except Exception:
+        pass
+
     # §23: state-driven cadence — chained runs wait for the discovery slot
     if chained:
         _wait_for_discovery_slot(store, now)
@@ -908,6 +917,12 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
 
     store.set_last_run({"at": now.isoformat(), "mode": "scheduled" if successes else "buffer_failed", "result": f"{successes}/{len(scheduled_posts)} scheduled"})
     store.set_last_feed_check(now)
+    # Persist AI rate-limit memory for chained runs (§13)
+    try:
+        from app.ai import get_rate_limited_models
+        store.data["ai_state"] = {"date": now.strftime("%Y-%m-%d"), "rate_limited": get_rate_limited_models()}
+    except Exception:
+        pass
     store.prune(now)
     store.save()
 

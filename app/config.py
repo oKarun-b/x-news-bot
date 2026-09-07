@@ -117,8 +117,10 @@ MAX_SCHEDULE_HORIZON_MINUTES: int = BUFFER_HORIZON_MINUTES
 # Per-run post cap (quota engine scales actual posts/run up to this)
 MAX_NEW_POSTS_PER_RUN: int = _env_int("MAX_NEW_POSTS_PER_RUN", 4)
 MAX_AI_CALLS_PER_RUN: int = _env_int("MAX_AI_CALLS_PER_RUN", 3)
-MAX_AI_CALLS_PER_RUN_CATCHUP: int = _env_int("MAX_AI_CALLS_PER_RUN_CATCHUP", 6)
-MAX_AI_CALLS_PER_DAY: int = _env_int("MAX_AI_CALLS_PER_DAY", 60)
+MAX_AI_CALLS_PER_RUN_CATCHUP: int = _env_int("MAX_AI_CALLS_PER_RUN_CATCHUP", 5)
+# OpenRouter free tier = 50 requests/day across ALL free models (resets 00:00 UTC).
+# Keep this below 50 so rotations + failures never exhaust the daily pool.
+MAX_AI_CALLS_PER_DAY: int = _env_int("MAX_AI_CALLS_PER_DAY", 40)
 TOP_CANDIDATES_PER_RUN: int = _env_int("TOP_CANDIDATES_PER_RUN", 6)
 TOP_CANDIDATES_CATCHUP: int = _env_int("TOP_CANDIDATES_CATCHUP", 8)
 
@@ -160,7 +162,7 @@ OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "nvidia/nemotron-3-nano-omn
 OPENROUTER_FALLBACK_MODELS: list[str] = [
     s.strip() for s in _env_str(
         "OPENROUTER_FALLBACK_MODELS",
-        "minimax/minimax-m2.7:free,liquid/lfm-2.5-2.6b:free,google/gemma-4-26b-a4b-it:free",
+        "liquid/lfm-2.5-2.6b:free,google/gemma-4-26b-a4b-it:free,nvidia/nemotron-3.5-lightning:free",
     ).split(",") if s.strip()
 ]
 CLUSTER_SIMILARITY_THRESHOLD: float = _env_float("CLUSTER_SIMILARITY_THRESHOLD", 0.45)
