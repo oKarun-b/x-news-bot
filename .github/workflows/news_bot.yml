@@ -2,10 +2,10 @@ name: news-bot
 
 on:
   schedule:
-    # 15-min polling during active window (06:00-23:30 BOT time) plus overnight coverage.
-    # Staggered off the hour to reduce top-of-hour contention and respect GitHub abuse limits.
-    # 96 runs/day vs 144 at 10 min — safer for principal account.
-    - cron: "3,18,33,48 * * * *"
+    # Bootstrap triggers only — the real cadence is state-driven chaining (§23):
+    # each run dispatches the next one ~DISCOVERY_INTERVAL minutes later.
+    # Cron remains as a safety net for when a chain link breaks.
+    - cron: "3,33 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -16,21 +16,24 @@ on:
         description: "Force run outside active window"
         type: boolean
         default: false
+      chained:
+        description: "Chained run (waits for discovery slot)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  actions: write
 
-# Schedule is best-effort on GitHub — queued runs can be skipped under load.
-# We use cancel-in-progress:true so a delayed run doesn't block the next 15-min slot,
-# and workflow_dispatch remains available as a manual/external-cron fallback.
+# Chained dispatches must not be dropped: allow new trigger while previous finishes.
 concurrency:
   group: news-bot
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -55,21 +58,21 @@ jobs:
           BUFFER_CHANNEL_ID: ${{ secrets.BUFFER_CHANNEL_ID }}
           BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
           BOT_TIMEZONE: ${{ vars.BOT_TIMEZONE || 'UTC' }}
-          DRY_RUN: ${{ inputs.dry_run || 'false' }}
           BUFFER_API_URL: https://api.buffer.com
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           set +e
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            python -m app.main --dry-run ${{ inputs.force == true && '--force' || '' }}
-          else
-            python -m app.main ${{ inputs.force == true && '--force' || '' }}
-          fi
+          ARGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ inputs.chained }}" = "true" ]; then ARGS="$ARGS --chained"; fi
+          python -m app.main $ARGS
           code=$?
-          # Never fail the workflow on content-level errors (openrouter_error, buffer_failed, no_new_articles).
-          # Only fail on infra errors (exit 2+). This prevents red ❌ that trigger GitHub's abuse heuristics
-          # and keeps the schedule healthy. State is always committed via the next step.
+          # Never fail the workflow on content-level outcomes (no news, AI/Buffer hiccup).
+          # Red runs + dropped crons were the main causes of under-production.
           if [ $code -eq 1 ]; then
-            echo "::warning::Bot exited 1 (no post / transient AI/Buffer hiccup) — marking success to keep schedule healthy"
+            echo "::warning::Bot exited 1 (no post / transient hiccup) — keeping workflow green"
             exit 0
           fi
           exit $code
@@ -78,7 +81,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Pull latest to avoid push conflicts when runs queue up
           git pull --rebase --autostash || true
           if ! git diff --quiet -- data/state.json 2>/dev/null; then
             git add data/state.json

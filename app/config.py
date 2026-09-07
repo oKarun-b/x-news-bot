@@ -98,36 +98,60 @@ OVERNIGHT_COLLECTION: bool = _env_bool("OVERNIGHT_COLLECTION", True)
 ALLOW_BREAKING_OUTSIDE_WINDOW: bool = _env_bool("ALLOW_BREAKING_OUTSIDE_WINDOW", True)
 
 # ── Posting window ───────────────────────────────────
-POSTING_START_HOUR: int = _env_int("POSTING_START_HOUR", 7)
-POSTING_END_HOUR: int = _env_int("POSTING_END_HOUR", 22)
+POSTING_START_HOUR: int = _env_int("POSTING_START_HOUR", 6)
+POSTING_END_HOUR: int = _env_int("POSTING_END_HOUR", 23)
+
+# ── Daily quota (§3) ─────────────────────────────────
+DAILY_POST_TARGET: int = _env_int("DAILY_POST_TARGET", 10)
+DAILY_POST_MINIMUM: int = _env_int("DAILY_POST_MINIMUM", 10)
+DAILY_POST_HARD_MAX: int = _env_int("DAILY_POST_HARD_MAX", 14)
 
 # ── Limits ───────────────────────────────────────────
-MAX_TOTAL_POSTS_PER_DAY: int = _env_int("MAX_TOTAL_POSTS_PER_DAY", 10)
-MAX_AI_POSTS_PER_DAY: int = _env_int("MAX_AI_POSTS_PER_DAY", 8)
-RESERVED_FIXED_POSTS: int = _env_int("RESERVED_FIXED_POSTS", 2)
-MAX_BUFFER_AHEAD_POSTS: int = _env_int("MAX_BUFFER_AHEAD_POSTS", 3)
-MAX_SCHEDULE_HORIZON_MINUTES: int = _env_int("MAX_SCHEDULE_HORIZON_MINUTES", 180)
-MAX_NEW_POSTS_PER_RUN: int = _env_int("MAX_NEW_POSTS_PER_RUN", 1)
+MAX_TOTAL_POSTS_PER_DAY: int = _env_int("MAX_TOTAL_POSTS_PER_DAY", DAILY_POST_HARD_MAX)
+MAX_AI_POSTS_PER_DAY: int = _env_int("MAX_AI_POSTS_PER_DAY", DAILY_POST_HARD_MAX)
+RESERVED_FIXED_POSTS: int = _env_int("RESERVED_FIXED_POSTS", 0)
+MAX_BUFFER_AHEAD_POSTS: int = _env_int("MAX_BUFFER_AHEAD_POSTS", 4)
+# Rolling scheduling horizon for normal news (§21: 3-6h)
+BUFFER_HORIZON_MINUTES: int = _env_int("BUFFER_HORIZON_MINUTES", _env_int("MAX_SCHEDULE_HORIZON_MINUTES", 360))
+MAX_SCHEDULE_HORIZON_MINUTES: int = BUFFER_HORIZON_MINUTES
+# Per-run post cap (quota engine scales actual posts/run up to this)
+MAX_NEW_POSTS_PER_RUN: int = _env_int("MAX_NEW_POSTS_PER_RUN", 4)
 MAX_AI_CALLS_PER_RUN: int = _env_int("MAX_AI_CALLS_PER_RUN", 3)
+MAX_AI_CALLS_PER_RUN_CATCHUP: int = _env_int("MAX_AI_CALLS_PER_RUN_CATCHUP", 6)
+MAX_AI_CALLS_PER_DAY: int = _env_int("MAX_AI_CALLS_PER_DAY", 60)
 TOP_CANDIDATES_PER_RUN: int = _env_int("TOP_CANDIDATES_PER_RUN", 6)
+TOP_CANDIDATES_CATCHUP: int = _env_int("TOP_CANDIDATES_CATCHUP", 8)
+
+# ── Discovery cadence / chaining (§23) ───────────────
+DISCOVERY_INTERVAL_MINUTES: int = _env_int("DISCOVERY_INTERVAL_MINUTES", 12)
+ENABLE_CHAIN: bool = _env_bool("ENABLE_CHAIN", True)
+CHAIN_WAIT_MAX_MINUTES: int = _env_int("CHAIN_WAIT_MAX_MINUTES", 12)
 
 # ── Gaps ─────────────────────────────────────────────
 MIN_NORMAL_GAP_MINUTES: int = _env_int("MIN_NORMAL_GAP_MINUTES", 25)
-MAX_NORMAL_GAP_MINUTES: int = _env_int("MAX_NORMAL_GAP_MINUTES", 180)
+MAX_NORMAL_GAP_MINUTES: int = _env_int("MAX_NORMAL_GAP_MINUTES", 150)
 BREAKING_MIN_DELAY_MINUTES: int = _env_int("BREAKING_MIN_DELAY_MINUTES", 2)
+BREAKING_MAX_DELAY_MINUTES: int = _env_int("BREAKING_MAX_DELAY_MINUTES", 4)
 
-# ── Breaking / priority ──────────────────────────────
-BREAKING_MAX_AGE_MINUTES: int = _env_int("BREAKING_MAX_AGE_MINUTES", 180)
+# ── Breaking / priority / freshness (§7) ─────────────
+BREAKING_MAX_AGE_MINUTES: int = _env_int("BREAKING_MAX_AGE_MINUTES", 90)
+NEWS_MAX_AGE_HOURS: int = _env_int("NEWS_MAX_AGE_HOURS", 12)
+ENABLE_BREAKING_OVERRIDE: bool = _env_bool("ENABLE_BREAKING_OVERRIDE", True)
 BREAKING_PRIORITY: int = _env_int("BREAKING_PRIORITY", 100)
 URGENT_PRIORITY: int = _env_int("URGENT_PRIORITY", 90)
 HIGH_PRIORITY: int = _env_int("HIGH_PRIORITY", 75)
 NORMAL_PRIORITY: int = _env_int("NORMAL_PRIORITY", 50)
 LOW_PRIORITY: int = _env_int("LOW_PRIORITY", 25)
-MIN_DEVELOPMENT_GAP_MINUTES: int = _env_int("MIN_DEVELOPMENT_GAP_MINUTES", 90)
+MIN_DEVELOPMENT_GAP_MINUTES: int = _env_int("MIN_DEVELOPMENT_GAP_MINUTES", 60)
 
 # ── Content / AI ─────────────────────────────────────
-MAX_POST_LENGTH: int = _env_int("MAX_POST_LENGTH", 260)
+MAX_POST_LENGTH: int = _env_int("MAX_POST_LENGTH", 280)
+PREFERRED_POST_MIN: int = _env_int("PREFERRED_POST_MIN", 100)
+PREFERRED_POST_MAX: int = _env_int("PREFERRED_POST_MAX", 220)
 HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
+ALLOW_HASHTAGS: bool = _env_bool("ALLOW_HASHTAGS", False)
+LANGUAGE: str = _env_str("LANGUAGE", "en")
+TARGET_MARKETS: list[str] = [s.strip() for s in _env_str("TARGET_MARKETS", "US,UK,EU,GLOBAL").split(",") if s.strip()]
 OPENROUTER_MODEL: str = _env_str("OPENROUTER_MODEL", "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free")
 OPENROUTER_FALLBACK_MODELS: list[str] = [
     s.strip() for s in _env_str(
@@ -141,6 +165,28 @@ ARTICLE_RETENTION_DAYS: int = _env_int("ARTICLE_RETENTION_DAYS", 3)
 FEED_TIMEOUT_SECONDS: int = _env_int("FEED_TIMEOUT_SECONDS", 10)
 ARTICLE_FETCH_MAX: int = _env_int("ARTICLE_FETCH_MAX", 2)
 ENABLE_QUEUE_RESHUFFLE: bool = _env_bool("ENABLE_QUEUE_RESHUFFLE", False)
+
+# ── Editorial ranking weights (§11) — configurable ───
+RANK_FRESHNESS: int = _env_int("RANK_FRESHNESS", 30)
+RANK_US_RELEVANCE: int = _env_int("RANK_US_RELEVANCE", 30)
+RANK_GEOPOLITICAL: int = _env_int("RANK_GEOPOLITICAL", 25)
+RANK_MIDDLE_EAST: int = _env_int("RANK_MIDDLE_EAST", 25)
+RANK_UK_EU: int = _env_int("RANK_UK_EU", 15)
+RANK_TECH: int = _env_int("RANK_TECH", 15)
+RANK_BUSINESS: int = _env_int("RANK_BUSINESS", 15)
+RANK_DEVELOPING: int = _env_int("RANK_DEVELOPING", 20)
+RANK_SOURCE_QUALITY: int = _env_int("RANK_SOURCE_QUALITY", 20)
+RANK_PUBLIC_INTEREST: int = _env_int("RANK_PUBLIC_INTEREST", 15)
+PENALTY_OLD_STORY: int = _env_int("PENALTY_OLD_STORY", 30)
+PENALTY_LOCAL_ONLY: int = _env_int("PENALTY_LOCAL_ONLY", 30)
+PENALTY_CAMEROON: int = _env_int("PENALTY_CAMEROON", 40)
+PENALTY_LOW_QUALITY_SOURCE: int = _env_int("PENALTY_LOW_QUALITY_SOURCE", 25)
+PENALTY_DUPLICATE: int = _env_int("PENALTY_DUPLICATE", 100)
+PENALTY_ALREADY_POSTED: int = _env_int("PENALTY_ALREADY_POSTED", 100)
+PENALTY_LOW_NEWS_VALUE: int = _env_int("PENALTY_LOW_NEWS_VALUE", 30)
+# Selection floor scales with quota pressure; never select below this
+MIN_CANDIDATE_SCORE: int = _env_int("MIN_CANDIDATE_SCORE", 18)
+MIN_CANDIDATE_SCORE_CATCHUP: int = _env_int("MIN_CANDIDATE_SCORE_CATCHUP", 12)
 
 # ── Buffer ───────────────────────────────────────────
 BUFFER_API_URL: str = _env_str("BUFFER_API_URL", "https://api.buffer.com")
@@ -169,42 +215,58 @@ if MAX_POST_LENGTH > HARD_MAX_POST_LENGTH:
 
 
 # ── Feed registry ────────────────────────────────────
+# Tiers (§9): tier = source quality AND topic priority
+#   1 = PRIMARY (US / Middle East / Russia-Ukraine)
+#   2 = INTERNATIONAL (UK / Europe / world affairs)
+#   3 = TECHNOLOGY
+#   4 = BUSINESS / MARKETS
+#   5 = OTHER (broad fallbacks)
 @dataclass(frozen=True)
 class Feed:
     name: str
     url: str
     category: str
-    tier: int  # 1 = most reputable, 3 = broad search
+    tier: int
     enabled: bool = True
 
 
+_GN = "https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
+
 FEEDS: list[Feed] = [
-    # GENERAL / WORLD
-    Feed("BBC News", "https://feeds.bbci.co.uk/news/rss.xml", "general", 1),
-    Feed("BBC World", "https://feeds.bbci.co.uk/news/world/rss.xml", "world", 1),
-    Feed("BBC US & Canada", "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml", "world", 1),
-    Feed("BBC Business", "https://feeds.bbci.co.uk/news/business/rss.xml", "business", 1),
-    Feed("BBC Technology", "https://feeds.bbci.co.uk/news/technology/rss.xml", "technology", 1),
-    Feed("BBC Science & Environment", "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml", "science", 1),
-    # GOOGLE NEWS — trending
-    Feed("Google News — Top", "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en", "general", 2),
-    # POLITICS
-    Feed("Google News — Donald Trump", "https://news.google.com/rss/search?q=Donald+Trump&hl=en-US&gl=US&ceid=US:en", "politics", 2),
-    Feed("Google News — Trump legal", "https://news.google.com/rss/search?q=Trump+legal&hl=en-US&gl=US&ceid=US:en", "politics", 2),
-    Feed("Google News — US politics", "https://news.google.com/rss/search?q=US+politics&hl=en-US&gl=US&ceid=US:en", "politics", 2),
-    Feed("Google News — White House", "https://news.google.com/rss/search?q=White+House&hl=en-US&gl=US&ceid=US:en", "politics", 2),
-    # WORLD
-    Feed("Google News — world news", "https://news.google.com/rss/search?q=world+news&hl=en-US&gl=US&ceid=US:en", "world", 2),
-    Feed("Google News — Ukraine Russia", "https://news.google.com/rss/search?q=Ukraine+Russia&hl=en-US&gl=US&ceid=US:en", "world", 2),
-    Feed("Google News — Middle East", "https://news.google.com/rss/search?q=Middle+East&hl=en-US&gl=US&ceid=US:en", "world", 2),
-    # TECHNOLOGY / AI
-    Feed("Google News — AI", "https://news.google.com/rss/search?q=artificial+intelligence&hl=en-US&gl=US&ceid=US:en", "technology", 2),
-    Feed("Google News — AI technology", "https://news.google.com/rss/search?q=AI+technology&hl=en-US&gl=US&ceid=US:en", "technology", 2),
-    Feed("Google News — NVIDIA", "https://news.google.com/rss/search?q=NVIDIA&hl=en-US&gl=US&ceid=US:en", "technology", 3),
-    Feed("Google News — OpenAI", "https://news.google.com/rss/search?q=OpenAI&hl=en-US&gl=US&ceid=US:en", "technology", 3),
-    Feed("Google News — Google AI", "https://news.google.com/rss/search?q=Google+AI&hl=en-US&gl=US&ceid=US:en", "technology", 3),
-    # BUSINESS
-    Feed("Google News — stock market", "https://news.google.com/rss/search?q=stock+market&hl=en-US&gl=US&ceid=US:en", "business", 2),
-    Feed("Google News — business news", "https://news.google.com/rss/search?q=business+news&hl=en-US&gl=US&ceid=US:en", "business", 2),
-    Feed("Google News — Elon Musk", "https://news.google.com/rss/search?q=Elon+Musk&hl=en-US&gl=US&ceid=US:en", "business", 3),
+    # ═══ TIER 1 — PRIMARY: US ═══
+    Feed("GN — US breaking news", _GN.format(q="US+breaking+news+when:2h"), "us", 1),
+    Feed("GN — US politics", _GN.format(q="US+politics+when:4h"), "us", 1),
+    Feed("GN — Donald Trump", _GN.format(q="Trump+when:4h"), "us", 1),
+    Feed("GN — White House", _GN.format(q="White+House+when:6h"), "us", 1),
+    Feed("GN — US government", _GN.format(q="US+government+Congress+when:6h"), "us", 1),
+    Feed("GN — US foreign policy", _GN.format(q="US+foreign+policy+when:6h"), "us", 1),
+    # ═══ TIER 1 — PRIMARY: Middle East ═══
+    Feed("GN — Iran", _GN.format(q="Iran+when:4h"), "middle_east", 1),
+    Feed("GN — Israel", _GN.format(q="Israel+when:4h"), "middle_east", 1),
+    Feed("GN — Palestine Gaza", _GN.format(q="Palestine+OR+Gaza+when:4h"), "middle_east", 1),
+    Feed("GN — Middle East", _GN.format(q="Middle+East+when:6h"), "middle_east", 1),
+    # ═══ TIER 1 — PRIMARY: Russia / Ukraine ═══
+    Feed("GN — Ukraine", _GN.format(q="Ukraine+when:4h"), "russia_ukraine", 1),
+    Feed("GN — Russia Ukraine war", _GN.format(q="Russia+Ukraine+when:4h"), "russia_ukraine", 1),
+    Feed("GN — US Russia", _GN.format(q="US+Russia+talks+when:6h"), "russia_ukraine", 1),
+    # ═══ TIER 2 — INTERNATIONAL ═══
+    Feed("BBC World", "https://feeds.bbci.co.uk/news/world/rss.xml", "world", 2),
+    Feed("BBC US & Canada", "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml", "us", 2),
+    Feed("GN — UK politics", _GN.format(q="UK+politics+when:6h"), "uk_europe", 2),
+    Feed("GN — Europe", _GN.format(q="Europe+news+when:6h"), "uk_europe", 2),
+    Feed("GN — world news", _GN.format(q="world+news+when:4h"), "world", 2),
+    # ═══ TIER 3 — TECHNOLOGY ═══
+    Feed("BBC Technology", "https://feeds.bbci.co.uk/news/technology/rss.xml", "technology", 3),
+    Feed("GN — artificial intelligence", _GN.format(q="artificial+intelligence+when:6h"), "technology", 3),
+    Feed("GN — OpenAI", _GN.format(q="OpenAI+when:12h"), "technology", 3),
+    Feed("GN — NVIDIA", _GN.format(q="NVIDIA+when:12h"), "technology", 3),
+    Feed("GN — tech major", _GN.format(q="Google+OR+Microsoft+OR+Meta+OR+Apple+announcement+when:6h"), "technology", 3),
+    # ═══ TIER 4 — BUSINESS / MARKETS ═══
+    Feed("BBC Business", "https://feeds.bbci.co.uk/news/business/rss.xml", "business", 4),
+    Feed("GN — stock market", _GN.format(q="stock+market+when:6h"), "business", 4),
+    Feed("GN — Federal Reserve", _GN.format(q="Federal+Reserve+when:12h"), "business", 4),
+    Feed("GN — markets economy", _GN.format(q="markets+economy+when:6h"), "business", 4),
+    # ═══ TIER 5 — OTHER (major international significance only) ═══
+    Feed("BBC News", "https://feeds.bbci.co.uk/news/rss.xml", "general", 5),
+    Feed("GN — Elon Musk", _GN.format(q="Elon+Musk+when:8h"), "technology", 5),
 ]

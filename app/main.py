@@ -29,6 +29,7 @@ def _parse_args():
     p = argparse.ArgumentParser(description="x-news-bot")
     p.add_argument("--dry-run", action="store_true", help="force dry-run (no Buffer sends)")
     p.add_argument("--force", action="store_true", help="bypass active-window gate")
+    p.add_argument("--chained", action="store_true", help="invoked by the chain dispatcher")
     return p.parse_args()
 
 
@@ -36,6 +37,69 @@ def _is_dry_run(cli_dry: bool) -> bool:
     if cli_dry:
         return True
     return config.EFFECTIVE_DRY_RUN
+
+
+def _maybe_chain(dry_run: bool = False) -> None:
+    """§23: dispatch the next discovery run (workflow_dispatch works with GITHUB_TOKEN)."""
+    if not config.ENABLE_CHAIN:
+        return
+    try:
+        import os
+        import subprocess
+        env = dict(os.environ)
+        if not env.get("GITHUB_TOKEN") and not env.get("GH_TOKEN"):
+            log.info("Chain: no GITHUB_TOKEN (local run) — skipping dispatch")
+            return
+        cmd = [
+            "gh", "workflow", "run", "news-bot",
+            "--field", f"dry_run={'true' if dry_run else 'false'}",
+        ]
+        result = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=30)
+        if result.returncode == 0:
+            log.info("Chain: dispatched next discovery run")
+        else:
+            log.warning("Chain dispatch failed: %s", (result.stderr or "")[:200])
+    except FileNotFoundError:
+        log.info("Chain: gh CLI not available — skipping dispatch")
+    except Exception as exc:
+        log.warning("Chain dispatch error: %s", exc)
+
+
+def _wait_for_discovery_slot(store: StateStore, now: datetime) -> float:
+    """§23 state-driven cadence: wait until DISCOVERY_INTERVAL since last discovery."""
+    last = store.data.get("last_discovery_time")
+    if not last:
+        return 0.0
+    try:
+        last_dt = datetime.fromisoformat(str(last).replace("Z", "+00:00"))
+        if last_dt.tzinfo is None:
+            last_dt = last_dt.replace(tzinfo=timezone.utc)
+        elapsed = (now - last_dt).total_seconds() / 60
+        wait_min = config.DISCOVERY_INTERVAL_MINUTES - elapsed
+        if wait_min <= 0:
+            return 0.0
+        wait_min = min(wait_min, config.CHAIN_WAIT_MAX_MINUTES)
+        log.info("Chain: last discovery %.1f min ago — waiting %.1f min for next slot", elapsed, wait_min)
+        import time as _t
+        _t.sleep(wait_min * 60)
+        return wait_min
+    except Exception:
+        return 0.0
+
+
+def _check_yesterday_quota(store: StateStore, now: datetime) -> None:
+    """§3/§25: log DAILY_QUOTA_UNFILLED if yesterday missed the minimum."""
+    try:
+        yesterday = (_today_key(now - timedelta(days=1)))
+        y_counts = store.daily_counts_for(yesterday)
+        if 0 < y_counts["total"] < config.DAILY_POST_MINIMUM:
+            log.warning(
+                "DAILY_QUOTA_UNFILLED: %s finished with %d/%d posts (shortfall %d)",
+                yesterday, y_counts["total"], config.DAILY_POST_MINIMUM,
+                config.DAILY_POST_MINIMUM - y_counts["total"],
+            )
+    except Exception:
+        pass
 
 
 def _today_counts(store: StateStore, now: datetime) -> dict:
@@ -96,18 +160,27 @@ def _fetch_buffer_queue(store: StateStore) -> list[dict]:
         return local
 
 
-def run(dry_run_cli: bool = False, force: bool = False) -> int:
+def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -> int:
     global OPENROUTER_CALLS, OPENROUTER_FAILURES, BUFFER_CALLS, BUFFER_FAILURES
     OPENROUTER_CALLS = OPENROUTER_FAILURES = BUFFER_CALLS = BUFFER_FAILURES = 0
-    now = datetime.now(timezone.utc)
-    dry_run = _is_dry_run(dry_run_cli)
     store = StateStore()
     store.load()
+    now = datetime.now(timezone.utc)
+
+    # §23: state-driven cadence — chained runs wait for the discovery slot
+    if chained:
+        _wait_for_discovery_slot(store, now)
+        now = datetime.now(timezone.utc)
+
+    dry_run = _is_dry_run(dry_run_cli)
+
+    _check_yesterday_quota(store, now)
 
     metrics: dict = {
         "run_at": now.isoformat(),
         "dry_run": dry_run,
         "forced": force,
+        "current_date": _today_key(now),
     }
 
     # ── Window gate ──────────────────────────────────
@@ -125,14 +198,47 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
     else:
         overnight_only = False
 
-    # ── Daily capacity pre-check ─────────────────────
+    # ── Daily capacity pre-check (§3/§5 quota engine) ─
     day_key = _today_key(now)
     counts = _today_counts(store, now)
     metrics["daily_ai"] = counts["ai_scheduled"]
     metrics["daily_total"] = counts["total"]
+    metrics["daily_target"] = config.DAILY_POST_TARGET
+    metrics["daily_hard_max"] = config.DAILY_POST_HARD_MAX
     remaining = store.remaining_capacity(day_key)
     metrics["ai_remaining"] = remaining["ai_remaining"]
     metrics["total_remaining"] = remaining["total_remaining"]
+    metrics["target_remaining"] = remaining["target_remaining"]
+    metrics["hard_max_remaining"] = remaining["hard_max_remaining"]
+
+    # §12/§25: quota-aware mode
+    behind_target = remaining["target_remaining"] > 0
+    catch_up = behind_target and remaining["target_remaining"] >= 4
+    metrics["quota_status"] = "BEHIND_TARGET" if behind_target else "TARGET_REACHED"
+    if catch_up:
+        metrics["quota_status"] = "CATCH_UP"
+    log.info(
+        "Quota: %d/%d scheduled today, remaining=%d, mode=%s",
+        counts["total"], config.DAILY_POST_TARGET, remaining["target_remaining"], metrics["quota_status"],
+    )
+    # Hard max stop (§3): 14 reached → nothing more today (breaking override still applies below)
+    if remaining["hard_max_remaining"] <= 0 and not config.ENABLE_BREAKING_OVERRIDE:
+        log.info("DAILY_POST_HARD_MAX reached (%d) — no more posts today", config.DAILY_POST_HARD_MAX)
+        store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "hard_max_reached"})
+        store.save()
+        run_summary({**metrics, "result": "hard_max_reached", "ai_calls": 0})
+        _maybe_chain(dry_run=dry_run)
+        return 0
+
+    # Per-run budgets scale with quota pressure (§13)
+    ai_call_budget = config.MAX_AI_CALLS_PER_RUN_CATCHUP if catch_up else config.MAX_AI_CALLS_PER_RUN
+    if counts.get("ai_calls", 0) >= config.MAX_AI_CALLS_PER_DAY:
+        log.info("MAX_AI_CALLS_PER_DAY reached (%d) — no AI this run", config.MAX_AI_CALLS_PER_DAY)
+        ai_call_budget = 0
+    top_n = config.TOP_CANDIDATES_CATCHUP if catch_up else config.TOP_CANDIDATES_PER_RUN
+    score_floor = config.MIN_CANDIDATE_SCORE_CATCHUP if catch_up else config.MIN_CANDIDATE_SCORE
+    metrics["ai_call_budget"] = ai_call_budget
+    metrics["catch_up"] = catch_up
 
     # ── Collect ──────────────────────────────────────
     # Snapshot history sets BEFORE collect for dedupe_against_history
@@ -191,54 +297,99 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
         run_summary({**metrics, "result": "overnight_collection"})
         return 0
 
-    if not new_articles:
+    if not new_articles and not behind_target:
         log.info("No genuinely new articles, exiting without AI (TEST 1)")
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "no_new_articles"})
         store.set_last_feed_check(now)
         store.prune(now)
         store.save()
         run_summary({**metrics, "result": "no_new_articles", "ai_calls": 0, "buffer_calls": 0})
+        _maybe_chain(dry_run=dry_run)
         return 0
 
-    # ── Cluster + Rank ───────────────────────────────
-    clusters = cluster_articles(new_articles)
+    # ── Cluster + Rank (+ candidate pool reuse §25) ──
+    clusters = cluster_articles(new_articles) if new_articles else []
     metrics["clusters"] = len(clusters)
-    if not clusters:
+
+    # §23 Q5/§25: merge unused candidate pool so behind-quota runs can still act
+    pool_entries = []
+    if behind_target:
+        pool_entries = store.get_candidate_pool(max_age_hours=config.NEWS_MAX_AGE_HOURS)
+        metrics["pool_entries"] = len(pool_entries)
+        if pool_entries:
+            log.info("Catch-up: reusing %d unused candidates from pool", len(pool_entries))
+
+    if not clusters and not pool_entries:
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "no_clusters"})
         store.set_last_feed_check(now)
         store.save()
         run_summary({**metrics, "result": "no_clusters"})
+        _maybe_chain(dry_run=dry_run)
         return 0
 
     # Upsert clusters for development tracking
-    store.upsert_clusters(clusters, now)
+    if clusters:
+        store.upsert_clusters(clusters, now)
     ranked = rank_clusters(clusters, now, store.data.get("clusters"))
-    # Take top candidates
-    top_n = min(config.TOP_CANDIDATES_PER_RUN, len(ranked))
-    candidates = ranked[:top_n]
-    # Filter: skip very low scores (noise)
-    candidates = [c for c in candidates if c.get("_score", 0) >= 10]
+
+    # Convert pool entries back into cluster-like dicts (for selection)
+    pool_clusters: list[dict] = []
+    for e in pool_entries:
+        pool_clusters.append({
+            "cluster_id": e["cluster_id"],
+            "representative_title": e.get("representative_title", ""),
+            "representative_article": {"summary": e.get("summary", ""), "category": e.get("category", "general")},
+            "sources": e.get("sources", []),
+            "source_count": e.get("source_count", 1),
+            "member_ids": e.get("article_ids", []),
+            "size": len(e.get("article_ids", []) or [1]),
+            "latest_activity": None,
+            "first_detected": None,
+            "development_level": 1,
+            "from_pool": True,
+        })
+    # Rank pool with the same scorer (pool entries lack articles → text from title only)
+    if pool_clusters:
+        ranked = rank_clusters(list(ranked) + pool_clusters, now, store.data.get("clusters"))
+
+    # Quota-aware candidate count (§12)
+    if remaining["target_remaining"] >= 7:
+        n_cand = max(top_n, config.TOP_CANDIDATES_CATCHUP)
+    elif remaining["target_remaining"] >= 4:
+        n_cand = max(5, top_n)
+    else:
+        n_cand = max(3, min(top_n, 4))
+    n_cand = min(n_cand, len(ranked))
+    candidates = ranked[:n_cand]
+    candidates = [c for c in candidates if c.get("_score", 0) >= score_floor]
     metrics["candidates"] = len(candidates)
+    store.set_last_discovery(now)  # §23 state-driven cadence marker
     if not candidates:
-        log.info("No candidates above threshold, exiting without AI")
+        log.info("No candidates above threshold (%s), exiting without AI", score_floor)
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "no_candidates"})
         store.set_last_feed_check(now)
         store.save()
         run_summary({**metrics, "result": "no_candidates"})
+        _maybe_chain(dry_run=dry_run)
         return 0
+    # Update pool with the current fresh clusters
+    if clusters:
+        store.update_candidate_pool(candidates, now)
 
-    # ── Capacity gates BEFORE AI (spec §18, §27) ────
-    if remaining["ai_remaining"] <= 0:
-        log.info("AI daily limit reached, no AI calls this run (TEST 6)")
+    # ── Capacity gates BEFORE AI (§13) ───────────────
+    if ai_call_budget <= 0:
+        log.info("AI call budget exhausted (run=%d, day=%d/%d)", ai_call_budget, counts.get("ai_calls", 0), config.MAX_AI_CALLS_PER_DAY)
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "daily_ai_limit"})
         store.save()
         run_summary({**metrics, "result": "daily_ai_limit"})
+        _maybe_chain(dry_run=dry_run)
         return 0
     if remaining["total_remaining"] <= 0:
         log.info("Total daily limit reached (TEST 6)")
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "daily_total_limit"})
         store.save()
         run_summary({**metrics, "result": "daily_total_limit"})
+        _maybe_chain(dry_run=dry_run)
         return 0
 
     # Buffer queue awareness — only fetch if we have candidates (preserve rate limit)
@@ -311,9 +462,10 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
         log.error("OpenRouter editorial selection failed: %s", exc)
         # Fallback: use local ranking instead of AI selection (so Buffer can still be tested)
         log.warning("Falling back to local ranking for editorial selection")
+        n_fallback = min(remaining["target_remaining"], config.MAX_NEW_POSTS_PER_RUN, len(candidates))
         selections = [
-            {"story_id": c["cluster_id"], "decision": "select", "urgency": 50, "format": "NEWS_UPDATE", "reason": "local fallback", "is_new_development": True}
-            for c in candidates[: min(2, len(candidates))]
+            {"story_id": c["cluster_id"], "decision": "select", "urgency": 60, "format": "NEWS_UPDATE", "reason": "local fallback", "is_new_development": True}
+            for c in candidates[: max(1, n_fallback)]
         ]
         metrics["ai_calls"] = OPENROUTER_CALLS
         metrics["ai_fallback"] = True
@@ -325,8 +477,13 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
             return 1
 
     selected = [s for s in selections if s.get("decision") == "select"]
-    # Cap to per-run limit
-    selected = selected[: config.MAX_NEW_POSTS_PER_RUN]
+    # §12: per-run post count scales with remaining quota, hard-capped
+    posts_this_run_cap = max(1, min(
+        config.MAX_NEW_POSTS_PER_RUN,
+        remaining["target_remaining"] if behind_target else 2,
+        remaining["hard_max_remaining"],
+    ))
+    selected = selected[:posts_this_run_cap]
     metrics["ai_selected"] = len(selected)
     if not selected:
         log.info("AI rejected all candidates this run")
@@ -383,8 +540,8 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
             mention_ctx = ""
         try:
             OPENROUTER_CALLS += 1
-            if OPENROUTER_CALLS > config.MAX_AI_CALLS_PER_RUN:
-                log.warning("AI call budget exceeded (%d/%d), stopping generation", OPENROUTER_CALLS, config.MAX_AI_CALLS_PER_RUN)
+            if OPENROUTER_CALLS > ai_call_budget:
+                log.warning("AI call budget exceeded (%d/%d), stopping generation", OPENROUTER_CALLS, ai_call_budget)
                 break
             res = generate_post(story_for_gen, fmt, mention_context=mention_ctx)
             # New brand: AI returns post starting with JUST IN: (no flags) + country_codes
@@ -512,20 +669,28 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
         metrics["posts_generated"] += 1
 
     metrics["posts_generated_ok"] = len(generated)
+    # Mark pool entries as used for generated stories
+    for g in generated:
+        store.mark_pool_posted(g["story_id"])
     if not generated:
+        # Mark rejections so pool doesn't loop on them
+        for sel in selected:
+            store.mark_pool_rejected(sel.get("story_id", ""))
         log.info("No valid posts generated this run")
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "no_valid_posts"})
         store.save()
         run_summary({**metrics, "result": "no_valid_posts", "ai_calls": OPENROUTER_CALLS})
+        _maybe_chain(dry_run=dry_run)
         return 0
 
-    # ── Schedule ───────────────────────────────────
+    # ── Schedule (§19 dynamic, §18 breaking ASAP) ──
     # Order: breaking first
     generated.sort(key=lambda g: (not g["is_breaking"], -g["urgency"]))
     schedule_items = compute_schedule(
         [{"story_id": g["story_id"], "format": g["format"], "is_breaking": g["is_breaking"], "urgency": g["urgency"]} for g in generated],
         existing_scheduled=buffer_queue,
         now=now,
+        remaining_quota=remaining["hard_max_remaining"],
     )
     metrics["scheduled"] = len(schedule_items)
     if not schedule_items:
@@ -679,15 +844,25 @@ def run(dry_run_cli: bool = False, force: bool = False) -> int:
     store.prune(now)
     store.save()
 
-    next_due = min((p["scheduled_at"] for p in scheduled_posts if p.get("status") == "scheduled"), default=None)
-    run_summary({**metrics, "result": "scheduled" if successes else "failed", "next_due": next_due})
+    # §28: post-send quota snapshot
+    post_counts = _today_counts(store, datetime.now(timezone.utc))
+    post_remaining = store.remaining_capacity(_today_key(datetime.now(timezone.utc)))
+    run_summary({
+        **metrics,
+        "result": "scheduled" if successes else "failed",
+        "next_due": min((p["scheduled_at"] for p in scheduled_posts if p.get("status") == "scheduled"), default=None),
+        "daily_total_after": post_counts["total"],
+        "target_remaining_after": post_remaining["target_remaining"],
+        "quota_status_after": "TARGET_REACHED" if post_remaining["target_remaining"] <= 0 else "BEHIND_TARGET",
+    })
+    _maybe_chain(dry_run=dry_run)
     return 0 if successes or dry_run else 1
 
 
 def main() -> None:
     args = _parse_args()
     try:
-        code = run(dry_run_cli=args.dry_run, force=args.force)
+        code = run(dry_run_cli=args.dry_run, force=args.force, chained=args.chained)
     except Exception as exc:
         log.error("Unhandled error: %s", exc)
         traceback.print_exc()

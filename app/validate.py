@@ -134,11 +134,18 @@ def validate_post(
                 log.warning("Rewrite attempt failed: %s", exc)
         return False, post, f"exceeds hard limit {wl} > 280"
 
-    # ── Preferred 100-220 (warn but accept) ──────────
-    if wl < 100:
-        log.warning("Post %d chars below preferred 100-220 (too short) — accepting", wl)
-    elif wl > 220:
-        log.warning("Post %d chars above preferred 100-220 (up to 280 allowed) — accepting", wl)
+    # ── Preferred 100-220 (§9: warn but accept up to hard 280) ──
+    if wl < config.PREFERRED_POST_MIN:
+        log.warning("Post %d chars below preferred %d-%d — accepting", wl, config.PREFERRED_POST_MIN, config.PREFERRED_POST_MAX)
+    elif wl > config.PREFERRED_POST_MAX:
+        log.warning("Post %d chars above preferred %d-%d (≤280 allowed) — accepting", wl, config.PREFERRED_POST_MIN, config.PREFERRED_POST_MAX)
+
+    # ── Hashtags (§15: zero by default) ──────────────
+    if not config.ALLOW_HASHTAGS:
+        _tag_re = re.compile(r"#\w+")
+        m = _tag_re.search(post)
+        if m:
+            return False, post, f"contains hashtag {m.group(0)!r} (disabled by policy)"
 
     # ── Mention validation ───────────────────────────
     from app.accounts import validate_mentions

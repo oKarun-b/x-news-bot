@@ -11,8 +11,9 @@ def test_load_creates_default(tmp_path=pathlib.Path(tempfile.mkdtemp())):
     p = tmp_path / "state.json"
     s = StateStore(p)
     s.load()
-    assert s.data["version"] == 1
+    assert s.data["version"] == 2
     assert "articles" in s.data
+    assert "candidate_pool" in s.data
 
 
 def test_upsert_articles(tmp_path=pathlib.Path(tempfile.mkdtemp())):

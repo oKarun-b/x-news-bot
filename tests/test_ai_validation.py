@@ -1,7 +1,7 @@
 from datetime import datetime, timezone, timedelta
 from unittest.mock import patch
 
-from app import editorial
+from app import config, editorial
 from app.validate import validate_post, check_daily_limits
 
 
@@ -81,11 +81,12 @@ def test_validate_rewrite_attempt():
 
 
 def test_daily_limits():
-    ok, _ = check_daily_limits({"ai_scheduled": 8, "total": 8}, kind="ai")
+    # New quota: AI cap == DAILY_POST_HARD_MAX (14), total cap == 14
+    ok, _ = check_daily_limits({"ai_scheduled": config.MAX_AI_POSTS_PER_DAY, "total": config.MAX_AI_POSTS_PER_DAY}, kind="ai")
     assert ok is False
-    ok, _ = check_daily_limits({"ai_scheduled": 7, "total": 9}, kind="ai")
-    assert ok is True  # ai slots left
-    ok, _ = check_daily_limits({"ai_scheduled": 5, "total": 10}, kind="ai")
+    ok, _ = check_daily_limits({"ai_scheduled": config.MAX_AI_POSTS_PER_DAY - 1, "total": config.MAX_TOTAL_POSTS_PER_DAY - 1}, kind="ai")
+    assert ok is True  # slots left
+    ok, _ = check_daily_limits({"ai_scheduled": 5, "total": config.MAX_TOTAL_POSTS_PER_DAY}, kind="ai")
     assert ok is False  # total cap
 
 

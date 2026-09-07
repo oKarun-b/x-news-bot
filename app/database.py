@@ -42,12 +42,13 @@ def _parse_iso(s: str | None) -> datetime | None:
 # ── State shape ──────────────────────────────────────
 
 DEFAULT_STATE: dict[str, Any] = {
-    "version": 1,
+    "version": 2,
     "updated_at": None,
     "last_run": None,
     "last_successful_feed_check": None,
     "buffer_cache": {},
     "daily_counts": {},
+    "candidate_pool": [],
     "articles": {},   # id -> article record
     "clusters": {},   # cluster_id -> cluster record
     "posts": [],      # list of post records
@@ -246,11 +247,14 @@ class StateStore:
             "fixed_scheduled": dc.get("fixed_scheduled", 0),
             "total": dc.get("total", 0),
             "published": dc.get("published", 0),
+            "ai_calls": dc.get("ai_calls", 0),
+            "rejected": dc.get("rejected", 0),
+            "failed": dc.get("failed", 0),
         }
 
     def increment_daily(self, day: str, kind: str = "ai_scheduled", amount: int = 1) -> None:
         dc = self.data.setdefault("daily_counts", {})
-        rec = dc.setdefault(day, {"ai_scheduled": 0, "fixed_scheduled": 0, "total": 0, "published": 0})
+        rec = dc.setdefault(day, {"ai_scheduled": 0, "fixed_scheduled": 0, "total": 0, "published": 0, "ai_calls": 0, "rejected": 0, "failed": 0})
         rec[kind] = rec.get(kind, 0) + amount
         if kind in ("ai_scheduled", "fixed_scheduled"):
             rec["total"] = rec.get("ai_scheduled", 0) + rec.get("fixed_scheduled", 0)
@@ -262,7 +266,64 @@ class StateStore:
         return {
             "ai_remaining": max(0, config.MAX_AI_POSTS_PER_DAY - counts["ai_scheduled"]),
             "total_remaining": max(0, config.MAX_TOTAL_POSTS_PER_DAY - counts["total"]),
+            # §3: remaining to reach DAILY_POST_TARGET
+            "target_remaining": max(0, config.DAILY_POST_TARGET - counts["total"]),
+            "hard_max_remaining": max(0, config.DAILY_POST_HARD_MAX - counts["total"]),
         }
+
+    # -- candidate pool (§23 Q5: stories still unused) -----------------
+
+    def update_candidate_pool(self, clusters: list[dict], now: datetime | None = None) -> None:
+        """Merge fresh clusters into the rolling candidate pool (cap 20)."""
+        if now is None:
+            now = datetime.now(timezone.utc)
+        now_iso = now.isoformat()
+        pool: list[dict] = self.data.setdefault("candidate_pool", [])
+        by_id = {c.get("cluster_id"): c for c in pool}
+        for c in clusters:
+            cid = c["cluster_id"]
+            entry = {
+                "cluster_id": cid,
+                "representative_title": c.get("representative_title", ""),
+                "sources": c.get("sources", []),
+                "source_count": c.get("source_count", 1),
+                "score": c.get("_score"),
+                "added_at": now_iso,
+                "reject_count": by_id.get(cid, {}).get("reject_count", 0),
+                "article_ids": c.get("member_ids", []),
+                "category": (c.get("representative_article") or {}).get("category", "general"),
+                "summary": (c.get("representative_article") or {}).get("summary", "")[:400],
+                "latest_activity": (c.get("latest_activity").isoformat() if isinstance(c.get("latest_activity"), datetime) else str(c.get("latest_activity") or "")),
+            }
+            # Replace or add
+            by_id[cid] = entry
+        merged = sorted(by_id.values(), key=lambda x: x.get("score") or 0, reverse=True)[:20]
+        self.data["candidate_pool"] = merged
+
+    def get_candidate_pool(self, max_age_hours: float | None = None) -> list[dict]:
+        """Return pool entries not too old (and not posted)."""
+        pool = self.data.get("candidate_pool", [])
+        now = datetime.now(timezone.utc)
+        out = []
+        for e in pool:
+            if e.get("posted"):
+                continue
+            if max_age_hours is not None and e.get("added_at"):
+                added = _parse_iso(e["added_at"])
+                if added and (now - added).total_seconds() / 3600 > max_age_hours:
+                    continue
+            out.append(e)
+        return out
+
+    def mark_pool_posted(self, cluster_id: str) -> None:
+        for e in self.data.get("candidate_pool", []):
+            if e.get("cluster_id") == cluster_id:
+                e["posted"] = True
+
+    def mark_pool_rejected(self, cluster_id: str) -> None:
+        for e in self.data.get("candidate_pool", []):
+            if e.get("cluster_id") == cluster_id:
+                e["reject_count"] = e.get("reject_count", 0) + 1
 
     # -- run bookkeeping ---------------------------------------------------
 
@@ -271,6 +332,9 @@ class StateStore:
 
     def set_last_feed_check(self, when: datetime | None = None) -> None:
         self.data["last_successful_feed_check"] = (when or datetime.now(timezone.utc)).isoformat()
+
+    def set_last_discovery(self, when: datetime | None = None) -> None:
+        self.data["last_discovery_time"] = (when or datetime.now(timezone.utc)).isoformat()
 
     # -- pruning -----------------------------------------------------------
 
