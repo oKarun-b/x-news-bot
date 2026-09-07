@@ -81,11 +81,29 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash || true
-          if ! git diff --quiet -- data/state.json 2>/dev/null; then
+          # Conflict-proof state commit (chained runs can overlap):
+          # copy new state aside -> hard-reset to origin -> restore -> validate JSON -> commit -> push (retry on race)
+          cp data/state.json /tmp/new_state.json
+          ok=0
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p data
+            cp /tmp/new_state.json data/state.json
+            # NEVER commit corrupt state
+            if ! python -c "import json;json.load(open('data/state.json',encoding='utf-8'))"; then
+              echo "::error::state.json is not valid JSON — refusing to commit"
+              exit 1
+            fi
+            if git diff --quiet -- data/state.json; then
+              echo "No state changes to commit."
+              ok=1
+              break
+            fi
             git add data/state.json
             git commit -m "chore: update bot state [skip ci]"
-            git push
-          else
-            echo "No state changes to commit."
-          fi
+            if git push; then ok=1; break; fi
+            echo "Push rejected (race with another run) — retrying ($attempt/3)"
+            sleep 5
+          done
+          [ $ok -eq 1 ] || { echo "::error::state commit failed after retries"; exit 1; }
