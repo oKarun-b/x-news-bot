@@ -535,8 +535,8 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     existing_texts = {p.get("text", "") for p in store.data.get("posts", [])}
     # §9 same-story cross-run dedupe: reject clusters whose title is too similar
     # to any story already scheduled/created in the last 12 hours
-    from app.clustering import jaccard as _jac
-    from app.normalize import normalize_title as _ntitle, TOKEN_RE as _tok
+    from app.clustering import jaccard as _jac, TOKEN_RE as _tok
+    from app.normalize import normalize_title as _ntitle
     def _title_tokens(t: str) -> set:
         return {w for w in _tok.findall(_ntitle(t)) if len(w) > 2}
     recent_titles: list[set] = []
@@ -999,6 +999,13 @@ def main() -> None:
         log.error("Unhandled error: %s", exc)
         traceback.print_exc()
         code = 1
+    finally:
+        # §23 chain hardening: even a crashed run must re-dispatch the next
+        # discovery run, otherwise one bad iteration kills the loop for hours.
+        try:
+            _maybe_chain(dry_run=False)
+        except Exception as chain_exc:
+            log.warning("Chain dispatch in finally failed: %s", chain_exc)
     sys.exit(code)
 
 
