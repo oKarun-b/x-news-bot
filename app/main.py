@@ -533,6 +533,28 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
 
     # ── Generate posts ───────────────────────────────
     existing_texts = {p.get("text", "") for p in store.data.get("posts", [])}
+    # §9 same-story cross-run dedupe: reject clusters whose title is too similar
+    # to any story already scheduled/created in the last 12 hours
+    from app.clustering import jaccard as _jac
+    from app.normalize import normalize_title as _ntitle, TOKEN_RE as _tok
+    def _title_tokens(t: str) -> set:
+        return {w for w in _tok.findall(_ntitle(t)) if len(w) > 2}
+    recent_titles: list[set] = []
+    cutoff_12h = now - timedelta(hours=12)
+    for p in store.data.get("posts", []):
+        if p.get("status") in ("scheduled", "dry_run") and p.get("created_at"):
+            try:
+                created = datetime.fromisoformat(str(p["created_at"]).replace("Z", "+00:00"))
+                if created >= cutoff_12h and p.get("title"):
+                    recent_titles.append(_title_tokens(p["title"]))
+            except Exception:
+                continue
+    def _too_similar_to_recent(cluster_title: str) -> bool:
+        toks = _title_tokens(cluster_title)
+        if not toks:
+            return False
+        return any(_jac(toks, rt) >= 0.5 for rt in recent_titles)
+
     generated: list[dict] = []
     for sel in selected:
         cid = sel.get("story_id")
@@ -557,6 +579,12 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
                     continue
             except Exception:
                 pass
+        # §9 cross-run same-story dedupe (different sources, same event)
+        if cluster.get("representative_title") and _too_similar_to_recent(cluster["representative_title"]):
+            log.warning("Skipping %s: title too similar to a story scheduled in the last 12h — %s", cid[:8], cluster["representative_title"][:70])
+            store.mark_pool_rejected(cid)
+            metrics["skipped_duplicate"] = metrics.get("skipped_duplicate", 0) + 1
+            continue
 
         story_for_gen = {
             "title": cluster.get("representative_title", ""),
@@ -773,6 +801,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         scheduled_posts.append({
             "post_id": f"post_{gen['story_id'][:8]}_{due.strftime('%Y%m%d%H%M')}",
             "cluster_id": gen["story_id"],
+            "title": gen["cluster"].get("representative_title", ""),
             "article_ids": gen["cluster"].get("member_ids", []),
             "format": gen["format"],
             "text": gen["text"],
@@ -839,6 +868,19 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         return 1
 
     successes = 0
+    # §19 anti-race: never let two posts land within 6 min of each other, even
+    # across chained runs — compare against state's future scheduled posts too.
+    latest_due_in_flight: datetime | None = None
+    for p in store.data.get("posts", []):
+        if p.get("status") == "scheduled" and p.get("scheduled_at"):
+            try:
+                d = datetime.fromisoformat(str(p["scheduled_at"]).replace("Z", "+00:00"))
+                if d.tzinfo is None:
+                    d = d.replace(tzinfo=timezone.utc)
+                if d > datetime.now(timezone.utc) and (latest_due_in_flight is None or d > latest_due_in_flight):
+                    latest_due_in_flight = d
+            except Exception:
+                continue
     for p in scheduled_posts:
         # Re-validate dueAt is still safely in the future (Buffer requires >~60s, clock skew + AI latency can make original slot stale)
         # Ensure at least 6 minutes future so Buffer never rejects "must be in the future" (add margin for server clock)
@@ -849,12 +891,20 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             now_utc = datetime.now(timezone.utc)
             min_future = now_utc + timedelta(minutes=6)
             log.info("Buffer send check %s: due %s, now %s, min_future %s", p["cluster_id"][:8], p["due_at_iso"], format_due_at(now_utc), format_due_at(min_future))
-            if due_dt <= min_future:
-                bumped = min_future + timedelta(seconds=30)
-                log.warning("Bumping %s dueAt %s → %s (was too close to now, Buffer requires future)", p["cluster_id"][:8], p["due_at_iso"], format_due_at(bumped))
+            bumped_needed = due_dt <= min_future
+            if latest_due_in_flight is not None and due_dt < latest_due_in_flight + timedelta(minutes=6):
+                bumped_needed = True
+            if bumped_needed:
+                base = max(min_future, (latest_due_in_flight or now_utc) + timedelta(minutes=6))
+                bumped = base + timedelta(seconds=30)
+                log.warning("Bumping %s dueAt %s → %s (future/space guard)", p["cluster_id"][:8], p["due_at_iso"], format_due_at(bumped))
                 p["due_at_iso"] = format_due_at(bumped)
                 p["scheduled_at"] = bumped.isoformat()
                 p["day"] = _today_key(bumped)
+            # track for subsequent posts in this loop
+            due_dt2 = datetime.fromisoformat(p["due_at_iso"].replace("Z", "+00:00"))
+            if latest_due_in_flight is None or due_dt2 > latest_due_in_flight:
+                latest_due_in_flight = due_dt2
         except Exception as exc:
             log.warning("DueAt bump check failed for %s: %s", p["cluster_id"][:8], exc)
         # Re-check total limit right before each send (race with queue)

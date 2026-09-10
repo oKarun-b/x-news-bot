@@ -26,6 +26,15 @@ def _emergency_truncate(text: str, hard_max: int) -> str:
     return truncated + "…"
 
 
+# ── First-person leak guard (§19: never imply eyewitness/original reporting) ──
+_FIRST_PERSON_RE = re.compile(r"\b(my|our|ours|mine|myself|i'm|i've|i am|i was)\b|(?<![A-Za-z])I(?![A-Za-z])", re.IGNORECASE)
+
+def _has_first_person_outside_quotes(text: str) -> bool:
+    """Remove quoted segments, then look for first-person pronouns."""
+    stripped = re.sub(r'"[^"]*"', " ", text)
+    stripped = re.sub(r"\u201c[^\u201d]*\u201d", " ", stripped)
+    return bool(_FIRST_PERSON_RE.search(stripped))
+
 # ── Prohibited visible labels (old brand) ────────────
 # Flag old multi-word labels anywhere, and emoji+single-word labels. Don't flag normal words like "context" alone.
 _PROHIBITED_RE = re.compile(r"(NEWS UPDATE|BREAKING NEWS|KEY DETAIL|📰\s*NEWS UPDATE|🚨\s*BREAKING NEWS|⚡\s*DEVELOPING|🔎\s*CONTEXT|📌\s*KEY DETAIL)", re.IGNORECASE)
@@ -166,6 +175,10 @@ def validate_post(
     boiler = _contains_boilerplate(post)
     if boiler:
         return False, post, f"contains AI boilerplate: {boiler!r}"
+
+    # ── First-person leak guard (§19) ────────────────
+    if _has_first_person_outside_quotes(post):
+        return False, post, "first-person voice outside quotes (must not imply eyewitness/personal account)"
 
     # ── Basic malformed ──────────────────────────────
     if len(post.strip()) < 20:
