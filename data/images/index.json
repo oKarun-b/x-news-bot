@@ -1,0 +1,74 @@
+{
+  "trump": {
+    "keywords": ["trump", "donald trump", "president trump"],
+    "type": "person",
+    "priority": 1,
+    "files": []
+  },
+  "netanyahu": {
+    "keywords": ["netanyahu", "benjamin netanyahu"],
+    "type": "person",
+    "priority": 1,
+    "files": []
+  },
+  "putin": {
+    "keywords": ["putin", "vladimir putin", "kremlin"],
+    "type": "person",
+    "priority": 1,
+    "files": []
+  },
+  "zelensky": {
+    "keywords": ["zelensky", "zelenskyy", "volodymyr zelensky"],
+    "type": "person",
+    "priority": 1,
+    "files": []
+  },
+  "iran": {
+    "keywords": ["iran", "iranian", "tehran", "irgc"],
+    "type": "country",
+    "priority": 2,
+    "files": []
+  },
+  "israel": {
+    "keywords": ["israel", "israeli", "jerusalem", "idf"],
+    "type": "country",
+    "priority": 2,
+    "files": []
+  },
+  "gaza": {
+    "keywords": ["gaza", "palestine", "palestinian", "west bank"],
+    "type": "country",
+    "priority": 2,
+    "files": []
+  },
+  "white-house": {
+    "keywords": ["white house", "oval office"],
+    "type": "institution",
+    "priority": 2,
+    "files": []
+  },
+  "us": {
+    "keywords": ["united states", "u.s.", "washington", "american", "pentagon", "congress"],
+    "type": "country",
+    "priority": 3,
+    "files": []
+  },
+  "uk": {
+    "keywords": ["uk ", "britain", "british", "london", "downing street"],
+    "type": "country",
+    "priority": 3,
+    "files": []
+  },
+  "russia": {
+    "keywords": ["russia", "russian", "moscow"],
+    "type": "country",
+    "priority": 3,
+    "files": []
+  },
+  "ukraine": {
+    "keywords": ["ukraine", "ukrainian", "kyiv"],
+    "type": "country",
+    "priority": 3,
+    "files": []
+  }
+}

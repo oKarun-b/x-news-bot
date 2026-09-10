@@ -53,15 +53,16 @@ def test_find_handles_for_story():
 
 
 def test_post_with_verified_mention_passes():
-    post = "🇺🇸 JUST IN: Trump orders gray wolves removed from protections.\n\nThe move reverses federal protections for the species, @BBCNews reports. " + "x" * 40
-    ok, _, _ = validate_post(post, "NEWS_UPDATE", story=None)
-    assert ok
-    # Build a well-sized post
-    post2 = "🇺🇸 JUST IN: Trump orders gray wolves removed from the endangered species list. The move reverses federal protections, @BBCNews reports. Conservation groups said they will review the decision."
+    # Source attribution in text is now forbidden — subject handle only
+    post = "🇺🇸 JUST IN: Trump orders gray wolves removed from protections.\n\nThe move reverses federal protections for the species. " + "x" * 40
+    ok, _, reason = validate_post(post, "NEWS_UPDATE", story=None)
+    assert ok, reason
+    # Subject handle (person the news is about) still allowed
+    post2 = "🇺🇸 JUST IN: Trump orders gray wolves removed from the endangered species list. @elonmusk criticized the decision within minutes, calling it overdue."
     assert len(post2) <= 280
-    ok, final, _ = validate_post(post2, "NEWS_UPDATE")
-    assert ok
-    assert "@BBCNews" in final
+    ok, final, reason = validate_post(post2, "NEWS_UPDATE")
+    assert ok, reason
+    assert "@elonmusk" in final
     assert final.startswith("🇺🇸 JUST IN:")
 
 

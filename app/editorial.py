@@ -89,13 +89,13 @@ GOOD: "🇺🇸 JUST IN: Trump orders... @BBCNews reports." or second paragraph 
 """.strip()
 
 ATTRIBUTION_RULES = """
-Editorial positioning: Independent news aggregation. NOT Reuters/BBC/AP/CNN. Never imply original reporting or privileged access.
+Editorial positioning: Independent news aggregation. Never imply original reporting or privileged access.
 
-Attribution:
-- Use natural placement: "The move reverses protections, @BBCNews reports." or second paragraph "@BBCNews reports that..."
-- Vary attribution: sometimes no attribution when well-established across sources.
-- Only use handles from the verified registry. Never invent @handles.
-- Never fabricate attribution, quotes, statistics, or sources.
+Attribution policy (owner directive):
+- Do NOT include any source names, outlet names, or publisher domains in the post text.
+- Do NOT write "according to...", "X reports...", "sources say...", "per Reuters...".
+- Do NOT append "- Source" tails. Posts carry the news only; provenance stays internal.
+- Never fabricate quotes, statistics, or facts. (Fabrication rules unchanged — we simply don't name sources.)
 """.strip()
 
 WRITING_CONSTRAINTS = """
@@ -115,13 +115,10 @@ MENTION_RULES = """
 X mention rules (verified handles only):
 - You may use 0-2 @mentions per post, only from the verified registry provided.
 - Never invent a handle. If an entity isn't listed, write its plain name.
-- Use a handle only when that source is directly responsible for the reporting or the person is the direct subject and it adds useful context.
-- Do NOT add a mention merely because the handle exists.
-- Prefer natural placement at the end of a sentence: "The move reverses protections, @BBCNews reports." NOT "According to @BBCNews, Trump..."
-- For persons: "@elonmusk says xAI is preparing..." is good; don't mention incidentally.
-- Distinguish source (who reports) vs subject (who it's about); you don't need both.
-- 0 mentions is often correct. Never force @Reuters into every post.
-- Mentions count toward the 280 character limit.
+- Use handles ONLY for the SUBJECT (the person/entity the news is about): "@elonmusk says xAI is preparing..."
+- NEVER use a handle for SOURCE attribution: do not write "@BBCNews reports" or "according to @CNN".
+- Do NOT add a mention merely because the handle exists. 0 mentions is often correct.
+- Distinguish source (who reports — never mention) vs subject (who it's about — mention only if it adds context).
 """.strip()
 
 FLAG_RULES = """
@@ -143,7 +140,6 @@ def build_editorial_prompt(candidates: list[dict]) -> str:
         "You are an editorial selector for an independent X news account (brand: JUST IN:).",
         STYLE_RULES,
         ATTRIBUTION_RULES,
-        "",
         "Task: from the candidate stories below, identify the most important ones,",
         "whether any represents a genuinely NEW DEVELOPMENT vs prior coverage, and",
         "assign urgency (25/50/75/90/100) and internal format (BREAKING/DEVELOPING/NEWS_UPDATE/CONTEXT/KEY_DETAIL).",

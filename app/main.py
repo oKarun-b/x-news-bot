@@ -726,16 +726,22 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         existing_texts.add(final_post)
 
         # ── Image selection (§images) ───────────────
-        # Priority: RSS media URLs (from articles) → og:image (from enrich fetch)
+        # Priority: curated library → og:image → RSS media URLs
         image_url = None
         if config.ENABLE_IMAGES and store.image_quota_remaining() > 0:
             rep = cluster.get("representative_article") or {}
             arts = cluster.get("articles") or []
-            # 1) og:image from enrich fetch (best quality, verified https)
-            if cluster.get("og_image"):
+            # 1) curated library (high quality, user-provided, rotation-aware)
+            try:
+                from app.images import select_curated_image
+                image_url = select_curated_image({"title": cluster.get("representative_title", ""), "summary": story_for_gen.get("summary", "")}, store.data)
+            except Exception as img_exc:
+                log.warning("Curated image selection failed: %s", img_exc)
+            # 2) og:image from enrich fetch (best scraped quality, verified https)
+            if not image_url and cluster.get("og_image"):
                 image_url = cluster["og_image"]
-            # 2) RSS media from any article in the cluster
-            else:
+            # 3) RSS media from any article in the cluster
+            if not image_url:
                 for a in [rep] + arts:
                     media = (a.get("image_urls") or []) if isinstance(a, dict) else []
                     https_media = [u for u in media if u.startswith("https://")]

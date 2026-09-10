@@ -35,6 +35,27 @@ def _has_first_person_outside_quotes(text: str) -> bool:
     stripped = re.sub(r"\u201c[^\u201d]*\u201d", " ", stripped)
     return bool(_FIRST_PERSON_RE.search(stripped))
 
+# ── Attribution guards (owner directive: no source references in post text) ──
+_ACCORDING_TO_RE = re.compile(r"\baccording\s+to\b", re.IGNORECASE)
+# ", The Jerusalem Post reports" / ", BBC reports" — outlet-style attribution tails
+_OUTLET_TAIL_RE = re.compile(r"[,;]?\s*(?:the\s+)?[A-Z][\w &.'-]{2,40}\s+(?:reports|reported)\b")
+# trailing "- Outlet" / "| Outlet" tails
+_DASH_TAIL_RE = re.compile(r"\s*[-\u2013\u2014|]\s*[A-Z][\w &.'-]{2,40}\s*$")
+# bare publisher domains without protocol ("yahoo.com", "tribune.net")
+_BARE_DOMAIN_RE = re.compile(r"\b[a-z0-9][a-z0-9-]*\.(?:com|net|org|co\.uk|co|io|news)\b", re.IGNORECASE)
+
+def _find_attribution(text: str) -> str | None:
+    if _ACCORDING_TO_RE.search(text):
+        return "contains 'according to'"
+    if _OUTLET_TAIL_RE.search(text):
+        return "contains outlet attribution tail ('... reports')"
+    if _BARE_DOMAIN_RE.search(text):
+        return "contains bare publisher domain"
+    # dash tail only when at the very end (news-title style "- Source")
+    if _DASH_TAIL_RE.search(text):
+        return "contains '- Source' tail"
+    return None
+
 # ── Prohibited visible labels (old brand) ────────────
 # Flag old multi-word labels anywhere, and emoji+single-word labels. Don't flag normal words like "context" alone.
 _PROHIBITED_RE = re.compile(r"(NEWS UPDATE|BREAKING NEWS|KEY DETAIL|📰\s*NEWS UPDATE|🚨\s*BREAKING NEWS|⚡\s*DEVELOPING|🔎\s*CONTEXT|📌\s*KEY DETAIL)", re.IGNORECASE)
@@ -179,6 +200,11 @@ def validate_post(
     # ── First-person leak guard (§19) ────────────────
     if _has_first_person_outside_quotes(post):
         return False, post, "first-person voice outside quotes (must not imply eyewitness/personal account)"
+
+    # ── Attribution guard (owner directive: no source references) ──
+    attr = _find_attribution(post)
+    if attr:
+        return False, post, f"attribution violation: {attr}"
 
     # ── Basic malformed ──────────────────────────────
     if len(post.strip()) < 20:

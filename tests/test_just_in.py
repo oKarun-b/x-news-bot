@@ -59,7 +59,8 @@ def test_280_hard_max():
 
 
 def test_verified_handles():
-    ok, _, _ = validate_post("JUST IN: hello, @BBCNews reports.", "NEWS_UPDATE", _story())
+    # Subject handle passes; source-attribution handle now rejected (no references policy)
+    ok, _, _ = validate_post("JUST IN: Trump spoke with @elonmusk today about new technology policy.", "NEWS_UPDATE", _story())
     assert ok
     ok, _, reason = validate_post("JUST IN: hello @fakehandle123", "NEWS_UPDATE", _story())
     assert not ok and "unverified" in reason
