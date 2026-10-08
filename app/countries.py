@@ -201,7 +201,14 @@ def extract_flags(text: str) -> list[str]:
 
 
 def contains_url(text: str) -> bool:
-    return bool(_URL_RE.search(text))
+    # Catch shortened URLs and bare domains as well as protocol-prefixed URLs.
+    bare_domain = re.compile(
+        r"(?<![\w@])(?:www\.)?(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+"
+        r"(?:com|net|org|edu|gov|mil|int|io|co|ai|app|news|info|biz|xyz|"
+        r"uk|us|ca|au|nz|de|fr|jp|in|ru|cn|me|ly|tv|tech|online|site)"
+        r"(?:/[^\s]*)?(?!\w)", re.IGNORECASE,
+    )
+    return bool(_URL_RE.search(text) or bare_domain.search(text))
 
 
 # Convenience: common country name → code for prompt hints

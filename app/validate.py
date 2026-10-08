@@ -37,24 +37,52 @@ def _has_first_person_outside_quotes(text: str) -> bool:
 
 # ── Attribution guards (owner directive: no source references in post text) ──
 _ACCORDING_TO_RE = re.compile(r"\baccording\s+to\b", re.IGNORECASE)
+_SOURCE_CLAIM_RE = re.compile(r"\b(?:sources?\s+(?:say|said|tell|told)|reported\s+by|reports?\s+from)\b", re.IGNORECASE)
 # ", The Jerusalem Post reports" / ", BBC reports" — outlet-style attribution tails
 _OUTLET_TAIL_RE = re.compile(r"[,;]?\s*(?:the\s+)?[A-Z][\w &.'-]{2,40}\s+(?:reports|reported)\b")
 # trailing "- Outlet" / "| Outlet" tails
 _DASH_TAIL_RE = re.compile(r"\s*[-\u2013\u2014|]\s*[A-Z][\w &.'-]{2,40}\s*$")
 # bare publisher domains without protocol ("yahoo.com", "tribune.net")
 _BARE_DOMAIN_RE = re.compile(r"\b[a-z0-9][a-z0-9-]*\.(?:com|net|org|co\.uk|co|io|news)\b", re.IGNORECASE)
+_SOURCE_HANDLE_RE = re.compile(r"@(?:BBCNews|BBCWorld|BBCBreaking|Reuters|AFP|AP|guardian|CNN|nytimes|AJEnglish|business|FT|WSJ)\b", re.IGNORECASE)
+_SOURCE_NAMES_RE = re.compile(
+    r"\b(?:BBC(?:\s+(?:News|World|Breaking))?|Reuters|Associated\s+Press|AP\s+News|AFP|"
+    r"The\s+Guardian|Guardian|CNN|The\s+New\s+York\s+Times|New\s+York\s+Times|NYT|"
+    r"Al\s+Jazeera|Bloomberg|Financial\s+Times|Wall\s+Street\s+Journal|WSJ)\b",
+    re.IGNORECASE,
+)
 
 def _find_attribution(text: str) -> str | None:
-    if _ACCORDING_TO_RE.search(text):
+    if _ACCORDING_TO_RE.search(text) or _SOURCE_CLAIM_RE.search(text):
         return "contains 'according to'"
     if _OUTLET_TAIL_RE.search(text):
         return "contains outlet attribution tail ('... reports')"
     if _BARE_DOMAIN_RE.search(text):
         return "contains bare publisher domain"
+    if _SOURCE_HANDLE_RE.search(text):
+        return "contains a source handle"
+    if _SOURCE_NAMES_RE.search(text):
+        return "contains a source name"
     # dash tail only when at the very end (news-title style "- Source")
     if _DASH_TAIL_RE.search(text):
         return "contains '- Source' tail"
     return None
+
+
+def assert_no_links_or_sources(text: str, source_names: list[str] | None = None) -> None:
+    """Last-mile publishing policy guard shared by validation and Buffer client."""
+    from app.countries import contains_url
+    if contains_url(text):
+        raise ValueError("public post text must not contain links or domains")
+    reason = _find_attribution(text)
+    if not reason:
+        for source_name in source_names or []:
+            name = str(source_name).strip()
+            if len(name) >= 3 and re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", text, re.IGNORECASE):
+                reason = "contains a story source name"
+                break
+    if reason:
+        raise ValueError(f"public post text must not contain source attribution ({reason})")
 
 # ── Prohibited visible labels (old brand) ────────────
 # Flag old multi-word labels anywhere, and emoji+single-word labels. Don't flag normal words like "context" alone.
@@ -203,6 +231,14 @@ def validate_post(
 
     # ── Attribution guard (owner directive: no source references) ──
     attr = _find_attribution(post)
+    if not attr and story:
+        source_names = story.get("sources") or story.get("source_names") or []
+        if isinstance(source_names, str):
+            source_names = [source_names]
+        try:
+            assert_no_links_or_sources(post, source_names)
+        except ValueError as exc:
+            attr = str(exc).split("(", 1)[-1].rstrip(")") if "(" in str(exc) else str(exc)
     if attr:
         return False, post, f"attribution violation: {attr}"
 

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import time
+import json
 from typing import Any
 
 import requests
@@ -10,6 +11,11 @@ from app import config
 from app.logging_setup import get_logger
 
 log = get_logger("x-news-bot.buffer")
+
+
+def _gql_string(value: str) -> str:
+    """Serialize an untrusted value as a GraphQL string literal."""
+    return json.dumps(str(value), ensure_ascii=False)
 
 # ── Low-level GraphQL helper ─────────────────────────
 
@@ -93,7 +99,7 @@ def verify_channel() -> dict:
     org_id = target_org["id"]
 
     # Step 2: fetch channels for that org via top-level channels(input:)
-    q_channels = f'query {{ channels(input: {{organizationId: "{org_id}"}}) {{ id name service type }} }}'
+    q_channels = f"query {{ channels(input: {{organizationId: {_gql_string(org_id)}}}) {{ id name service type }} }}"
     data2 = _gql(q_channels)
     channels = data2.get("channels") or []
 
@@ -147,7 +153,7 @@ def get_scheduled_posts(organization_id: str, channel_id: str, limit: int = 20) 
     # Inline the IDs for simplicity (avoids variable type mismatches)
     inline_q = f"""
     query {{
-      posts(first: {limit}, input: {{organizationId: "{organization_id}", filter: {{status: [scheduled], channelIds: ["{channel_id}"]}}}}) {{
+      posts(first: {max(1, min(int(limit), 100))}, input: {{organizationId: {_gql_string(organization_id)}, filter: {{status: [scheduled], channelIds: [{_gql_string(channel_id)}]}}}}) {{
         edges {{ node {{ id text dueAt status channelId }} }}
         pageInfo {{ hasNextPage endCursor }}
       }}
@@ -159,15 +165,20 @@ def get_scheduled_posts(organization_id: str, channel_id: str, limit: int = 20) 
     return [e.get("node") for e in edges if e.get("node")]
 
 
-def create_scheduled_post(channel_id: str, text: str, due_at_iso: str, image_urls: list[str] | None = None) -> dict:
+def create_scheduled_post(channel_id: str, text: str, due_at_iso: str, image_urls: list[str] | None = None, source_names: list[str] | None = None) -> dict:
     """
     Create a scheduled post via createPost(customScheduled).
     due_at_iso must be ISO 8601 UTC (e.g. 2026-03-26T10:28:47.000Z).
     image_urls: optional list of publicly hosted https image URLs → assets array (1-2).
     Returns {id, dueAt} on success.
     """
-    # Escape text for GraphQL string literal
-    escaped = text.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
+    # Enforce the public-content rule at the API boundary as well as in the
+    # editorial validator so new callers cannot accidentally publish links.
+    from app.validate import assert_no_links_or_sources
+    assert_no_links_or_sources(text, source_names)
+    # Serialize every dynamic value as a GraphQL string literal. JSON escaping
+    # is compatible with GraphQL strings and also handles tabs/control chars.
+    escaped = _gql_string(text)
 
     assets_block = ""
     if image_urls:
@@ -175,19 +186,18 @@ def create_scheduled_post(channel_id: str, text: str, due_at_iso: str, image_url
         for u in image_urls[: config.MAX_IMAGES_PER_POST]:
             if not u.startswith("https://"):
                 continue  # Buffer requires public https; skip anything else
-            eu = u.replace("\\", "").replace('"', '\\"')
-            asset_parts.append(f"{{ image: {{ url: \"{eu}\" }} }}")
+            asset_parts.append(f"{{ image: {{ url: {_gql_string(u)} }} }}")
         if asset_parts:
             assets_block = f", assets: [{', '.join(asset_parts)}]"
 
     mutation = f'''
     mutation {{
       createPost(input: {{
-        text: "{escaped}",
-        channelId: "{channel_id}",
+        text: {escaped},
+        channelId: {_gql_string(channel_id)},
         schedulingType: automatic,
         mode: customScheduled,
-        dueAt: "{due_at_iso}"{assets_block}
+        dueAt: {_gql_string(due_at_iso)}{assets_block}
       }}) {{
         ... on PostActionSuccess {{
           post {{ id dueAt status }}
@@ -214,7 +224,7 @@ def delete_post(post_id: str) -> bool:
     """Delete a scheduled post. Returns True on success."""
     mutation = f'''
     mutation {{
-      deletePost(input: {{ id: "{post_id}" }}) {{
+      deletePost(input: {{ id: {_gql_string(post_id)} }}) {{
         ... on DeletePostSuccess {{
           __typename
         }}

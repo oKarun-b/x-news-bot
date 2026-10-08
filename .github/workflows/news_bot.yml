@@ -38,7 +38,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -59,7 +60,6 @@ jobs:
           BUFFER_ORGANIZATION_ID: ${{ secrets.BUFFER_ORGANIZATION_ID }}
           BOT_TIMEZONE: ${{ vars.BOT_TIMEZONE || 'UTC' }}
           BUFFER_API_URL: https://api.buffer.com
-          GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           set +e
@@ -78,7 +78,10 @@ jobs:
           exit $code
 
       - name: Commit state if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          gh auth setup-git
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Conflict-proof state commit (chained runs can overlap):
@@ -107,3 +110,14 @@ jobs:
             sleep 5
           done
           [ $ok -eq 1 ] || { echo "::error::state commit failed after retries"; exit 1; }
+
+      - name: Dispatch chained discovery run
+        if: always() && vars.ENABLE_CHAIN != 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: |
+          gh workflow run news-bot \
+            --repo "${{ github.repository }}" \
+            --field "dry_run=$DRY_RUN" \
+            --field "chained=true"

@@ -130,6 +130,7 @@ def test_C_no_news_zero_calls():
                                 assert mock_gen.call_count == 0, f"generate_post called {mock_gen.call_count} times, expected 0"
                                 assert mock_buf_create.call_count == 0, f"Buffer create called {mock_buf_create.call_count} times, expected 0"
                                 assert code == 0
+                                assert store.data.get("last_discovery_time"), "every run must persist the chain cadence marker"
     print("Test C PASS: 0 OpenRouter generation calls, 0 Buffer creates, quick finish")
 
 

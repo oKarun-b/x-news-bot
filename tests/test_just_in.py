@@ -67,10 +67,17 @@ def test_verified_handles():
 
 
 def test_max_mention_limit():
-    ok, _, reason = validate_post("JUST IN: hello @BBCNews @Reuters @AP", "NEWS_UPDATE", _story())
+    ok, _, reason = validate_post("JUST IN: hello @elonmusk @realDonaldTrump @WhiteHouse", "NEWS_UPDATE", _story())
     assert not ok and "too many" in reason
-    ok, _, _ = validate_post("JUST IN: hello @BBCNews @Reuters", "NEWS_UPDATE", _story())
+    ok, _, _ = validate_post("JUST IN: hello @elonmusk @realDonaldTrump", "NEWS_UPDATE", _story())
     assert ok
+
+
+def test_source_handles_are_forbidden():
+    ok, _, reason = validate_post("JUST IN: BBC reports a major policy decision today.", "NEWS_UPDATE", _story())
+    assert not ok and ("source" in reason or "reports" in reason)
+    ok, _, reason = validate_post("JUST IN: Officials announced the decision, @BBCNews reports.", "NEWS_UPDATE", _story())
+    assert not ok and "source" in reason
 
 
 def test_no_automatic_old_labels():
@@ -110,7 +117,7 @@ def test_final_validation_after_flags_and_mentions():
     base = "JUST IN: " + "a" * 240
     assert weighted_length(base) == 249  # 9 + 240
     # With 2 flags, it becomes 251 + 8 for mention = 259
-    with_flags = "🇺🇸🇷🇺 JUST IN: " + "a" * 240 + " @BBCNews"
+    with_flags = "🇺🇸🇷🇺 JUST IN: " + "a" * 240 + " @elonmusk"
     wl = weighted_length(with_flags)
     assert wl < 280
     ok, _, _ = validate_post(with_flags, "NEWS_UPDATE", _story())

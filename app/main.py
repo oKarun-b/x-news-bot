@@ -39,32 +39,6 @@ def _is_dry_run(cli_dry: bool) -> bool:
     return config.EFFECTIVE_DRY_RUN
 
 
-def _maybe_chain(dry_run: bool = False) -> None:
-    """§23: dispatch the next discovery run (workflow_dispatch works with GITHUB_TOKEN)."""
-    if not config.ENABLE_CHAIN:
-        return
-    try:
-        import os
-        import subprocess
-        env = dict(os.environ)
-        if not env.get("GITHUB_TOKEN") and not env.get("GH_TOKEN"):
-            log.info("Chain: no GITHUB_TOKEN (local run) — skipping dispatch")
-            return
-        cmd = [
-            "gh", "workflow", "run", "news-bot",
-            "--field", f"dry_run={'true' if dry_run else 'false'}",
-        ]
-        result = subprocess.run(cmd, env=env, capture_output=True, text=True, timeout=30)
-        if result.returncode == 0:
-            log.info("Chain: dispatched next discovery run")
-        else:
-            log.warning("Chain dispatch failed: %s", (result.stderr or "")[:200])
-    except FileNotFoundError:
-        log.info("Chain: gh CLI not available — skipping dispatch")
-    except Exception as exc:
-        log.warning("Chain dispatch error: %s", exc)
-
-
 def _wait_for_discovery_slot(store: StateStore, now: datetime) -> float:
     """§23 state-driven cadence: wait until DISCOVERY_INTERVAL since last discovery."""
     last = store.data.get("last_discovery_time")
@@ -181,6 +155,11 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         _wait_for_discovery_slot(store, now)
         now = datetime.now(timezone.utc)
 
+    # Persist the cadence marker before any early-return path. Otherwise an
+    # empty-feed/overnight run immediately dispatches another full run.
+    store.set_last_discovery(now)
+    store.save()
+
     dry_run = _is_dry_run(dry_run_cli)
 
     _check_yesterday_quota(store, now)
@@ -236,7 +215,6 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "hard_max_reached"})
         store.save()
         run_summary({**metrics, "result": "hard_max_reached", "ai_calls": 0})
-        _maybe_chain(dry_run=dry_run)
         return 0
 
     # Per-run budgets scale with quota pressure (§13)
@@ -253,10 +231,11 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     # Snapshot history sets BEFORE collect for dedupe_against_history
     seen_canonical = store.seen_canonical_set()
     seen_hashes = store.seen_title_hashes()
-    articles, feed_stats = collect_articles()
+    articles, feed_stats = collect_articles(feed_cache=store.data.setdefault("feed_cache", {}))
     metrics["feeds_attempted"] = feed_stats["attempted"]
     metrics["feeds_succeeded"] = feed_stats["succeeded"]
     metrics["feeds_failed"] = feed_stats["failed"]
+    metrics["feeds_not_modified"] = feed_stats.get("not_modified", 0)
     metrics["articles_collected"] = len(articles)
 
     if feed_stats["failed"] > 0:
@@ -313,7 +292,6 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.prune(now)
         store.save()
         run_summary({**metrics, "result": "no_new_articles", "ai_calls": 0, "buffer_calls": 0})
-        _maybe_chain(dry_run=dry_run)
         return 0
 
     # ── Cluster + Rank (+ candidate pool reuse §25) ──
@@ -333,7 +311,6 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.set_last_feed_check(now)
         store.save()
         run_summary({**metrics, "result": "no_clusters"})
-        _maybe_chain(dry_run=dry_run)
         return 0
 
     # Upsert clusters for development tracking
@@ -371,15 +348,13 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     n_cand = min(n_cand, len(ranked))
     candidates = ranked[:n_cand]
     candidates = [c for c in candidates if c.get("_score", 0) >= score_floor]
-    store.set_last_discovery(now)  # §23 state-driven cadence marker
-
     # §images: ensure image-capable candidates exist when image budget remains
     def _cluster_has_image(c: dict) -> bool:
-        if c.get("og_image"):
+        if config.ENABLE_ARTICLE_IMAGES and c.get("og_image"):
             return True
         rep = c.get("representative_article") or {}
         for a in [rep] + (c.get("articles") or []):
-            if isinstance(a, dict) and any(u.startswith("https://") for u in (a.get("image_urls") or [])):
+            if config.ENABLE_ARTICLE_IMAGES and isinstance(a, dict) and any(u.startswith("https://") for u in (a.get("image_urls") or [])):
                 return True
         return False
 
@@ -409,7 +384,6 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.set_last_feed_check(now)
         store.save()
         run_summary({**metrics, "result": "no_candidates"})
-        _maybe_chain(dry_run=dry_run)
         return 0
     # Update pool with the current fresh clusters
     if clusters:
@@ -421,14 +395,12 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "daily_ai_limit"})
         store.save()
         run_summary({**metrics, "result": "daily_ai_limit"})
-        _maybe_chain(dry_run=dry_run)
         return 0
     if remaining["total_remaining"] <= 0:
         log.info("Total daily limit reached (TEST 6)")
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "daily_total_limit"})
         store.save()
         run_summary({**metrics, "result": "daily_total_limit"})
-        _maybe_chain(dry_run=dry_run)
         return 0
 
     # Buffer queue awareness — only fetch if we have candidates (preserve rate limit)
@@ -701,7 +673,11 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             except Exception:
                 return None
 
-        ok, final_post, reason = _validate(post_text, fmt, story={"published_at": cluster.get("latest_activity")}, existing_post_texts=existing_texts, ai_generate_fn=_rewrite_fn)
+        ok, final_post, reason = _validate(
+            post_text, fmt,
+            story={"published_at": cluster.get("latest_activity"), "sources": cluster.get("sources", [])},
+            existing_post_texts=existing_texts, ai_generate_fn=_rewrite_fn,
+        )
         metrics.setdefault("posts_generated", 0)
         if not ok:
             log.warning("Post rejected for %s: %s — %s", cid[:8], reason, post_text[:80])
@@ -726,28 +702,21 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         existing_texts.add(final_post)
 
         # ── Image selection (§images) ───────────────
-        # Priority: curated library → og:image → RSS media URLs
+        # Priority: rights-cleared curated media → Commons PD/CC0 → article media.
         image_url = None
+        image_metadata = None
         if config.ENABLE_IMAGES and store.image_quota_remaining() > 0:
-            rep = cluster.get("representative_article") or {}
-            arts = cluster.get("articles") or []
-            # 1) curated library (high quality, user-provided, rotation-aware)
             try:
-                from app.images import select_curated_image
-                image_url = select_curated_image({"title": cluster.get("representative_title", ""), "summary": story_for_gen.get("summary", "")}, store.data)
+                from app.images import select_story_image
+                asset = select_story_image(
+                    cluster, story_for_gen, store.data,
+                    allow_article_images=config.ENABLE_ARTICLE_IMAGES,
+                )
+                if asset:
+                    image_url = asset["url"]
+                    image_metadata = asset.get("metadata")
             except Exception as img_exc:
-                log.warning("Curated image selection failed: %s", img_exc)
-            # 2) og:image from enrich fetch (best scraped quality, verified https)
-            if not image_url and cluster.get("og_image"):
-                image_url = cluster["og_image"]
-            # 3) RSS media from any article in the cluster
-            if not image_url:
-                for a in [rep] + arts:
-                    media = (a.get("image_urls") or []) if isinstance(a, dict) else []
-                    https_media = [u for u in media if u.startswith("https://")]
-                    if https_media:
-                        image_url = https_media[0]
-                        break
+                log.warning("Story image selection failed: %s", img_exc)
             if image_url:
                 log.info("Image attached to %s (budget left: %d): %s", cid[:8], store.image_quota_remaining(), image_url[:80])
             else:
@@ -762,6 +731,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "text": final_post,
             "is_breaking": is_breaking,
             "image_url": image_url,
+            "image_metadata": image_metadata,
         })
         metrics["posts_generated"] += 1
 
@@ -777,7 +747,6 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "no_valid_posts"})
         store.save()
         run_summary({**metrics, "result": "no_valid_posts", "ai_calls": OPENROUTER_CALLS})
-        _maybe_chain(dry_run=dry_run)
         return 0
 
     # ── Schedule (§19 dynamic, §18 breaking ASAP) ──
@@ -809,9 +778,11 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "cluster_id": gen["story_id"],
             "title": gen["cluster"].get("representative_title", ""),
             "article_ids": gen["cluster"].get("member_ids", []),
+            "sources": gen["cluster"].get("sources", []),
             "format": gen["format"],
             "text": gen["text"],
             "image_url": gen.get("image_url"),
+            "image_metadata": gen.get("image_metadata"),
             "priority": gen["urgency"],
             "scheduled_at": due.isoformat(),
             "due_at_iso": format_due_at(due),
@@ -932,7 +903,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             if config.ENABLE_IMAGES and p.get("image_url") and store.image_quota_remaining(day) > 0:
                 img = [p["image_url"]]
             try:
-                result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"], image_urls=img)
+                result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"], image_urls=img, source_names=p.get("sources", []))
             except Exception as first_exc:
                 err_low = str(first_exc).lower()
                 if "future" in err_low:
@@ -942,12 +913,12 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
                     p["due_at_iso"] = new_due
                     p["scheduled_at"] = bumped2.isoformat()
                     p["day"] = _today_key(bumped2)
-                    result = create_scheduled_post(ctx["channel_id"], p["text"], new_due, image_urls=img)
+                    result = create_scheduled_post(ctx["channel_id"], p["text"], new_due, image_urls=img, source_names=p.get("sources", []))
                 elif img and ("image" in err_low or "fetch" in err_low or "asset" in err_low):
                     # Image rejected (unreachable/expire URL) → retry text-only, never block the post
                     log.warning("Buffer rejected image for %s (%.120s) — retrying text-only", p["cluster_id"][:8], err_low)
                     img = None
-                    result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"])
+                    result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"], source_names=p.get("sources", []))
                 else:
                     raise
             p["buffer_post_id"] = result.get("id")
@@ -993,7 +964,6 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         "target_remaining_after": post_remaining["target_remaining"],
         "quota_status_after": "TARGET_REACHED" if post_remaining["target_remaining"] <= 0 else "BEHIND_TARGET",
     })
-    _maybe_chain(dry_run=dry_run)
     return 0 if successes or dry_run else 1
 
 
@@ -1005,13 +975,6 @@ def main() -> None:
         log.error("Unhandled error: %s", exc)
         traceback.print_exc()
         code = 1
-    finally:
-        # §23 chain hardening: even a crashed run must re-dispatch the next
-        # discovery run, otherwise one bad iteration kills the loop for hours.
-        try:
-            _maybe_chain(dry_run=False)
-        except Exception as chain_exc:
-            log.warning("Chain dispatch in finally failed: %s", chain_exc)
     sys.exit(code)
 
 

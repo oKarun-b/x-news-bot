@@ -63,3 +63,17 @@ def test_collect_malformed_feed_graceful():
     # feedparser returns 0 entries for garbage — still counts as succeeded (HTTP ok), 0 articles
     assert stats["succeeded"] == 1
     assert len(articles) == 0
+
+
+def test_conditional_feed_request_uses_etag_and_handles_not_modified():
+    resp = MagicMock()
+    resp.status_code = 304
+    resp.headers = {}
+    cache = {"Test": {"etag": '"v1"', "last_modified": "Wed, 01 Jan 2025 00:00:00 GMT"}}
+    with patch("app.news.requests.get", return_value=resp) as get:
+        articles, stats = news_mod.collect_articles([_feed()], feed_cache=cache)
+    assert articles == []
+    assert stats["succeeded"] == 1
+    headers = get.call_args.kwargs["headers"]
+    assert headers["If-None-Match"] == '"v1"'
+    assert headers["If-Modified-Since"] == "Wed, 01 Jan 2025 00:00:00 GMT"

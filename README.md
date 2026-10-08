@@ -54,10 +54,19 @@ All tuning is env-driven (`.env.example` documents every key). Central defaults 
 | `MAX_BUFFER_AHEAD_POSTS` | 3 | Rolling queue depth (Buffer Free plan ~10 queued/channel) |
 | `MAX_SCHEDULE_HORIZON_MINUTES` | 180 | Never schedule normal posts further than this |
 | `OPENROUTER_MODEL` | gemini-2.0-flash-exp:free | Configurable; keep temperature 0.4 editorial / 0.7 generation |
+| `FEED_FETCH_WORKERS` | 8 | Maximum parallel RSS fetches |
+| `ENABLE_COMMONS_IMAGES` | true | Search Wikimedia Commons for CC0/public-domain images |
+| `ENABLE_ARTICLE_IMAGES` | false | Explicitly opt into publisher-provided article images |
 
 Feed list (24 feeds: BBC + Google News searches) is the `FEEDS` registry in `app/config.py` — toggle per-feed via `enabled`.
 
 Writing style is isolated in `app/editorial.py` — the only place for format definitions, urgency scale, attribution rules, and prompts.
+
+Public-post policy is enforced twice: generated copy is validated in `app/validate.py`, and Buffer independently blocks links/source references at the API boundary. Research sources and asset license/provenance remain in internal state only. Source handles are excluded from AI mention suggestions.
+
+Images use a rights-first order: curated CC0/public-domain library → Wikimedia Commons CC0/public-domain search → optional publisher article images. Article images are disabled by default (`ENABLE_ARTICLE_IMAGES=false`) because logos/watermarks need human screening. Add approved images and per-file license/creator/source metadata under `data/images/`; Commons lookups can be disabled with `ENABLE_COMMONS_IMAGES=false`. Pinterest is not scraped or used as a reuse source.
+
+Feed polling uses a bounded thread pool (`FEED_FETCH_WORKERS`, default 8) and persists ETag/Last-Modified validators in state to reduce repeated downloads. The app already keeps major concerns in separate modules; `app/main.py` remains the orchestrator, with provider and persistence logic isolated in their respective modules.
 
 ## GitHub Actions — schedule reality (§39)
 
@@ -67,6 +76,7 @@ GitHub scheduled workflows are **periodic triggers, not real-time guarantees**. 
 - Every run fetches a recent RSS window and compares against `first_seen_at`/`last_seen_at`
 - State in `data/state.json` committed back after each run enables next-run recovery
 - Buffer owns future publication — the runner never sleeps
+- The workflow dispatches the next chained run after saving state; `GITHUB_TOKEN` is exposed only to the dispatch and state-push steps, not the bot process. Set the repository Actions variable `ENABLE_CHAIN=false` to pause chaining.
 
 Scheduled workflows on **public repos are free**; 144 runs/day × ~1–2 min would exceed the 2,000 min/month free allowance on private repos. This repo is intended to be **public**.
 

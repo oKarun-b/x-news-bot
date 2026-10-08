@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock, patch
+import json
 
 import app.buffer as buf
 
@@ -22,6 +23,29 @@ def test_create_scheduled_post_error():
             assert False, "should raise"
         except RuntimeError as e:
             assert "Channel not found" in str(e)
+
+
+def test_buffer_boundary_rejects_public_links_before_api_call():
+    with patch("app.buffer._gql") as gql:
+        try:
+            buf.create_scheduled_post("ch1", "News: https://example.com/story", "2026-03-26T10:28:47Z")
+            assert False, "public link must be blocked"
+        except ValueError as exc:
+            assert "links" in str(exc)
+    gql.assert_not_called()
+
+
+def test_buffer_boundary_rejects_story_source_names():
+    with patch("app.buffer._gql") as gql:
+        try:
+            buf.create_scheduled_post(
+                "ch1", "JUST IN: The Daily Herald reports a policy change.",
+                "2026-03-26T10:28:47Z", source_names=["The Daily Herald"],
+            )
+            assert False, "story source must be blocked"
+        except ValueError as exc:
+            assert "source" in str(exc)
+    gql.assert_not_called()
 
 
 def test_get_scheduled_posts():
@@ -62,3 +86,13 @@ def test_gql_retries_on_500():
             except RuntimeError as e:
                 # No orgs → RuntimeError from verify path, but _gql itself succeeded (500 retried)
                 assert "No organizations" not in str(e)
+
+
+def test_graphql_dynamic_strings_are_safely_escaped():
+    hostile_text = 'breaking"\n) { deletePost(input: {id: "other"}) } #'
+    fake = {"createPost": {"post": {"id": "p-safe"}}}
+    with patch("app.buffer._gql", return_value=fake) as gql:
+        buf.create_scheduled_post('channel"\n)', hostile_text, '2026-03-26T10:28:47Z')
+    query = gql.call_args.args[0]
+    assert json.dumps(hostile_text, ensure_ascii=False) in query
+    assert hostile_text not in query

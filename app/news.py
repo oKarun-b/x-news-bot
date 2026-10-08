@@ -1,7 +1,7 @@
 """RSS collection — fetches, parses, normalizes. One broken feed never kills the run."""
 from __future__ import annotations
 
-import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 import feedparser
@@ -46,25 +46,40 @@ def _extract_media_urls(e) -> list[str]:
     return out[:2]
 
 
-def _fetch_one(feed) -> tuple[list[dict], str | None]:
-    """Fetch and parse a single feed. Returns (articles, error). Never raises."""
+def _fetch_one(feed, cache_entry: dict | None = None) -> tuple[list[dict], str | None, dict]:
+    """Fetch and parse one feed; return articles, error, and refreshed validators."""
     url = feed.url
     name = feed.name
     try:
+        headers = {"User-Agent": USER_AGENT, "Accept": "application/rss+xml, application/xml, text/xml, */*"}
+        cached = cache_entry or {}
+        if cached.get("etag"):
+            headers["If-None-Match"] = cached["etag"]
+        if cached.get("last_modified"):
+            headers["If-Modified-Since"] = cached["last_modified"]
         resp = requests.get(
             url,
-            headers={"User-Agent": USER_AGENT, "Accept": "application/rss+xml, application/xml, text/xml, */*"},
+            headers=headers,
             timeout=config.FEED_TIMEOUT_SECONDS,
         )
+        if resp.status_code == 304:
+            return [], None, cached
         resp.raise_for_status()
         content = resp.content
     except requests.RequestException as exc:
-        return [], f"{name}: {exc}"
+        return [], f"{name}: {exc}", cache_entry or {}
+
+    response_headers = getattr(resp, "headers", {})
+    refreshed = {}
+    for key, header_name in (("etag", "ETag"), ("last_modified", "Last-Modified")):
+        value = response_headers.get(header_name) if hasattr(response_headers, "get") else None
+        if isinstance(value, str) and value:
+            refreshed[key] = value
 
     try:
         parsed = feedparser.parse(content)
     except Exception as exc:
-        return [], f"{name}: parse error: {exc}"
+        return [], f"{name}: parse error: {exc}", refreshed
 
     # feedparser sets bozo on malformed feeds but still returns entries
     if getattr(parsed, "bozo", False):
@@ -123,16 +138,16 @@ def _fetch_one(feed) -> tuple[list[dict], str | None]:
                 "tier": feed.tier,
                 "feed_name": name,
                 "guid": guid,
-                "image_urls": _extract_media_urls(e) if config.ENABLE_IMAGES else [],
+                "image_urls": _extract_media_urls(e) if config.ENABLE_IMAGES and config.ENABLE_ARTICLE_IMAGES else [],
             })
         except Exception as exc:
             log.warning("Skipping entry in %s: %s", name, exc)
             continue
 
-    return articles, None
+    return articles, None, refreshed
 
 
-def collect_articles(feeds: list | None = None) -> tuple[list[dict], dict]:
+def collect_articles(feeds: list | None = None, feed_cache: dict | None = None) -> tuple[list[dict], dict]:
     """
     Fetch all enabled feeds. Returns (all_articles, stats).
     stats: {attempted, succeeded, failed, failed_details, total_articles}
@@ -142,16 +157,25 @@ def collect_articles(feeds: list | None = None) -> tuple[list[dict], dict]:
     failed: list[str] = []
     succeeded = 0
 
-    for feed in target:
-        articles, err = _fetch_one(feed)
+    # RSS polling is I/O-bound. A bounded pool avoids spending one timeout per
+    # feed while preserving the configured feed order in the final merge.
+    workers = max(1, min(config.FEED_FETCH_WORKERS, len(target) or 1))
+    with ThreadPoolExecutor(max_workers=workers, thread_name_prefix="rss") as pool:
+        results = list(pool.map(
+            lambda feed: _fetch_one(feed, (feed_cache or {}).get(feed.name)), target
+        ))
+    not_modified = 0
+    for feed, (articles, err, refreshed) in zip(target, results):
         if err:
             failed.append(err)
             log.warning("Feed failed: %s", err)
         else:
             succeeded += 1
+            if not articles and refreshed == ((feed_cache or {}).get(feed.name) or {}):
+                not_modified += 1
+            if feed_cache is not None:
+                feed_cache[feed.name] = refreshed
         all_articles.extend(articles)
-        # Tiny politeness delay between feeds (avoid hammering)
-        time.sleep(0.15)
 
     stats = {
         "attempted": len(target),
@@ -159,6 +183,7 @@ def collect_articles(feeds: list | None = None) -> tuple[list[dict], dict]:
         "failed": len(failed),
         "failed_details": failed,
         "total_articles": len(all_articles),
+        "not_modified": not_modified,
     }
     log.info(
         "Collected %d articles from %d/%d feeds (%d failed)",

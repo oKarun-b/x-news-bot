@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
+import tempfile
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -75,6 +77,8 @@ class StateStore:
         try:
             with open(self.path, "r", encoding="utf-8") as f:
                 self.data = json.load(f)
+            if not isinstance(self.data, dict):
+                raise ValueError("state root must be a JSON object")
             # Ensure keys exist (migration-safe)
             for k, v in DEFAULT_STATE.items():
                 if k not in self.data:
@@ -100,9 +104,10 @@ class StateStore:
                     migrated += 1
             if migrated:
                 log.info("Migrated %d legacy articles to compact format", migrated)
-        except (json.JSONDecodeError, OSError) as exc:
-            log.warning("State load failed (%s), starting fresh", exc)
-            self.data = json.loads(json.dumps(DEFAULT_STATE))
+        except (json.JSONDecodeError, OSError, ValueError) as exc:
+            # Never reset quota/dedupe history silently: a fresh state could
+            # duplicate posts or bypass daily limits. Fail closed for repair.
+            raise RuntimeError(f"State load failed for {self.path}; refusing to reset persisted bot state: {exc}") from exc
         return self.data
 
     def save(self) -> bool:
@@ -122,10 +127,23 @@ class StateStore:
                     return False
             except Exception:
                 pass
-        with open(self.path, "w", encoding="utf-8") as f:
-            # Compact JSON to keep repo size small (2.3 MB -> ~0.8 MB)
-            json.dump(self.data, f, ensure_ascii=False, sort_keys=False, separators=(",", ":"))
-            f.write("\n")
+        # Write atomically so interruption cannot leave a truncated state file.
+        temp_path: pathlib.Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                "w", encoding="utf-8", dir=self.path.parent,
+                prefix=f".{self.path.name}.", suffix=".tmp", delete=False,
+            ) as f:
+                temp_path = pathlib.Path(f.name)
+                # Compact JSON to keep repo size small (2.3 MB -> ~0.8 MB)
+                json.dump(self.data, f, ensure_ascii=False, sort_keys=False, separators=(",", ":"))
+                f.write("\n")
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(temp_path, self.path)
+        finally:
+            if temp_path is not None and temp_path.exists():
+                temp_path.unlink()
         self._dirty = False
         log.info("State saved to %s (%d bytes)", self.path, self.path.stat().st_size)
         return True

@@ -64,7 +64,7 @@ PROHIBITED_LABELS = [
 
 # ── Style rules ────────────────────────────────────────
 STYLE_RULES = """
-You write short, readable, news-focused X posts for a fast independent news account.
+You write concise, professional, news-focused X posts for an independent news account.
 
 Brand: Every post starts with JUST IN: (with 0-2 country flags prepended by the app, not you).
 Example: 🇺🇸 JUST IN: Trump orders...
@@ -72,8 +72,8 @@ Example: 🇺🇸 JUST IN: Trump orders...
 Rules:
 - Brand is JUST IN: — do not use NEWS UPDATE / BREAKING NEWS / DEVELOPING / CONTEXT / KEY DETAIL as visible labels.
 - Country flags (0-2) are added by the app from your country_codes — do not invent flags.
-- Lead with the most important verified fact. One concise paragraph by default.
-- Second paragraph ONLY if it adds meaningful verified info (consequence, context, quote).
+- Lead with the most important verified fact. Structure as event → essential detail → consequence when supported.
+- One concise paragraph by default. A second paragraph is allowed only for meaningful verified context.
 - Natural human newsroom style; no essay-like explanations.
 - No generic AI boilerplate: This marks a significant development / This comes amid / sparked widespread debate / major implications / In a major development / Experts say...
 - No "You won't believe...", no unnecessary hashtags, no excessive emojis (flags + JUST IN: is enough).
@@ -84,8 +84,7 @@ Rules:
 Post structure — default:
 [FLAGS] JUST IN: [MAIN EVENT].
 
-Do not begin with source attribution. BAD: "According to @BBCNews, Trump..."
-GOOD: "🇺🇸 JUST IN: Trump orders... @BBCNews reports." or second paragraph attribution.
+Never include source attribution, outlet/publisher names or domains, source handles, or links.
 """.strip()
 
 ATTRIBUTION_RULES = """
@@ -93,7 +92,7 @@ Editorial positioning: Independent news aggregation. Never imply original report
 
 Attribution policy (owner directive):
 - Do NOT include any source names, outlet names, or publisher domains in the post text.
-- Do NOT write "according to...", "X reports...", "sources say...", "per Reuters...".
+- Do NOT write "according to...", "X reports...", "sources say...", or "per [outlet]...".
 - Do NOT append "- Source" tails. Posts carry the news only; provenance stays internal.
 - Never fabricate quotes, statistics, or facts. (Fabrication rules unchanged — we simply don't name sources.)
 """.strip()
@@ -106,17 +105,17 @@ Constraints:
 - Do not include flags yourself — return country_codes separately and write post starting with JUST IN:.
 - No URLs ever: no http://, https://, www., t.co, bit.ly, article links.
 - Plain text only; no markdown.
-- 0-2 country flags (app will enforce), 0-2 @mentions (verified only), no more.
+- 0-2 country flags (app will enforce), 0-2 verified subject/entity mentions only; never mention a source.
 - One paragraph by default; optional second paragraph only if adds verified value.
 - If no relevant country, use 0 flags: "JUST IN: OpenAI announces..."
 """.strip()
 
 MENTION_RULES = """
 X mention rules (verified handles only):
-- You may use 0-2 @mentions per post, only from the verified registry provided.
+- You may use 0-2 @mentions per post, only for a story subject/entity and only from the verified registry provided.
 - Never invent a handle. If an entity isn't listed, write its plain name.
 - Use handles ONLY for the SUBJECT (the person/entity the news is about): "@elonmusk says xAI is preparing..."
-- NEVER use a handle for SOURCE attribution: do not write "@BBCNews reports" or "according to @CNN".
+- NEVER name, tag, link, or attribute a claim to a source/outlet/publisher.
 - Do NOT add a mention merely because the handle exists. 0 mentions is often correct.
 - Distinguish source (who reports — never mention) vs subject (who it's about — mention only if it adds context).
 """.strip()
@@ -193,12 +192,10 @@ def build_generation_prompt(story: dict, selected_format: str, mention_context: 
         "Write the post starting with exactly: JUST IN:",
         "Do not include flags yourself — list country_codes separately.",
         "Return ONLY JSON with all fields:",
-        '{"post": "JUST IN: ... (no flags, you will add them)", "country_codes": ["US"], "source": "BBC News", "source_handle": "@BBCNews or null", "subject_handles": [], "story_id": "...", "format": "' + selected_format + '", "confidence": 0.0-1.0}',
+        '{"post": "JUST IN: ... (no flags, you will add them)", "country_codes": ["US"], "subject_handles": [], "story_id": "...", "format": "' + selected_format + '", "confidence": 0.0-1.0}',
         "Rules for JSON:",
         "- post starts with JUST IN: (no flags, no old labels)",
         "- country_codes: [] or [\"US\"] or [\"US\",\"RU\"] (max 2, ISO codes only, use NAME_TO_CODE hints)",
-        "- source: plain source name as given",
-        "- source_handle: verified handle or null",
         "- subject_handles: 0-2 verified person/entity handles if directly relevant",
         "- No URLs, no invented handles, 100-220 chars preferred, 280 max",
     ])
@@ -214,7 +211,7 @@ def build_mention_context(story: dict, recent_handles: list[str] | None = None) 
     if candidates:
         lines.append(f"\nRelevant handles for this story (use only if natural, 0-2 max): {', '.join(candidates)}")
     else:
-        lines.append("\nNo verified handle is clearly relevant for this story — plain name attribution is fine (0 mentions).")
+        lines.append("\nNo verified subject handle is clearly relevant — use no mention.")
     if recent_handles:
         recent = ", ".join(recent_handles[-5:])
         lines.append(f"Recent mentions (avoid repeating same handle if not essential): {recent}")

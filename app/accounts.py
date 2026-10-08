@@ -88,27 +88,11 @@ def find_handles_for_story(story: dict) -> list[str]:
     candidates: list[str] = []
     seen: set[str] = set()
 
-    # Source-based
-    for field in ("source", "cluster_sources", "sources"):
-        val = story.get(field)
-        if isinstance(val, str):
-            h = resolve_handle(val)
-            if h and h not in seen:
-                candidates.append(h)
-                seen.add(h)
-        elif isinstance(val, (list, tuple)):
-            for item in val:
-                if isinstance(item, str):
-                    h = resolve_handle(item)
-                    if h and h not in seen:
-                        candidates.append(h)
-                        seen.add(h)
-
-    # Title/subject keyword scan — look for known entity names in title
+    # Subject/entity keyword scan only; source handles are never suggested.
     title = story.get("title", "") or ""
     title_low = title.lower()
     for name, info in REGISTRY.items():
-        if name.lower() in title_low:
+        if info.get("type") != "source" and name.lower() in title_low:
             h = info["handle"]
             if h not in seen:
                 candidates.append(h)
@@ -143,6 +127,13 @@ def validate_mentions(post: str) -> tuple[bool, str]:
     for m in mentions:
         if m.lower() not in allowed_lower:
             return False, f"unverified handle {m!r} — not in registry"
+    source_handles = {
+        info["handle"].lower() for info in REGISTRY.values()
+        if info.get("type") == "source"
+    }
+    for mention in mentions:
+        if mention.lower() in source_handles:
+            return False, f"source handle {mention!r} is forbidden"
     if len(mentions) > 2:
         return False, f"too many mentions ({len(mentions)} > 2)"
     return True, "ok"
@@ -150,8 +141,9 @@ def validate_mentions(post: str) -> tuple[bool, str]:
 
 def format_registry_for_prompt(max_entries: int = 20) -> str:
     """Compact registry listing for AI prompt."""
-    lines = ["Verified X handles you MAY use (if relevant). Never invent others:"]
-    for name, info in list(REGISTRY.items())[:max_entries]:
+    lines = ["Verified subject/entity X handles you MAY use (if relevant). Source handles are forbidden:"]
+    entries = [(name, info) for name, info in REGISTRY.items() if info.get("type") != "source"]
+    for name, info in entries[:max_entries]:
         lines.append(f"- {name} → {info['handle']} ({info['type']})")
-    lines.append("If a source/entity isn't listed, write its plain name (e.g., 'The New York Times reports...').")
+    lines.append("Never mention or tag news outlets, publishers, or reporting sources.")
     return "\n".join(lines)

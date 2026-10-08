@@ -1,6 +1,7 @@
 import json
 import pathlib
 import tempfile
+import pytest
 from datetime import datetime, timezone, timedelta
 
 from app.database import StateStore, _today_key
@@ -74,3 +75,18 @@ def test_save_no_change_returns_false(tmp_path=pathlib.Path(tempfile.mkdtemp()))
     assert s.save() is True
     # second save without mutation → false (updated_at excluded from comparison)
     assert s.save() is False
+
+
+def test_corrupt_state_fails_closed(tmp_path):
+    p = tmp_path / "state.json"
+    p.write_text('{"daily_counts":', encoding="utf-8")
+    with pytest.raises(RuntimeError, match="refusing to reset persisted bot state"):
+        StateStore(p).load()
+    assert p.read_text(encoding="utf-8") == '{"daily_counts":'
+
+
+def test_non_object_state_fails_closed(tmp_path):
+    p = tmp_path / "state.json"
+    p.write_text("[]", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="state root must be a JSON object"):
+        StateStore(p).load()

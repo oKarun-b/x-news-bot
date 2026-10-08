@@ -27,7 +27,7 @@ def test_extract_mentions():
 
 
 def test_validate_mentions_ok():
-    ok, _ = validate_mentions("Hello @BBCNews reports today.")
+    ok, _ = validate_mentions("Hello @elonmusk announced the project today.")
     assert ok
     ok, _ = validate_mentions("No mentions at all — fine.")
     assert ok
@@ -40,15 +40,20 @@ def test_validate_mentions_invented_rejected():
 
 
 def test_validate_mentions_too_many():
-    ok, reason = validate_mentions("@BBCNews @Reuters @AP all report this.")
+    ok, reason = validate_mentions("@elonmusk @realDonaldTrump @WhiteHouse announced this.")
     assert not ok
     assert "too many" in reason
+
+
+def test_validate_mentions_rejects_source_handles():
+    ok, reason = validate_mentions("@BBCNews reports today.")
+    assert not ok and "source handle" in reason
 
 
 def test_find_handles_for_story():
     story = {"source": "BBC News", "title": "Elon Musk says xAI update coming", "cluster_sources": ["BBC News"]}
     handles = find_handles_for_story(story)
-    assert "@BBCNews" in handles
+    assert "@BBCNews" not in handles
     assert "@elonmusk" in handles
 
 
@@ -82,7 +87,7 @@ def test_post_with_three_mentions_rejected():
 
 def test_character_count_includes_mentions():
     # Mention must count toward limit (flags + JUST IN: + mention)
-    base = "🇺🇸 JUST IN: " + "a" * 240 + " @BBCNews"
+    base = "🇺🇸 JUST IN: " + "a" * 240 + " @elonmusk"
     from app.normalize import weighted_length
     wl = weighted_length(base)
     assert wl > 240  # should be over due to mention + flags

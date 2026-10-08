@@ -126,7 +126,6 @@ TOP_CANDIDATES_CATCHUP: int = _env_int("TOP_CANDIDATES_CATCHUP", 8)
 
 # ── Discovery cadence / chaining (§23) ───────────────
 DISCOVERY_INTERVAL_MINUTES: int = _env_int("DISCOVERY_INTERVAL_MINUTES", 12)
-ENABLE_CHAIN: bool = _env_bool("ENABLE_CHAIN", True)
 CHAIN_WAIT_MAX_MINUTES: int = _env_int("CHAIN_WAIT_MAX_MINUTES", 12)
 
 # ── Gaps ─────────────────────────────────────────────
@@ -154,6 +153,8 @@ HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
 ALLOW_HASHTAGS: bool = _env_bool("ALLOW_HASHTAGS", False)
 # ── Images (§images) ─────────────────────────────────
 ENABLE_IMAGES: bool = _env_bool("ENABLE_IMAGES", True)
+ENABLE_COMMONS_IMAGES: bool = _env_bool("ENABLE_COMMONS_IMAGES", True)
+ENABLE_ARTICLE_IMAGES: bool = _env_bool("ENABLE_ARTICLE_IMAGES", False)
 MAX_IMAGES_PER_POST: int = _env_int("MAX_IMAGES_PER_POST", 1)
 MAX_IMAGE_POSTS_PER_DAY: int = _env_int("MAX_IMAGE_POSTS_PER_DAY", 4)
 # Curated library URLs (public repo raw files — Buffer-valid: public/direct/https/stable)
@@ -174,6 +175,7 @@ CLUSTER_SIMILARITY_THRESHOLD: float = _env_float("CLUSTER_SIMILARITY_THRESHOLD",
 STATE_RETENTION_DAYS: int = _env_int("STATE_RETENTION_DAYS", 7)
 ARTICLE_RETENTION_DAYS: int = _env_int("ARTICLE_RETENTION_DAYS", 3)
 FEED_TIMEOUT_SECONDS: int = _env_int("FEED_TIMEOUT_SECONDS", 10)
+FEED_FETCH_WORKERS: int = _env_int("FEED_FETCH_WORKERS", 8)
 ARTICLE_FETCH_MAX: int = _env_int("ARTICLE_FETCH_MAX", 2)
 ENABLE_QUEUE_RESHUFFLE: bool = _env_bool("ENABLE_QUEUE_RESHUFFLE", False)
 
