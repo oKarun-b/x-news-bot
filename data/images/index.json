@@ -318,5 +318,965 @@
         "sha256": "77353024d07f69a3e9d1c0a5cbd93f11156843b93d6e56590a63f25c396b872d"
       }
     }
+  },
+  "macron": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "portrait.jpg"
+    ],
+    "licenses": {
+      "portrait.jpg": "Public domain"
+    },
+    "creators": {
+      "portrait.jpg": "Nebojša Tejić"
+    },
+    "source_urls": {
+      "portrait.jpg": "https://commons.wikimedia.org/wiki/File:Emmanuel_Macron_portrait_(alt_crop).jpg"
+    },
+    "assets": {
+      "portrait.jpg": {
+        "license": "Public domain",
+        "creator": "Nebojša Tejić",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Emmanuel_Macron_portrait_(alt_crop).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Emmanuel_Macron_portrait_%28alt_crop%29.jpg",
+        "captured_at": "2025-10-21 04:41:22",
+        "original_source": "This image has been <b>extracted</b> from another file",
+        "description": "Foto: Nebojša Tejić / STA",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "7f090692c65f4ccf35ca2559901e4ba6064725f5022ba51b113da571fc415bae"
+      }
+    }
+  },
+  "modi": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "portrait-2025.jpg"
+    ],
+    "licenses": {
+      "portrait-2025.jpg": "Public domain"
+    },
+    "creators": {
+      "portrait-2025.jpg": "The White House"
+    },
+    "source_urls": {
+      "portrait-2025.jpg": "https://commons.wikimedia.org/wiki/File:Narendra_Modi_2025_(cropped).jpg"
+    },
+    "assets": {
+      "portrait-2025.jpg": {
+        "license": "Public domain",
+        "creator": "The White House",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Narendra_Modi_2025_(cropped).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Narendra_Modi_2025_%28cropped%29.jpg",
+        "captured_at": "2025-02-13 18:10:39",
+        "original_source": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/202101414@N05/54326459102/\">https://www.flickr.com/photos/202101414@N05/54326459102/</a>",
+        "description": "President Donald J. Trump hosts Prime Minister Narendra Modi of India at the White House",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "ae95f5120e775b88ee910488304343e22943341cf16a595ec744299188a6f4e5"
+      }
+    }
+  },
+  "starmer": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "arlington-2024.jpg"
+    ],
+    "licenses": {
+      "arlington-2024.jpg": "Public domain"
+    },
+    "creators": {
+      "arlington-2024.jpg": "Arlington National Cemetery"
+    },
+    "source_urls": {
+      "arlington-2024.jpg": "https://commons.wikimedia.org/wiki/File:British_Prime_Minister_Keir_Starmer_on_the_West_Steps_of_the_Memorial_Amphitheater_at_Arlington_National_Cemetery,_Arlington,_Virginia_on_July_11,_2024_(cropped).jpg"
+    },
+    "assets": {
+      "arlington-2024.jpg": {
+        "license": "Public domain",
+        "creator": "Arlington National Cemetery",
+        "source_url": "https://commons.wikimedia.org/wiki/File:British_Prime_Minister_Keir_Starmer_on_the_West_Steps_of_the_Memorial_Amphitheater_at_Arlington_National_Cemetery,_Arlington,_Virginia_on_July_11,_2024_(cropped).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/British_Prime_Minister_Keir_Starmer_on_the_West_Steps_of_the_Memorial_Amphitheater_at_Arlington_National_Cemetery%2C_Arlington%2C_Virginia_on_July_11%2C_2024_%28cropped%29.jpg",
+        "captured_at": "2024-07-11 09:29",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/arlingtonnatl/53851474007/\">British Prime Minister Keir Starmer Visits Arlington National Cemetery</a>",
+        "description": "British Defence Secretary John Healey, left, and British Prime Minister Keir Starmer, right, pose for a photo on the West Steps of the Memorial Amphitheater at Arlington National Cemetery, Arlington, Virginia, July 11, 2024. (U.S. Army photo by Elizabeth Fraser / Arlington National Cemetery / released)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "e92a8035812bc48afa51abb7ea4e8efaa4cc686f509f925de17d5be26f6f5ee3"
+      }
+    }
+  },
+  "meloni": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "white-house-2025.jpg"
+    ],
+    "licenses": {
+      "white-house-2025.jpg": "Public domain"
+    },
+    "creators": {
+      "white-house-2025.jpg": "The White House"
+    },
+    "source_urls": {
+      "white-house-2025.jpg": "https://commons.wikimedia.org/wiki/File:President_Donald_Trump_holds_a_bilateral_meeting_with_Prime_Minister_Giorgia_Meloni_of_Italy_(54460392285).jpg"
+    },
+    "assets": {
+      "white-house-2025.jpg": {
+        "license": "Public domain",
+        "creator": "The White House",
+        "source_url": "https://commons.wikimedia.org/wiki/File:President_Donald_Trump_holds_a_bilateral_meeting_with_Prime_Minister_Giorgia_Meloni_of_Italy_(54460392285).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/President_Donald_Trump_holds_a_bilateral_meeting_with_Prime_Minister_Giorgia_Meloni_of_Italy_%2854460392285%29.jpg",
+        "captured_at": "2025-04-17 13:41:38",
+        "original_source": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/whitehouse/54460392285/\">https://www.flickr.com/photos/whitehouse/54460392285/</a>",
+        "description": "President Donald Trump holds a bilateral meeting with Prime Minister Giorgia Meloni of Italy, Thursday, April 17, 2025, in the Oval Office. (Official White House Photo by Daniel Torok)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0.16,
+          0.27,
+          0.415,
+          0.56
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "41f026e62c025b25491995048f9b91ac098303fbe22393c87a79c16eb22dddfc"
+      }
+    }
+  },
+  "mohammed-bin-salman": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "portrait-2019.jpg"
+    ],
+    "licenses": {
+      "portrait-2019.jpg": "Public domain"
+    },
+    "creators": {
+      "portrait-2019.jpg": "U.S. Department of State from United States"
+    },
+    "source_urls": {
+      "portrait-2019.jpg": "https://commons.wikimedia.org/wiki/File:Secretary_Pompeo_Meets_With_Saudi_Crown_Prince_Mohammed_bin_Salman_(32862953548)_(cropped).jpg"
+    },
+    "assets": {
+      "portrait-2019.jpg": {
+        "license": "Public domain",
+        "creator": "U.S. Department of State from United States",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Secretary_Pompeo_Meets_With_Saudi_Crown_Prince_Mohammed_bin_Salman_(32862953548)_(cropped).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Secretary_Pompeo_Meets_With_Saudi_Crown_Prince_Mohammed_bin_Salman_%2832862953548%29_%28cropped%29.jpg",
+        "captured_at": "2019-01-14 02:47",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/statephotos/32862953548/\">Secretary Pompeo Meets With Saudi Crown Prince Mohammed bin Salman</a>",
+        "description": "U.S. Secretary of State Michael R. Pompeo meets with Saudi Crown Prince Mohammed bin Salman in Riyadh, Saudi Arabia, on January 14, 2019. [State Department photo by Ron Przysucha/Public Domain]",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "11a1ac01f9d705407fcfe37cb0207fdeee59f8f48c3c373d684f7e91630ba097"
+      }
+    }
+  },
+  "elon-musk": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "colorado-2022.jpg"
+    ],
+    "licenses": {
+      "colorado-2022.jpg": "Public domain"
+    },
+    "creators": {
+      "colorado-2022.jpg": "U.S. Air Force / Trevor Cokley"
+    },
+    "source_urls": {
+      "colorado-2022.jpg": "https://commons.wikimedia.org/wiki/File:Elon_Musk_Colorado_2022_(cropped2).jpg"
+    },
+    "assets": {
+      "colorado-2022.jpg": {
+        "license": "Public domain",
+        "creator": "U.S. Air Force / Trevor Cokley",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Elon_Musk_Colorado_2022_(cropped2).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Elon_Musk_Colorado_2022_%28cropped2%29.jpg",
+        "captured_at": "04.07.2022",
+        "original_source": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.dvidshub.net/image/7132411/usafa-hosts-elon-musk\">https://www.dvidshub.net/image/7132411/usafa-hosts-elon-musk</a>",
+        "description": "U.S. AIR FORCE ACADEMY, Colo. -- Tesla Inc. Chief Executive Officer Elon Musk speaks with Lt. Gen. Richard Clark, Superintendent of the U.S. Air Force Academy, during the Ira C. Eaker Distinguished Speaker Presentation in the Academy's Arnold Hall on April 7, 2022 in Colorado Springs, Colo.",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "1f90ab9f015f2feafe4734fb517e29ccfdb3ce8bf0335dbd125b9df4cd9eb36f"
+      }
+    }
+  },
+  "jd-vance": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "official-2025.jpg"
+    ],
+    "licenses": {
+      "official-2025.jpg": "Public domain"
+    },
+    "creators": {
+      "official-2025.jpg": "Daniel Torok"
+    },
+    "source_urls": {
+      "official-2025.jpg": "https://commons.wikimedia.org/wiki/File:January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg"
+    },
+    "assets": {
+      "official-2025.jpg": {
+        "license": "Public domain",
+        "creator": "Daniel Torok",
+        "source_url": "https://commons.wikimedia.org/wiki/File:January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/January_2025_Official_Vice_Presidential_Portrait_of_JD_Vance.jpg",
+        "captured_at": "2025-01-15",
+        "original_source": "This image  is available from the United States <a href=\"//commons.wikimedia.org/wiki/Library_of_Congress\" title=\"Library of Congress\">Library of Congress</a>'s <a rel=\"nofollow\" class=\"external text\" href=\"//www.loc.gov/rr/print/\">Prints and Photographs division</a><br> under the digital ID <a rel=\"nofollow\" class=\"external text\" href=\"https://hdl.loc.gov/loc.pnp/ppbd.11615\">ppbd.11615</a>.<br><small>This tag does not indicate the copyright status of the attached work. <span style=\"white-space:nowrap\">A normal <a href=\"//commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Copyright_tags\" title=\"Special:MyLanguage/Commons:Copyright tags\">copyright tag</a> is still required.</span> <span style=\"white-space:nowrap\">See <a href=\"//commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Licensing\" title=\"Special:MyLanguage/Commons:Licensing\">Commons:Licensing</a>.</span></small>",
+        "description": "Official Portrait of JD Vance in January 2025.",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "8f847003f16348afd5b847e66c0cffde3b83ebe4ea4dbb92dbbdeec6655ab6a1"
+      }
+    }
+  },
+  "marco-rubio": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "official-2025.jpg"
+    ],
+    "licenses": {
+      "official-2025.jpg": "Public domain"
+    },
+    "creators": {
+      "official-2025.jpg": "U.S. Department of State"
+    },
+    "source_urls": {
+      "official-2025.jpg": "https://commons.wikimedia.org/wiki/File:Official_portrait_of_Secretary_Marco_Rubio,_January_2025.jpg"
+    },
+    "assets": {
+      "official-2025.jpg": {
+        "license": "Public domain",
+        "creator": "U.S. Department of State",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Official_portrait_of_Secretary_Marco_Rubio,_January_2025.jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Official_portrait_of_Secretary_Marco_Rubio%2C_January_2025.jpg",
+        "captured_at": "2025-01-23 08:56:09",
+        "original_source": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/statephotos/54295399868/\">https://www.flickr.com/photos/statephotos/54295399868/</a>",
+        "description": "Official portrait of Secretary Marco Rubio, January 2025. (Official State Department photo)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "a8e75d826323ecff85f14afd02e802fdeceebf798c8c1ef03f014a8b3150b9e3"
+      }
+    }
+  },
+  "flag-fr": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Original: Unknown Vector:  SKopp"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_France.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Original: Unknown Vector:  SKopp",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_France.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/3840px-Flag_of_France.svg.png",
+        "captured_at": "1794",
+        "original_source": "This SVG flag includes elements that have been taken or adapted from this flag:",
+        "description": "Flag of France",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "FR",
+        "sha256": "73f4f756864e6af21fea49e11e1cf01efed4319ea0501df4ac17965078212944"
+      }
+    }
+  },
+  "flag-us": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Uploaded by Dbenbenn; edited by users such as Zscout370, Jacobolus, Indolences, and Technion."
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Uploaded by Dbenbenn; edited by users such as Zscout370, Jacobolus, Indolences, and Technion.",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_States.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/3840px-Flag_of_the_United_States.svg.png",
+        "captured_at": "Latest version follows color clarifications published in 2017. Earlier versions of the file go back to 11 September 2005.",
+        "original_source": "<ul><li>Latest version is based from <a href=\"//commons.wikimedia.org/wiki/File:Flag_of_the_United_States_(DoS_ECA_Color_Standard).svg\" title=\"File:Flag of the United States (DoS ECA Color Standard).svg\">File:Flag of the United States (DoS ECA Color Standard).svg</a> (2023)</li>\n<li><a href=\"https://en.wikipedia.org/wiki/Scalable_Vector_Graphics\" class=\"extiw\" title=\"w:Scalable Vector Graphics\">SVG</a> implementation of <a href=\"https://en.wikipedia.org/wiki/United_States_Code\" class=\"extiw\" title=\"w:United States Code\">U. S. Code</a>: <a href=\"https://en.wikisource.org/wiki/United_States_Code/Title_4/Chapter_1\" class=\"extiw\" title=\"wikisource:United States Code/Title 4/Chapter 1\">Title 4, Chapter 1, Section 1</a> <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://assembler.law.cornell.edu/uscode/html/uscode04/usc_sec_04_00000001----000-notes.html\">[1]</a> (the <a href=\"https://en.wikipedia.org/wiki/United_States\" class=\"extiw\" title=\"w:United States\">United States</a> <a href=\"https://en.wikipedia.org/wiki/Federal_government_of_the_United_States\" class=\"extiw\" title=\"w:Federal government of the United States\">Federal</a> \"Flag Law\").</li></ul>",
+        "description": "The Flag of the United States of America. Current RGB colors and geometric specifications follow the \"Design Guide\" published in January 2017 by State Department Bureau of Educational and Cultural Affairs.[1]",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "US",
+        "sha256": "bcd93c90b7d0c713b1dbf3032c779e065f019caa12b9fa2554c77548044d045f"
+      }
+    }
+  },
+  "flag-il": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Israel Belkind and Fanny Abramovitch (original)\n“The Provisional Council of State Proclamation of the Flag of the State of Israel” of 25 Tishrei 5709 (28 October 1948) provides the official specification for the design of the Israeli flag.\nThe color of the Magen David and the stripes of the Israeli flag is not precisely specified by the above legislation.  The color depicted in the current version of the image is typical of flags used in Israel today, although individual flags can and do vary.\nThe flag legislation officially specifies dimensions of 220 cm × 160 cm.  However, the sizes of actual flags vary (although the aspect ratio is usually retained)."
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Israel.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Israel Belkind and Fanny Abramovitch (original)\n“The Provisional Council of State Proclamation of the Flag of the State of Israel” of 25 Tishrei 5709 (28 October 1948) provides the official specification for the design of the Israeli flag.\nThe color of the Magen David and the stripes of the Israeli flag is not precisely specified by the above legislation.  The color depicted in the current version of the image is typical of flags used in Israel today, although individual flags can and do vary.\nThe flag legislation officially specifies dimensions of 220 cm × 160 cm.  However, the sizes of actual flags vary (although the aspect ratio is usually retained).",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Israel.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Israel.svg/3840px-Flag_of_Israel.svg.png",
+        "captured_at": "1948-10-28",
+        "original_source": "Own work using: <a rel=\"nofollow\" class=\"external free\" href=\"http://mfa.gov.il/MFA/AboutIsrael/IsraelAt50/Pages/The%20Flag%20and%20the%20Emblem.aspx\">http://mfa.gov.il/MFA/AboutIsrael/IsraelAt50/Pages/The%20Flag%20and%20the%20Emblem.aspx</a>",
+        "description": "Flag of Israel. Shows a Magen David (“Shield of David”) between two stripes. The Shield of David is a traditional Jewish symbol. The stripes symbolize a Jewish prayer shawl (tallit).",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "IL",
+        "sha256": "fb0bc4f676ddd0c39236f976e409bb272fd4391fc3b4d24981f7418061fcb332"
+      }
+    }
+  },
+  "flag-gb": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Original: Acts of Union 1800 Vector:  Yaddah"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Kingdom_(3-5).svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Original: Acts of Union 1800 Vector:  Yaddah",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_the_United_Kingdom_(3-5).svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/3840px-Flag_of_the_United_Kingdom_%283-5%29.svg.png",
+        "captured_at": "1801-01-01",
+        "original_source": "Design data from <a rel=\"nofollow\" class=\"external free\" href=\"http://fotw.vexillum.com/flags/gb.html\">http://fotw.vexillum.com/flags/gb.html</a>; original code is from <a href=\"//commons.wikimedia.org/wiki/File:Flag_of_the_United_Kingdom_(1-2).svg\" title=\"File:Flag of the United Kingdom (1-2).svg\">Image:Flag of the United Kingdom (1-2).svg</a>",
+        "description": "The flag of the United Kingdom using a 3:5 ratio.  This flag is the Union Flag in the 3:5 ratio exclusively used on land. At sea, the correct ratio is 1:2.",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "GB",
+        "sha256": "6c855e616b3f8f3570515af0d8046e139a6df5c2b131543c37259ee0ad9162cf"
+      }
+    }
+  },
+  "flag-de": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "User:SKopp, User:Madden, and other users"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "User:SKopp, User:Madden, and other users",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/3840px-Flag_of_Germany.svg.png",
+        "captured_at": "1949-05-23",
+        "original_source": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "description": "Flag of Germany, Commons page → Germany.",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "DE",
+        "sha256": "4077f701e61e0598875f92c282e2cd1e172200c314eb9381bc4bb46e50dfbbd4"
+      }
+    }
+  },
+  "flag-it": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "See below."
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Italy.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "See below.",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Italy.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/3840px-Flag_of_Italy.svg.png",
+        "captured_at": "2005-09-28",
+        "original_source": "<p>There has been a long discussion on the colors of this flag. <i>Please read <a href=\"//commons.wikimedia.org/wiki/File_talk:Flag_of_Italy.svg\" title=\"File talk:Flag of Italy.svg\">the talk page</a> before editing or reverting this image</i>. Pantone to RGB performed by <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx\"><i>Pantone</i> color finder</a>.\n<br>\n</p>\n<div style=\"border:1px solid #aaaaaa; padding:5px; font-size: 90%;\" class=\"box\">\n<div style=\"text-align: center;\"><b>[<a rel=\"nofollow\" class=\"external free\" href=\"http://www.gazzettaufficiale.it/atto/serie_generale/caricaDettaglioAtto/originario?atto.dataPubblicazioneGazzetta=2006-07-28&amp;atto.codiceRedazionale=06A06896&amp;elenco30giorni=false\">http://www.gazzettaufficiale.it/atto/serie_generale/caricaDettaglioAtto/originario?atto.dataPubblicazioneGazzetta=2006-07-28&amp;atto.codiceRedazionale=06A06896&amp;elenco30giorni=false</a> Regno D'Italia</b>\n(<i><a rel=\"nofollow\" class=\"external text\" href=\"http://www.gazzettaufficiale.it/eli/gu/2006/07/28/174/sg/pdf\">GU 174 del 28 luglio 2006</a></i>) <b></b></div>\n<div style=\"text-align: center;\"><b>[...]</b></div>\n<div style=\"text-align: center;\"><b>Art. 31 (Definizione cromatica dei colori della bandiera della Repubblica) </b></div>\n<p>Regno Italiano\nVerde <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx?c_id=3350\">17-6153</a> \nBianco <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx?c_id=96\">11-0601</a>\nRosso <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx?c_id=3785\">18-1662</a>.\n</p><p>2. L'utilizzazione di altri tessuti deve produrre lo stesso risultato cromatico ottenuto sull'esemplare custodito  presso il Dipartimento del Cerimoniale di Stato della Presidenza del Consiglio dei Ministri, nonché presso ogni Prefettura e ogni Rappresentanza diplomatica italiana all'estero. \n</p>\n<div style=\"text-align: center;\"><b>[...]</b></div>\n</div>\n<p><br>\n</p>\n<dl><dd><div class=\"legend\" style=\"direction:ltr;line-height:23px;\"><div class=\"legend-content\" style=\"display:inline-block;vertical-align:top;box-sizing:border-box;width:34px;height:23px;overflow:hidden;font-size:15px;border:1px solid black;background:#009246;color:#202122;text-align:center;\"> </div> <b>green</b></div>\n<dl><dd>Pantone <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx?c_id=3350\">textile 17-6153 TCX</a> (Fern Green);</dd></dl></dd>\n<dd><div class=\"legend\" style=\"direction:ltr;line-height:23px;\"><div class=\"legend-content\" style=\"display:inline-block;vertical-align:top;box-sizing:border-box;width:34px;height:23px;overflow:hidden;font-size:15px;border:1px solid black;background:#F1F2F1;color:#202122;text-align:center;\"> </div> <b>white</b></div>\n<dl><dd>Pantone <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx?c_id=96\">textile 11-0601 TCX</a> (Bright White);</dd></dl></dd>\n<dd><div class=\"legend\" style=\"direction:ltr;line-height:23px;\"><div class=\"legend-content\" style=\"display:inline-block;vertical-align:top;box-sizing:border-box;width:34px;height:23px;overflow:hidden;font-size:15px;border:1px solid black;background:#CE2B37;color:#202122;text-align:center;\"> </div> <b>red</b></div>\n<dl><dd>Pantone <a rel=\"nofollow\" class=\"external text\" href=\"http://www.pantone.com/pages/pantone/colorfinder.aspx?c_id=3785\">textile 18-1662 TCX</a> (Scarlet Red).</dd></dl></dd></dl>\n<table class=\"wikitable\" rules=\"all\" style=\"margin:1em 1em 1em 0;empty-cells:show\"><tbody><tr><th colspan=\"3\"><b>Used colors:</b></th></tr><tr valign=\"middle\">\n<td><span style=\"background-color:#008C45;border:1px solid darkgray;\" title=\"#008C45\">    </span> Fern Green</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> <span style=\"visibility:hidden\">00</span>0 140 <span style=\"visibility:hidden\">0</span>69</code></td><td><a href=\"https://en.wikipedia.org/wiki/Pantone\" class=\"extiw\" title=\"en:Pantone\">Pantone</a> 17-6153</td></tr>\n<tr valign=\"middle\">\n<td><span style=\"background-color:#F4F5F0;border:1px solid darkgray;\" title=\"#F4F5F0\">    </span> Bright White</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> 244 245 240</code></td><td><a href=\"https://en.wikipedia.org/wiki/Pantone\" class=\"extiw\" title=\"en:Pantone\">Pantone</a> 11-0601</td></tr>\n<tr valign=\"middle\">\n<td><span style=\"background-color:#CD212A;border:1px solid darkgray;\" title=\"#CD212A\">    </span> Scarlet Red</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> 205 <span style=\"visibility:hidden\">0</span>33 <span style=\"visibility:hidden\">0</span>42</code></td><td><a href=\"https://en.wikipedia.org/wiki/Pantone\" class=\"extiw\" title=\"en:Pantone\">Pantone</a>  18-1662</td></tr></tbody></table>",
+        "description": "Flag of Italy",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "IT",
+        "sha256": "edbb2fd55011f73927b90158ef09936c1b02d89bb03381b7ecbd746e98d98357"
+      }
+    }
+  },
+  "flag-ru": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Peter the Great"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Peter the Great",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Russia.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/3840px-Flag_of_Russia.svg.png",
+        "captured_at": "1693–19171993-present",
+        "original_source": "Государственный флаг Российской Федерации. Цвета флага: (Blue - Pantone 286 C, Red - Pantone 485 C) взяты из <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://zakupki.gov.ru/pgz/public/action/orders/info/common_info/show?notificationId=734557\">[1]</a><a rel=\"nofollow\" class=\"external autonumber\" href=\"http://zakupki.gov.ru/pgz/documentdownload?documentId=51761304\">[2]</a><a rel=\"nofollow\" class=\"external autonumber\" href=\"http://www.udprf.ru/sites/default/files/Z_K_Shtandart_Prezidenta_2-1..doc\">[3]</a><a rel=\"nofollow\" class=\"external autonumber\" href=\"http://doc.gostorgi.ru/91/2010-03-13/2743/8.doc\">[4]</a>",
+        "description": "Flag of Russia",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "RU",
+        "sha256": "1f5e00259f1857af24c899cc6f1da282a5941ccdfcad43904f0c35838d770b70"
+      }
+    }
+  },
+  "flag-ua": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Government of Ukraine"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Ukraine.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Government of Ukraine",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Ukraine.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/3840px-Flag_of_Ukraine.svg.png",
+        "captured_at": "2006-09-01",
+        "original_source": "<a class=\"external text\" href=\"https://uk.wikisource.org/wiki/%D0%94%D0%A1%D0%A2%D0%A3_4512:2006\">ДСТУ 4512:2006 — Державний прапор України. Загальні технічні умови</a>; Section 1, Article 20 of the <a rel=\"nofollow\" class=\"external text\" href=\"https://hcj.gov.ua/sites/default/files/field/file/the_constitution_of_ukraine.pdf\">Constitution of Ukraine</a>",
+        "description": "Flag of Ukraine",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "UA",
+        "sha256": "637427aa17430b62bbc7ecc12677a8a8d47d07d9f519bd01e2556a29a6ef9862"
+      }
+    }
+  },
+  "flag-cn": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Zeng Liansong"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_the_People%27s_Republic_of_China.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Zeng Liansong",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_the_People%27s_Republic_of_China.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/3840px-Flag_of_the_People%27s_Republic_of_China.svg.png",
+        "captured_at": "1949-10-01",
+        "original_source": "Standard version of national flag image for online usage is released on the website of the <a rel=\"nofollow\" class=\"external text\" href=\"http://www.npc.gov.cn/npc/c191/gqgggh/202101/t20210101_309577.html\">National People's Congress</a> and <a rel=\"nofollow\" class=\"external text\" href=\"https://www.gov.cn/guoqing/guoqi/index.htm\">the Government of China</a>. (网络使用的国旗图案标准版本在中国人大网和中国政府网上发布。)",
+        "description": "Flag of the People's Republic of China",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "CN",
+        "sha256": "405f025e8b4ea627697a43459dc1af1b2a9a652207dd0e181b460fb4f20666ee"
+      }
+    }
+  },
+  "flag-in": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Government of India"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_India.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Government of India",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_India.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_India.svg/3840px-Flag_of_India.svg.png",
+        "captured_at": "1947-present",
+        "original_source": "<p><span class=\"int-own-work\" lang=\"en\">Own work</span>, based on \n</p>\n<ul><li><a rel=\"nofollow\" class=\"external text\" href=\"https://www.mha.gov.in/sites/default/files/flagcodeofindia_070214.pdf\">Flag Code of India (2002)</a></li>\n<li><a rel=\"nofollow\" class=\"external text\" href=\"https://law.resource.org/pub/in/bis/S12/is.1.1968.pdf\">Specification for the National Flag of India (Cotton Khadi) (amended in 1979)</a></li></ul>\n<ul><li><b>CONSTRUCTION SHEET:</b> <span typeof=\"mw:File\"><a href=\"//commons.wikimedia.org/wiki/File:Flag_of_India_(construction_sheet)_(2-3).svg\" class=\"mw-file-description\"><img src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Flag_of_India_%28construction_sheet%29_%282-3%29.svg/250px-Flag_of_India_%28construction_sheet%29_%282-3%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"200\" height=\"139\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Flag_of_India_%28construction_sheet%29_%282-3%29.svg/500px-Flag_of_India_%28construction_sheet%29_%282-3%29.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"1086\" data-file-height=\"754\"></a></span></li></ul>\n<table class=\"infobox wikitable\" lang=\"en\" dir=\"ltr\" style=\"width:360px;\">\n<tbody><tr>\n<th colspan=\"2\" style=\"text-align:center; background-color:#DDD\">Flag of <bdi lang=\"\">India</bdi>*\n</th></tr>\n\n\n\n<tr>\n<td>country</td>\n<td>India\n</td></tr>\n<tr>\n<td>used by</td>\n<td lang=\"\" dir=\"auto\">India\n</td></tr>\n<tr>\n<td>current since</td>\n<td lang=\"\" dir=\"auto\">15 August 1947\n</td></tr>\n<tr>\n<td>created by</td>\n<td lang=\"\" dir=\"auto\">Pingali Venkayya\n</td></tr>\n<tr>\n<td>format</td>\n<td lang=\"\" dir=\"auto\">2:3\n</td></tr>\n<tr>\n<td>shape</td>\n<td lang=\"\" dir=\"auto\">rectangular\n</td></tr>\n<tr lang=\"\" dir=\"auto\">\n<td>FIAV</td>\n<td><span class=\"mw-image-border noviewer skin-invert\" typeof=\"mw:File\"><a href=\"//commons.wikimedia.org/wiki/Category:Vexillological_symbols\" title=\"↑\"><img alt=\"↑\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/FIAV_111000.svg/40px-FIAV_111000.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"23\" height=\"15\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/FIAV_111000.svg/60px-FIAV_111000.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"320\" data-file-height=\"210\"></a></span><a href=\"//commons.wikimedia.org/wiki/Category:Vexillological_symbols\" title=\"Category:Vexillological symbols\">↑</a>\n</td></tr>\n\n\n<tr>\n<td>colours</td>\n<td lang=\"\" dir=\"auto\">orange, white, green, blue\n</td></tr><tr valign=\"middle\">\n<td><span style=\"background-color:#FF671F;border:1px solid darkgray;\" title=\"#FF671F\">    </span> orange</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> 255 103 <span style=\"visibility:hidden\">0</span>31</code></td></tr><tr valign=\"middle\">\n<td><span style=\"background-color:#FFF;border:1px solid darkgray;\" title=\"#FFF\">    </span> white</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> 255 255 255</code></td></tr><tr valign=\"middle\">\n<td><span style=\"background-color:#046A38;border:1px solid darkgray;\" title=\"#046A38\">    </span> green</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> <span style=\"visibility:hidden\">00</span>4 106 <span style=\"visibility:hidden\">0</span>56</code></td></tr> <tr valign=\"middle\">\n<td><span style=\"background-color:#06038D;border:1px solid darkgray;\" title=\"#06038D\">    </span> blue</td>\n<td><small><i>rendered as</i></small> <code><a href=\"https://en.wikipedia.org/wiki/RGB_color_model\" class=\"extiw\" title=\"en:RGB color model\">RGB</a> <span style=\"visibility:hidden\">00</span>6 <span style=\"visibility:hidden\">00</span>3 141</code></td></tr>\n\n<tr>\n<td>other characteristics</td>\n<td lang=\"\" dir=\"auto\">flag has 3 horizontal stripes<br>\n<p>flag contains symbol: <i><a href=\"//commons.wikimedia.org/wiki/File:Ashoka_Chakra.svg\" title=\"File:Ashoka Chakra.svg\">Dharma-chakra</a></i><br>\n</p>\n</td></tr></tbody></table>",
+        "description": "The Flag of India. The colours are saffron, white and green. The navy blue wheel in the center of the flag has a diameter approximately the width of the white band and is called Ashoka's Dharma Chakra, with 24 spokes (after Ashoka, the Great). Each spoke depicts one hour of the day, portraying the prevalence of righteousness all 24 hours of it.",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "IN",
+        "sha256": "8c3bb01bc8a9465c3222a72abf1d1b05435de8e9ca37178138b7d3c913ecef26"
+      }
+    }
+  },
+  "flag-sa": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "The Shura Council"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Saudi_Arabia.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "The Shura Council",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Saudi_Arabia.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Flag_of_Saudi_Arabia.svg/3840px-Flag_of_Saudi_Arabia.svg.png",
+        "captured_at": "15 March 1973 (current version)",
+        "original_source": "<p><a rel=\"nofollow\" class=\"external text\" href=\"https://saudiflag.sa/\">Saudi Flag Website</a>, <a rel=\"nofollow\" class=\"external text\" href=\"https://cms.saudiflag.sa/uploads/flag_cb4beab1dd.jpg\">Image of the Flag</a>, <a rel=\"nofollow\" class=\"external text\" href=\"https://cms.saudiflag.sa/uploads/aldlyl_alirshady_lastkhdam_elm_almmlkt_alerbyt_alsewdyt_a5a8cb404e.pdf\">Flag Guideline (Arabic)</a>, <a rel=\"nofollow\" class=\"external text\" href=\"https://cms.saudiflag.sa/uploads/Saudi_flag_ENGLISH_2023_617441c5ce.pdf\">Flag Guideline (English)</a>\n</p>\n<hr>",
+        "description": "Flag of Saudi Arabia (obverse)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "SA",
+        "sha256": "5fd353b3ac9d152900251a143699f35ad2e0b4f2e6987bafb5a308b7366b2df6"
+      }
+    }
+  },
+  "flag-br": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Raimundo Teixeira Mendes"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Brazil.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Raimundo Teixeira Mendes",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Brazil.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/3840px-Flag_of_Brazil.svg.png",
+        "captured_at": "1992-05-11",
+        "original_source": "SVG implementation of <a rel=\"nofollow\" class=\"external text\" href=\"https://www.planalto.gov.br/ccivil_03/leis/l8421.htm\"><i>Lei n. 8.421 de 11 de maio de 1992</i></a>. The official construction sheet can be found in <a rel=\"nofollow\" class=\"external text\" href=\"https://www.planalto.gov.br/ccivil_03/leis/1989_1994/anexo/ANL8421-92.pdf\">the law's annex</a>.",
+        "description": "Flag of Brazil",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "BR",
+        "sha256": "8ecd02ee43ef371cbde296838778044aa55e43c33ad817ff9980c6329c4322f4"
+      }
+    }
+  },
+  "flag-eu": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "User:Verdy p, User:-xfi-, User:Paddu, User:Nightstallion, User:Funakoshi, User:Jeltz, User:Dbenbenn, User:Zscout370"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Europe.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "User:Verdy p, User:-xfi-, User:Paddu, User:Nightstallion, User:Funakoshi, User:Jeltz, User:Dbenbenn, User:Zscout370",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Europe.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/3840px-Flag_of_Europe.svg.png",
+        "captured_at": "",
+        "original_source": "<ul><li>File created by various Wikimedia users (see \"Author\").</li>\n<li>File based on the specification given at <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://europa.eu/abc/symbols/emblem/graphics1_en.htm\">[1]</a>.</li></ul>",
+        "description": "The Flag of Europe is the flag and emblem of the European Union (EU) and Council of Europe (CoE). It consists of a circle of 12 golden (yellow) stars on a blue background. It was created in 1955 by the CoE and adopted by the EU, then the European Communities, in the 1980s.\nThe CoE and EU are distinct in membership and nature. The CoE is an international organisation with 46 members, dealing with human rights and rule of law, while the EU is a quasi-federal union of 27 states, focused on economic",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "EU",
+        "sha256": "31f10e4719607e0985d00cfab856255e39e1e5ac4be53b9f0c5e898b9d14c3d1"
+      }
+    }
+  },
+  "jeff-bezos": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "portrait-2017.jpg"
+    ],
+    "licenses": {
+      "portrait-2017.jpg": "Public domain"
+    },
+    "creators": {
+      "portrait-2017.jpg": "Los Angeles Air Force Base Space and Missile System Center"
+    },
+    "source_urls": {
+      "portrait-2017.jpg": "https://commons.wikimedia.org/wiki/File:Jeff_Bezos-171025-F-PP655-236_(39479699761)_(cropped).jpg"
+    },
+    "assets": {
+      "portrait-2017.jpg": {
+        "license": "Public domain",
+        "creator": "Los Angeles Air Force Base Space and Missile System Center",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Jeff_Bezos-171025-F-PP655-236_(39479699761)_(cropped).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Jeff_Bezos-171025-F-PP655-236_%2839479699761%29_%28cropped%29.jpg",
+        "captured_at": "2017-10-25 21:43",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/129133022@N07/39479699761/\">171025-F-PP655-236</a>",
+        "description": "171025-F-PP655-236",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "layout": "portrait_crop",
+        "country_code": null,
+        "sha256": "e2b712037db2f7a6748864c0f03a164acd325f403e7b0ceb70355ba0144e3c48"
+      }
+    }
+  },
+  "flag-ir": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "SVG file: SiBr4Designer: Hamid NadimiConstruction: ISIRI"
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Iran.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "SVG file: SiBr4Designer: Hamid NadimiConstruction: ISIRI",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Iran.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Flag_of_Iran.svg/3840px-Flag_of_Iran.svg.png",
+        "captured_at": "29 July 1980 (adopted).",
+        "original_source": "<p>Own work, based on <a rel=\"nofollow\" class=\"external text\" href=\"http://flagspot.net/flags/ir'.html\">FotW</a> \n<b>&gt;&gt;&gt; <a rel=\"nofollow\" class=\"external text\" href=\"https://www.fotw.info/flags/ir%27.html\">Construction sheet (<i>Flags of the World</i>)</a></b><br>\n</p>\n<b>&gt;&gt;&gt; <a rel=\"nofollow\" class=\"external text\" href=\"http://www.vexilla-mundi.com/iran_flag.html\">Construction sheet (<i>Vexilla Mundi</i>)</a></b>",
+        "description": "The flag of Iran, created from scratch using the official geometric construction from ISIRI (translation at FotW). Note the irrational aspect ratio of ±1.7477:1, which is slightly different from the more often used 7:4 (1.75:1) given in the \"simplified\" construction sheet in the same document.Coordinates were computed numerically using a MATLAB script; colors were taken from File:Flag of Iran.svg. The tricolor flag was introduced in 1906, but after the Islamic Revolution of 1979 the Arabic words",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "IR",
+        "sha256": "740654057fad18858fb4bc7d27f6a4831b4a43f3b72275fe76e1cd6a3d247988"
+      }
+    }
+  },
+  "flag-ps": {
+    "type": "country",
+    "priority": 1,
+    "files": [
+      "flag.jpg"
+    ],
+    "licenses": {
+      "flag.jpg": "Public domain"
+    },
+    "creators": {
+      "flag.jpg": "Orionist, previous versions by Makaristos, Mysid, etc."
+    },
+    "source_urls": {
+      "flag.jpg": "https://commons.wikimedia.org/wiki/File:Flag_of_Palestine.svg"
+    },
+    "assets": {
+      "flag.jpg": {
+        "license": "Public domain",
+        "creator": "Orionist, previous versions by Makaristos, Mysid, etc.",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Palestine.svg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Palestine.svg/3840px-Flag_of_Palestine.svg.png",
+        "captured_at": "2010-08-14",
+        "original_source": "Own work using: <a rel=\"nofollow\" class=\"external text\" href=\"http://muqtafi.birzeit.edu/pg/getleg.asp?id=15212\">Law No. 5 for the year 2006 amending some provisions of Law No. 22 for the year 2005 on the Sanctity of the Palestinian Flag</a>",
+        "description": "The flag of State of Palestine",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "symbolic country flag",
+        "reviewed": true,
+        "layout": "contain",
+        "country_code": "PS",
+        "sha256": "262a4de7a16bbd9a5c0ec77a027fb202dd0a832c3e8a05a520e710bfe47c9aff"
+      }
+    }
   }
 }

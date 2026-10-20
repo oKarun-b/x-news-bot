@@ -1,0 +1,17 @@
+[
+  {"entity": "flag-fr", "type": "country", "country_code": "FR", "file": "flag.jpg", "commons_title": "File:Flag of France.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-us", "type": "country", "country_code": "US", "file": "flag.jpg", "commons_title": "File:Flag of the United States.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-il", "type": "country", "country_code": "IL", "file": "flag.jpg", "commons_title": "File:Flag of Israel.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-gb", "type": "country", "country_code": "GB", "file": "flag.jpg", "commons_title": "File:Flag of the United Kingdom.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-de", "type": "country", "country_code": "DE", "file": "flag.jpg", "commons_title": "File:Flag of Germany.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-it", "type": "country", "country_code": "IT", "file": "flag.jpg", "commons_title": "File:Flag of Italy.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-ru", "type": "country", "country_code": "RU", "file": "flag.jpg", "commons_title": "File:Flag of Russia.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-ua", "type": "country", "country_code": "UA", "file": "flag.jpg", "commons_title": "File:Flag of Ukraine.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-cn", "type": "country", "country_code": "CN", "file": "flag.jpg", "commons_title": "File:Flag of the People's Republic of China.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-in", "type": "country", "country_code": "IN", "file": "flag.jpg", "commons_title": "File:Flag of India.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-sa", "type": "country", "country_code": "SA", "file": "flag.jpg", "commons_title": "File:Flag of Saudi Arabia.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-br", "type": "country", "country_code": "BR", "file": "flag.jpg", "commons_title": "File:Flag of Brazil.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-eu", "type": "country", "country_code": "EU", "file": "flag.jpg", "commons_title": "File:Flag of Europe.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-ir", "type": "country", "country_code": "IR", "file": "flag.jpg", "commons_title": "File:Flag of Iran.svg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "flag-ps", "type": "country", "country_code": "PS", "file": "flag.jpg", "commons_title": "File:Flag of Palestine.svg", "crop": [0, 0, 1, 1], "reviewed": true}
+]

@@ -1,0 +1,11 @@
+[
+  {"entity": "macron", "file": "portrait.jpg", "commons_title": "File:Emmanuel Macron portrait (alt crop).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "modi", "file": "portrait-2025.jpg", "commons_title": "File:Narendra Modi 2025 (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "starmer", "file": "arlington-2024.jpg", "commons_title": "File:British Prime Minister Keir Starmer on the West Steps of the Memorial Amphitheater at Arlington National Cemetery, Arlington, Virginia on July 11, 2024 (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "meloni", "file": "white-house-2025.jpg", "commons_title": "File:President Donald Trump holds a bilateral meeting with Prime Minister Giorgia Meloni of Italy (54460392285).jpg", "crop": [0.16, 0.27, 0.415, 0.56], "reviewed": true},
+  {"entity": "mohammed-bin-salman", "file": "portrait-2019.jpg", "commons_title": "File:Secretary Pompeo Meets With Saudi Crown Prince Mohammed bin Salman (32862953548) (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "elon-musk", "file": "colorado-2022.jpg", "commons_title": "File:Elon Musk Colorado 2022 (cropped2).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "jd-vance", "file": "official-2025.jpg", "commons_title": "File:January 2025 Official Vice Presidential Portrait of JD Vance.jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "marco-rubio", "file": "official-2025.jpg", "commons_title": "File:Official portrait of Secretary Marco Rubio, January 2025.jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "jeff-bezos", "file": "portrait-2017.jpg", "commons_title": "File:Jeff Bezos-171025-F-PP655-236 (39479699761) (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true}
+]

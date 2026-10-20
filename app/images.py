@@ -26,21 +26,59 @@ def _eligible_license(value: str) -> bool:
     return str(value).strip().casefold() in _SAFE_LICENSES
 
 
-def match_entities(title: str) -> list[dict]:
-    """Match explicit names in the final copy, not countries or background summary."""
+def _registry() -> dict:
     try:
-        registry = json.loads((pathlib.Path(config.DATA_DIR) / "images" / "entities.json").read_text(encoding="utf-8"))
+        return json.loads((pathlib.Path(config.DATA_DIR) / "images" / "entities.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return []
+        return {}
+
+
+def _alias_positions(title: str, aliases: list[str]) -> list[int]:
+    # US is a country abbreviation; "us" is often simply a pronoun.
+    return [m.start() for alias in aliases
+            for m in re.finditer(r"(?<!\w)" + re.escape(alias) + r"(?!\w)", title,
+                                 0 if alias.isupper() and len(alias) <= 4 else re.I)]
+
+
+def match_entities(title: str) -> list[dict]:
+    """Match named people/institutions, preserving the speaker-check contract."""
     hits = []
-    for slug, entity in registry.items():
-        positions = [m.start() for alias in entity["aliases"]
-                     for m in re.finditer(r"(?<!\w)" + re.escape(alias) + r"(?!\w)", title, re.I)]
+    for slug, entity in _registry().items():
+        if entity["type"] == "country":
+            continue
+        positions = _alias_positions(title, entity["aliases"])
         if positions:
             hits.append((0 if entity["type"] == "person" else 1, min(positions), {**entity, "slug": slug}))
     hits.sort(key=lambda hit: hit[:2])
     people = [entity for _, _, entity in hits if entity["type"] == "person"]
     return (people or [entity for _, _, entity in hits])[:2]
+
+
+def match_story_entities(story: dict) -> list[dict]:
+    """Use portraits first; flags require explicitly named, central countries."""
+    title = story.get("title", "")
+    named = match_entities(title)
+    if named:
+        return named
+    codes = story.get("country_codes")
+    if codes is not None:
+        if not isinstance(codes, list) or any(not isinstance(code, str) for code in codes):
+            return []
+        codes = list(dict.fromkeys("GB" if code.strip().upper() == "UK" else code.strip().upper() for code in codes))
+    if codes is not None and (not codes or len(set(codes)) > 2):
+        return []
+    hits = []
+    for slug, entity in _registry().items():
+        if entity["type"] != "country" or (codes is not None and entity["country_code"] not in codes):
+            continue
+        positions = _alias_positions(title, entity["aliases"])
+        if positions:
+            hits.append((min(positions), {**entity, "slug": slug}))
+    hits.sort(key=lambda hit: hit[0])
+    # Do not silently turn a three-country story into a misleading two-flag pair.
+    if len(hits) > 2 or (codes is not None and len(hits) != len(set(codes))):
+        return []
+    return [entity for _, entity in hits]
 
 
 def load_index() -> dict[str, dict]:
@@ -244,7 +282,9 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
     if not config.ENABLE_IMAGES:
         return []
     assets = []
-    entities = match_entities(story.get("title", ""))[:min(2, config.MAX_IMAGES_PER_POST)]
+    entities = match_story_entities(story)
+    if len(entities) > min(2, config.MAX_IMAGES_PER_POST):
+        return []
     rotations = {}
     now = time.time()
     cache = state.setdefault("image_cache", {})
@@ -267,10 +307,10 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
                     and metadata.get("reviewed") is True
                     and (metadata.get("width"), metadata.get("height")) == (1200, 1500)
                     and _reachable_image(url)):
-                asset = {"url": url, "metadata": {**metadata, "entity": entity["name"], "usage": "illustrative portrait"}}
+                asset = {"url": url, "metadata": {**metadata, "entity": entity["name"]}}
                 rotations[slug] = pick
                 break
-        if not asset and config.ENABLE_COMMONS_IMAGES:
+        if not asset and config.ENABLE_COMMONS_IMAGES and entity["type"] != "country":
             if slug in cache:
                 asset = cache[slug].get("asset")
             else:
@@ -280,8 +320,8 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
         reachable = asset and (slug in rotations or _reachable_image(asset["url"]))
         if reachable and asset["url"] not in [a["url"] for a in assets]:
             assets.append(asset)
-    if len(entities) == 2 and all(e["type"] == "person" for e in entities) and len(assets) != 2:
-        log.info("Paired portraits incomplete — using text only")
+    if len(entities) == 2 and len(assets) != 2:
+        log.info("Paired images incomplete — using text only")
         return []
     state.setdefault("image_rotation", {}).update(rotations)
     return assets
@@ -289,7 +329,7 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
 
 def has_known_image(title: str, state: dict) -> bool:
     """Cheap ranking hint, without performing speculative provider requests."""
-    for entity in match_entities(title):
+    for entity in match_story_entities({"title": title}):
         cached = state.get("image_cache", {}).get(entity["slug"], {})
         reviewed = any((curated_image_metadata(_build_url(entity["slug"], filename)) or {}).get("reviewed")
                        for filename in _files_for(entity["slug"]))

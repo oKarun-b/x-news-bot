@@ -14,6 +14,7 @@ import re
 
 _COUNTRY_TO_FLAG: dict[str, str] = {
     "US": "🇺🇸",
+    "EU": "🇪🇺",  # Regional flag supported alongside country codes.
     "RU": "🇷🇺",
     "UA": "🇺🇦",
     "CN": "🇨🇳",
@@ -213,6 +214,7 @@ def contains_url(text: str) -> bool:
 
 # Convenience: common country name → code for prompt hints
 NAME_TO_CODE: dict[str, str] = {
+    "european union": "EU",
     "united states": "US",
     "usa": "US",
     "america": "US",

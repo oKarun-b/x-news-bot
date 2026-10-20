@@ -677,7 +677,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         if config.ENABLE_IMAGES and store.image_quota_remaining() > 0:
             try:
                 from app.images import select_story_images
-                assets = select_story_images({"title": final_post}, store.data)
+                assets = select_story_images({"title": final_post, "country_codes": country_codes}, store.data)
                 image_urls = [asset["url"] for asset in assets]
                 image_url = image_urls[0] if image_urls else None
                 image_metadata = [asset.get("metadata") for asset in assets]

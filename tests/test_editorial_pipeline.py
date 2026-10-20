@@ -132,6 +132,24 @@ def test_full_pipeline_two_portraits_and_breaking_before_routine_queue(monkeypat
     assert store.data["candidate_pool"][0]["posted"] is True
 
 
+def test_full_pipeline_selects_two_country_flags(monkeypatch, tmp_path, clock):
+    from pathlib import Path
+    run, store, article = setup_pipeline(monkeypatch, tmp_path, clock)
+    article["title"] = "US and Israel announce new trade talks"
+    article["summary"] = article["title"]
+    monkeypatch.setattr(config, "DATA_DIR", Path(__file__).resolve().parents[1] / "data")
+    monkeypatch.setattr("app.images._reachable_image", lambda url: True)
+    monkeypatch.setattr("app.ai.generate_post", lambda *a, **kw: {"post": article["title"], "country_codes": ["US", "IL"]})
+    gql = MagicMock(return_value={"createPost": {"post": {"id": "fixture-flags"}}})
+    monkeypatch.setattr("app.buffer._gql", gql)
+    assert run(force=True) == 0
+    gql.assert_called_once()
+    query = gql.call_args.args[0]
+    assert "/flag-us/flag.jpg" in query and "/flag-il/flag.jpg" in query
+    assert query.count("image: { url:") == 2
+    assert store.daily_counts_for(_today_key(clock))["image_posts"] == 1
+
+
 @pytest.mark.parametrize("failure", ["caption", "old", "generation"])
 def test_invalid_inputs_never_reach_buffer(monkeypatch, tmp_path, clock, failure):
     run, store, article = setup_pipeline(monkeypatch, tmp_path, clock)

@@ -1,4 +1,4 @@
-"""Offline portrait preparation: python -m app.media_library --help.
+"""Offline portrait and flag preparation: python -m app.media_library --help.
 
 Run only while maintaining the library, never on the publishing hot path.
 Originals and metadata are cached outside the repository for visual review.
@@ -81,6 +81,18 @@ def crop_portrait(image, crop: list[float]):
     return ImageOps.fit(image, SIZE, method=Image.Resampling.LANCZOS, centering=(0.5, 0.35))
 
 
+def frame_flag(image):
+    """Preserve the complete design and its proportions on a matching 4:5 canvas."""
+    from PIL import Image, ImageOps
+    image = ImageOps.exif_transpose(image).convert("RGBA")
+    if image.width < 800 or image.height < 400:
+        raise ValueError("Flag source is too small")
+    foreground = ImageOps.contain(image, (1120, 1380), method=Image.Resampling.LANCZOS)
+    output = Image.new("RGB", SIZE, "#101820")
+    output.paste(foreground, ((SIZE[0] - foreground.width) // 2, (SIZE[1] - foreground.height) // 2), foreground)
+    return output
+
+
 def main() -> None:
     from PIL import Image, ImageDraw, ImageOps
     parser = argparse.ArgumentParser(description=__doc__)
@@ -92,7 +104,8 @@ def main() -> None:
     entries = json.loads(args.manifest.read_text(encoding="utf-8"))
     index_path = args.output / "index.json"
     index = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else {}
-    sheet = Image.new("RGB", (320 * len(entries), 440), "#151515")
+    columns = min(5, len(entries))
+    sheet = Image.new("RGB", (320 * columns, 440 * ((len(entries) + columns - 1) // columns)), "#151515")
     draw = ImageDraw.Draw(sheet)
     for n, entry in enumerate(entries):
         original, metadata = download(entry, args.cache)
@@ -100,12 +113,15 @@ def main() -> None:
             if args.build:
                 if not entry.get("reviewed"):
                     raise ValueError(f"Visual review required: {entry['entity']}")
-                rendered = crop_portrait(image, entry["crop"])
+                is_flag = entry.get("type") == "country"
+                if is_flag and entry.get("crop") != [0, 0, 1, 1]:
+                    raise ValueError("Flag designs must not be cropped")
+                rendered = frame_flag(image) if is_flag else crop_portrait(image, entry["crop"])
                 folder = args.output / entry["entity"]
                 folder.mkdir(parents=True, exist_ok=True)
                 target = folder / entry["file"]
                 rendered.save(target, "JPEG", quality=90, optimize=True, progressive=True)
-                info = index.setdefault(entry["entity"], {"type": "person", "priority": 1})
+                info = index.setdefault(entry["entity"], {"type": entry.get("type", "person"), "priority": 1})
                 if entry["file"] not in info.setdefault("files", []):
                     info["files"].append(entry["file"])
                 for field, key in (("licenses", "license"), ("creators", "creator"), ("source_urls", "source_url")):
@@ -113,15 +129,17 @@ def main() -> None:
                 info.setdefault("assets", {})[entry["file"]] = {
                     **{**metadata, "description": metadata.get("description", "")[:500]},
                     "width": SIZE[0], "height": SIZE[1], "crop": entry["crop"],
-                    "usage": "illustrative portrait", "reviewed": True,
+                    "usage": "symbolic country flag" if is_flag else "illustrative portrait", "reviewed": True,
+                    "layout": "contain" if is_flag else "portrait_crop",
+                    "country_code": entry.get("country_code"),
                     "sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
                 }
                 preview = rendered
             else:
                 preview = image.copy()
             preview = ImageOps.contain(preview, (310, 400))
-            sheet.paste(preview, (n * 320 + (320 - preview.width) // 2, 25))
-        draw.text((n * 320 + 8, 6), entry["entity"], fill="white")
+            sheet.paste(preview, ((n % columns) * 320 + (320 - preview.width) // 2, (n // columns) * 440 + 25))
+        draw.text(((n % columns) * 320 + 8, (n // columns) * 440 + 6), entry["entity"], fill="white")
         print(entry["entity"], metadata["license"], original)
     sheet.save(args.cache / ("prepared.jpg" if args.build else "originals.jpg"))
     if args.build:
