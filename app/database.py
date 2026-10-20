@@ -246,7 +246,7 @@ class StateStore:
         posts.append(post)
         # Update cluster bookkeeping
         cid = post.get("cluster_id")
-        if cid:
+        if cid and post.get("status") in ("scheduled", "sent", "published"):
             clusters = self.data.get("clusters", {})
             cl = clusters.get(cid)
             if cl is not None:
@@ -314,12 +314,13 @@ class StateStore:
                 "sources": c.get("sources", []),
                 "source_count": c.get("source_count", 1),
                 "score": c.get("_score"),
-                "added_at": now_iso,
+                "added_at": by_id.get(cid, {}).get("added_at", now_iso),
+                "posted": by_id.get(cid, {}).get("posted", False),
                 "reject_count": by_id.get(cid, {}).get("reject_count", 0),
                 "article_ids": c.get("member_ids", []),
                 "category": (c.get("representative_article") or {}).get("category", "general"),
                 "summary": (c.get("representative_article") or {}).get("summary", "")[:400],
-                "latest_activity": (c.get("latest_activity").isoformat() if isinstance(c.get("latest_activity"), datetime) else str(c.get("latest_activity") or "")),
+                "latest_activity": str((c.get("representative_article") or {}).get("published_at") or c.get("latest_activity") or ""),
             }
             # Replace or add
             by_id[cid] = entry
@@ -333,6 +334,11 @@ class StateStore:
         out = []
         for e in pool:
             if e.get("posted"):
+                continue
+            if e.get("reject_count", 0) >= 3:
+                continue
+            from app.content import story_problem
+            if story_problem(e.get("representative_title", ""), e.get("latest_activity"), now):
                 continue
             if max_age_hours is not None and e.get("added_at"):
                 added = _parse_iso(e["added_at"])

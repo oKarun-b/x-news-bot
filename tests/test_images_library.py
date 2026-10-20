@@ -121,10 +121,11 @@ def test_curated_attribution_required_assets_are_not_selected(tmp_path):
 def test_commons_image_accepts_cc0_and_retains_provenance():
     from app.images import search_commons_image
     payload = {"query": {"pages": {"1": {
-        "title": "File:Official portrait.jpg",
+        "title": "File:Donald Trump official portrait.jpg",
         "imageinfo": [{
-            "thumburl": "https://upload.wikimedia.org/portrait.jpg",
+            "thumburl": "https://upload.wikimedia.org/portrait.jpg?utm_source=commons.wikimedia.org&utm_content=thumbnail",
             "thumbwidth": 1600,
+            "mime": "image/jpeg",
             "descriptionurl": "https://commons.wikimedia.org/wiki/File:Official_portrait.jpg",
             "extmetadata": {
                 "LicenseShortName": {"value": "CC0 1.0"},
@@ -137,7 +138,7 @@ def test_commons_image_accepts_cc0_and_retains_provenance():
         "json": lambda self: payload,
     })()
     with patch("app.images.requests.get", return_value=response):
-        asset = search_commons_image({"title": "President announces policy"})
+        asset = search_commons_image({"title": "Trump announces policy"})
     assert asset["url"] == "https://upload.wikimedia.org/portrait.jpg"
     assert asset["license"] == "CC0 1.0"
     assert asset["source_url"].startswith("https://commons.wikimedia.org/")
@@ -146,10 +147,11 @@ def test_commons_image_accepts_cc0_and_retains_provenance():
 def test_commons_image_skips_attribution_required_license():
     from app.images import search_commons_image
     payload = {"query": {"pages": {"1": {
-        "title": "File:Photo.jpg",
+        "title": "File:Donald Trump portrait.jpg",
         "imageinfo": [{
             "url": "https://upload.wikimedia.org/photo.jpg",
             "width": 1600,
+            "mime": "image/jpeg",
             "extmetadata": {"LicenseShortName": {"value": "CC BY-SA 4.0"}},
         }],
     }}}}
@@ -158,4 +160,4 @@ def test_commons_image_skips_attribution_required_license():
         "json": lambda self: payload,
     })()
     with patch("app.images.requests.get", return_value=response):
-        assert search_commons_image({"title": "President announces policy"}) is None
+        assert search_commons_image({"title": "Trump announces policy"}) is None

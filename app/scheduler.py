@@ -53,6 +53,7 @@ def _next_slot_after(
     last_scheduled: datetime | None,
     is_breaking: bool,
     remaining: int = 3,
+    max_normal_gap: int | None = None,
 ) -> datetime:
     """§18: breaking → ASAP. Normal → dynamic gap + audience window."""
     if is_breaking:
@@ -62,6 +63,8 @@ def _next_slot_after(
 
     if last_scheduled:
         gap = _dynamic_gap(remaining, earliest)
+        if max_normal_gap is not None:
+            gap = min(gap, max_normal_gap)
         candidate = max(earliest + timedelta(minutes=config.BREAKING_MIN_DELAY_MINUTES), last_scheduled + timedelta(minutes=gap))
     else:
         # First post: modest offset so it clears Buffer's future requirement
@@ -138,12 +141,13 @@ def compute_schedule(
                 due = max(due, stagger)
         else:
             # Scale gaps so this batch fits inside the rolling horizon (§21)
-            stories_left = max(1, batch_size - scheduled_this_run)
-            horizon_span_min = max(30, int((horizon - now).total_seconds() / 60))
-            saved_max = config.MAX_NORMAL_GAP_MINUTES
-            config.MAX_NORMAL_GAP_MINUTES = min(saved_max, max(config.MIN_NORMAL_GAP_MINUTES, horizon_span_min // stories_left))
-            due = _next_slot_after(now, last_due, False, remaining_quota or 3)
-            config.MAX_NORMAL_GAP_MINUTES = saved_max
+            reference_due = max(now, last_due) if last_due else now
+            horizon_span_min = max(0, int((horizon - reference_due).total_seconds() / 60))
+            horizon_gap = min(
+                config.MAX_NORMAL_GAP_MINUTES,
+                max(config.MIN_NORMAL_GAP_MINUTES, horizon_span_min // max(1, batch_size)),
+            )
+            due = _next_slot_after(now, last_due, False, remaining_quota or 3, max_normal_gap=horizon_gap)
 
         if not is_breaking and due > horizon:
             log.info("Story %s due %s beyond %d min horizon, deferring", story.get("story_id"), due.isoformat(), config.BUFFER_HORIZON_MINUTES)
@@ -153,7 +157,7 @@ def compute_schedule(
             continue
 
         results.append({"story": story, "due_at": due, "is_breaking": is_breaking})
-        last_due = due
+        last_due = max(last_due, due) if last_due else due
         queue_count += 1
         scheduled_this_run += 1
 
@@ -166,3 +170,18 @@ def format_due_at(dt: datetime) -> str:
         dt = dt.replace(tzinfo=timezone.utc)
     dt = dt.astimezone(timezone.utc)
     return dt.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+
+def final_due_at(requested: datetime, occupied: list[datetime], now: datetime, breaking: bool) -> datetime:
+    """Find the next collision-free slot without placing breaking behind the queue."""
+    due = max(requested, now + timedelta(minutes=2))
+    gap = timedelta(minutes=6 if breaking else config.MIN_NORMAL_GAP_MINUTES)
+    for other in sorted(occupied):
+        if abs((due - other).total_seconds()) < gap.total_seconds():
+            due = other + gap
+    if not breaking:
+        if due > now + timedelta(minutes=config.BUFFER_HORIZON_MINUTES) or not is_within_posting_window(due):
+            raise ValueError("no fresh slot within posting window/horizon")
+    elif not config.ALLOW_BREAKING_OUTSIDE_WINDOW and not is_within_posting_window(due):
+        raise ValueError("breaking outside posting window disabled")
+    return due

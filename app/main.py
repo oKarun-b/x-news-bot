@@ -7,6 +7,7 @@ import traceback
 from datetime import datetime, timedelta, timezone
 
 from app import config
+from app.content import central_country_codes, clean_headline, duplicate_development, publication_time, render_post, story_problem
 from app.article import enrich_top_candidates
 from app.clustering import cluster_articles
 from app.database import StateStore, _today_key
@@ -209,8 +210,8 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         "Quota: %d/%d scheduled today, remaining=%d, mode=%s",
         counts["total"], config.DAILY_POST_TARGET, remaining["target_remaining"], metrics["quota_status"],
     )
-    # Hard max stop (§3): 14 reached → nothing more today (breaking override still applies below)
-    if remaining["hard_max_remaining"] <= 0 and not config.ENABLE_BREAKING_OVERRIDE:
+    # The daily hard cap is absolute; urgent stories bypass queue/window gates, not this cap.
+    if remaining["hard_max_remaining"] <= 0:
         log.info("DAILY_POST_HARD_MAX reached (%d) — no more posts today", config.DAILY_POST_HARD_MAX)
         store.set_last_run({"at": now.isoformat(), "mode": "idle", "result": "hard_max_reached"})
         store.save()
@@ -219,13 +220,20 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
 
     # Per-run budgets scale with quota pressure (§13)
     ai_call_budget = config.MAX_AI_CALLS_PER_RUN_CATCHUP if catch_up else config.MAX_AI_CALLS_PER_RUN
-    if counts.get("ai_calls", 0) >= config.MAX_AI_CALLS_PER_DAY:
+    ai_daily_remaining = max(0, config.MAX_AI_CALLS_PER_DAY - counts.get("ai_calls", 0))
+    ai_call_budget = min(ai_call_budget, ai_daily_remaining)
+    if ai_call_budget <= 0:
         log.info("MAX_AI_CALLS_PER_DAY reached (%d) — no AI this run", config.MAX_AI_CALLS_PER_DAY)
-        ai_call_budget = 0
     top_n = config.TOP_CANDIDATES_CATCHUP if catch_up else config.TOP_CANDIDATES_PER_RUN
     score_floor = config.MIN_CANDIDATE_SCORE_CATCHUP if catch_up else config.MIN_CANDIDATE_SCORE
     metrics["ai_call_budget"] = ai_call_budget
     metrics["catch_up"] = catch_up
+
+    def _record_ai_call() -> None:
+        """Count one logical OpenRouter operation against run and daily budgets."""
+        global OPENROUTER_CALLS
+        OPENROUTER_CALLS += 1
+        store.increment_daily(day_key, "ai_calls", 1)
 
     # ── Collect ──────────────────────────────────────
     # Snapshot history sets BEFORE collect for dedupe_against_history
@@ -242,7 +250,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         # Still continue — one broken feed doesn't kill run
         log.warning("Feeds failed this run: %s", feed_stats["failed_details"])
 
-    if not articles:
+    if not articles and not (behind_target and store.get_candidate_pool(max_age_hours=config.NEWS_MAX_AGE_HOURS)):
         log.info("No articles collected, exiting")
         store.set_last_run({"at": now.isoformat(), "mode": "collect_only", "result": "no_articles"})
         store.set_last_feed_check(now)
@@ -251,6 +259,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         return 0
 
     # ── Dedupe ───────────────────────────────────────
+    articles = [a for a in articles if not story_problem(a.get("title", ""), a.get("published_at"), now)]
     articles, url_dups = dedupe_by_url(articles)
     metrics["url_dups"] = url_dups
     articles, title_dups = dedupe_by_title(articles)
@@ -277,6 +286,8 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         store.upsert_articles(new_articles, now)
 
     if overnight_only:
+        overnight_clusters = cluster_articles(new_articles) if new_articles else []
+        store.update_candidate_pool(rank_clusters(overnight_clusters, now), now)
         log.info("Overnight collection: %d new articles stored, no AI/Buffer this run", len(new_articles))
         store.set_last_run({"at": now.isoformat(), "mode": "overnight_collection", "result": f"{len(new_articles)} new"})
         store.set_last_feed_check(now)
@@ -321,22 +332,25 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     # Convert pool entries back into cluster-like dicts (for selection)
     pool_clusters: list[dict] = []
     for e in pool_entries:
+        if e["cluster_id"] in {c["cluster_id"] for c in clusters}:
+            continue
         pool_clusters.append({
             "cluster_id": e["cluster_id"],
             "representative_title": e.get("representative_title", ""),
-            "representative_article": {"summary": e.get("summary", ""), "category": e.get("category", "general")},
+            "representative_article": {"summary": e.get("summary", ""), "category": e.get("category", "general"), "published_at": publication_time(e.get("latest_activity"))},
             "sources": e.get("sources", []),
             "source_count": e.get("source_count", 1),
             "member_ids": e.get("article_ids", []),
             "size": len(e.get("article_ids", []) or [1]),
-            "latest_activity": None,
-            "first_detected": None,
+            "latest_activity": publication_time(e.get("latest_activity")),
+            "first_detected": publication_time(e.get("latest_activity")),
             "development_level": 1,
             "from_pool": True,
         })
     # Rank pool with the same scorer (pool entries lack articles → text from title only)
     if pool_clusters:
         ranked = rank_clusters(list(ranked) + pool_clusters, now, store.data.get("clusters"))
+    ranked = [c for c in ranked if not story_problem(c.get("representative_title", ""), (c.get("representative_article") or {}).get("published_at") or c.get("latest_activity"), now)]
 
     # Quota-aware candidate count (§12)
     if remaining["target_remaining"] >= 7:
@@ -350,13 +364,8 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     candidates = [c for c in candidates if c.get("_score", 0) >= score_floor]
     # §images: ensure image-capable candidates exist when image budget remains
     def _cluster_has_image(c: dict) -> bool:
-        if config.ENABLE_ARTICLE_IMAGES and c.get("og_image"):
-            return True
-        rep = c.get("representative_article") or {}
-        for a in [rep] + (c.get("articles") or []):
-            if config.ENABLE_ARTICLE_IMAGES and isinstance(a, dict) and any(u.startswith("https://") for u in (a.get("image_urls") or [])):
-                return True
-        return False
+        from app.images import has_known_image
+        return has_known_image(c.get("representative_title", ""), store.data)
 
     image_budget_left = config.ENABLE_IMAGES and store.image_quota_remaining() > 0
     if image_budget_left:
@@ -364,7 +373,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             c["has_image"] = _cluster_has_image(c)
         if not any(c.get("has_image") for c in candidates):
             extras = [c for c in ranked if c not in candidates and _cluster_has_image(c)]
-            extras = [c for c in extras if c.get("_score", 0) >= score_floor * 0.6][:2]
+            extras = [c for c in extras if c.get("_score", 0) >= score_floor][:2]
             for c in extras:
                 c["has_image"] = True
             if extras:
@@ -451,6 +460,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "source_count": c.get("source_count", 1),
             "cluster_sources": c.get("sources", []),
             "score": c.get("_score"),
+            "has_image": c.get("has_image", False),
         })
 
     # Optionally enrich top 2-3 candidates with article text + og:image (capped)
@@ -465,7 +475,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
     # Editorial selection
     try:
         from app.ai import editorial_select, generate_post
-        OPENROUTER_CALLS += 1
+        _record_ai_call()
         selections = editorial_select(candidate_payload)
         metrics["ai_calls"] = OPENROUTER_CALLS
     except Exception as exc:
@@ -504,39 +514,45 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         return 0
 
     # ── Generate posts ───────────────────────────────
-    existing_texts = {p.get("text", "") for p in store.data.get("posts", [])}
+    existing_texts = {p.get("text", "") for p in store.data.get("posts", []) if p.get("status") in ("scheduled", "sent", "published")}
     # §9 same-story cross-run dedupe: reject clusters whose title is too similar
     # to any story already scheduled/created in the last 12 hours
-    from app.clustering import jaccard as _jac, TOKEN_RE as _tok
-    from app.normalize import normalize_title as _ntitle
-    def _title_tokens(t: str) -> set:
-        return {w for w in _tok.findall(_ntitle(t)) if len(w) > 2}
-    recent_titles: list[set] = []
+    recent_titles: list[str] = []
     cutoff_12h = now - timedelta(hours=12)
     for p in store.data.get("posts", []):
-        if p.get("status") in ("scheduled", "dry_run") and p.get("created_at"):
+        if p.get("status") in ("scheduled", "sent", "published") and p.get("created_at"):
             try:
                 created = datetime.fromisoformat(str(p["created_at"]).replace("Z", "+00:00"))
                 if created >= cutoff_12h and p.get("title"):
-                    recent_titles.append(_title_tokens(p["title"]))
+                    recent_titles.append(p["title"])
             except Exception:
                 continue
     def _too_similar_to_recent(cluster_title: str) -> bool:
-        toks = _title_tokens(cluster_title)
-        if not toks:
-            return False
-        return any(_jac(toks, rt) >= 0.5 for rt in recent_titles)
+        return any(duplicate_development(cluster_title, previous) for previous in recent_titles)
 
     generated: list[dict] = []
     for sel in selected:
         cid = sel.get("story_id")
         fmt = sel.get("format", "NEWS_UPDATE")
-        urgency = sel.get("urgency", 50)
+        if fmt not in ("BREAKING", "DEVELOPING", "NEWS_UPDATE", "CONTEXT", "KEY_DETAIL"):
+            fmt = "NEWS_UPDATE"
+        try:
+            urgency = max(0, min(100, int(sel.get("urgency", 50))))
+        except (TypeError, ValueError):
+            urgency = 50
         # Find cluster for this story_id
         cluster = next((c for c in candidates if c["cluster_id"] == cid), None)
         if not cluster:
             log.warning("Selected story %s not in candidates, skipping", cid)
             continue
+        published_at = publication_time((cluster.get("representative_article") or {}).get("published_at") or cluster.get("latest_activity"))
+        if story_problem(cluster.get("representative_title", ""), published_at):
+            continue
+        fresh = (datetime.now(timezone.utc) - published_at).total_seconds() <= config.BREAKING_MAX_AGE_MINUTES * 60
+        if not fresh and fmt in ("BREAKING", "DEVELOPING"):
+            fmt = "NEWS_UPDATE"
+        if not fresh:
+            urgency = min(urgency, 75)
         # Development check: if cluster was posted recently and no new development, skip
         state_cl = store.data.get("clusters", {}).get(cid, {})
         if state_cl.get("last_posted_at"):
@@ -559,9 +575,9 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             continue
 
         story_for_gen = {
-            "title": cluster.get("representative_title", ""),
+            "title": clean_headline(cluster.get("representative_title", ""), cluster.get("sources", [])),
             "source": ", ".join(cluster.get("sources", [])[:2]),
-            "published": str(cluster.get("latest_activity") or cluster.get("first_detected") or ""),
+            "published": published_at.isoformat(),
             "summary": (cluster.get("representative_article") or {}).get("summary", "") or cluster.get("article_text", "")[:600],
             "cluster_sources": cluster.get("sources", []),
             "category": (cluster.get("representative_article") or {}).get("category", "general"),
@@ -578,73 +594,20 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         except Exception:
             mention_ctx = ""
         try:
-            OPENROUTER_CALLS += 1
-            if OPENROUTER_CALLS > ai_call_budget:
-                log.warning("AI call budget exceeded (%d/%d), stopping generation", OPENROUTER_CALLS, ai_call_budget)
+            if OPENROUTER_CALLS >= ai_call_budget:
+                log.warning("AI call budget exhausted (%d/%d), stopping generation", OPENROUTER_CALLS, ai_call_budget)
                 break
+            _record_ai_call()
             res = generate_post(story_for_gen, fmt, mention_context=mention_ctx)
-            # New brand: AI returns post starting with JUST IN: (no flags) + country_codes
+            # The app owns label and flag placement; the model supplies only copy.
             raw_post = res.get("post", "").strip()
-            country_codes = res.get("country_codes", [])
-            # Convert codes to flags (app is responsible, not model)
-            try:
-                from app.countries import codes_to_flags
-                flags = codes_to_flags(country_codes) if country_codes else ""
-            except Exception as flag_exc:
-                log.warning("Invalid country_codes %s for %s: %s — using 0 flags", country_codes, cid[:8], flag_exc)
-                flags = ""
-                country_codes = []
-            if flags:
-                if raw_post.startswith("JUST IN:"):
-                    post_text = f"{flags} {raw_post}"
-                else:
-                    # Model didn't follow instruction — fix it
-                    cleaned = raw_post.lstrip()
-                    # Remove any old prohibited label if present
-                    for bad in ["NEWS UPDATE", "BREAKING NEWS", "DEVELOPING", "CONTEXT", "KEY DETAIL"]:
-                        if cleaned.upper().startswith(bad):
-                            cleaned = cleaned[len(bad):].lstrip(" :—-")
-                    if not cleaned.startswith("JUST IN:"):
-                        cleaned = f"JUST IN: {cleaned}"
-                    post_text = f"{flags} {cleaned}"
-            else:
-                post_text = raw_post
-                if not post_text.startswith("JUST IN:"):
-                    # Ensure brand
-                    for bad in ["NEWS UPDATE", "BREAKING NEWS", "DEVELOPING", "CONTEXT", "KEY DETAIL"]:
-                        if post_text.upper().startswith(bad):
-                            post_text = post_text[len(bad):].lstrip(" :—-")
-                    if not post_text.startswith("JUST IN:"):
-                        post_text = f"JUST IN: {post_text.lstrip()}"
-            # Store for later use / debugging
-            res_country_codes = country_codes
+            country_codes = central_country_codes(res.get("country_codes", []), story_for_gen["title"])
+            post_text = render_post(raw_post, country_codes, fmt, published_at)
         except Exception as exc:
             OPENROUTER_FAILURES += 1
             log.error("Generation failed for %s: %s", cid[:8], exc)
-            # Fallback: simple JUST IN: post, try to infer flags locally
-            try:
-                from app.countries import NAME_TO_CODE
-                title_low = story_for_gen.get("title","").lower()
-                inferred = []
-                for name, code in NAME_TO_CODE.items():
-                    if name in title_low and code not in inferred:
-                        inferred.append(code)
-                    if len(inferred) >= 2:
-                        break
-                from app.countries import codes_to_flags
-                flags = codes_to_flags(inferred[:2]) if inferred else ""
-            except Exception:
-                flags = ""
-            fallback_body = story_for_gen.get('title','')[:160].strip()
-            # Ensure fallback doesn't start with old label
-            fallback_raw = f"JUST IN: {fallback_body}"
-            post_text = f"{flags} {fallback_raw}" if flags else fallback_raw
-            from app.normalize import weighted_length as _wl2
-            if _wl2(post_text) > 280:
-                post_text = post_text[: 279] + "…"
-            log.warning("Using fallback post for %s: %s", cid[:8], post_text[:80])
-            res_country_codes = inferred if 'inferred' in locals() else []
-            # Continue to validation with fallback
+            # Never publish a raw feed headline/caption when generation fails.
+            continue
 
         # ── Validate ────────────────────────────────
         from app.validate import validate_post as _validate
@@ -653,10 +616,14 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         # Provide a rewrite closure for the validator
         def _rewrite_fn(story_, fmt_, old_post_, wl_):
             try:
+                if OPENROUTER_CALLS >= ai_call_budget:
+                    log.info("Skipping AI rewrite: per-run call budget exhausted")
+                    return None
+                _record_ai_call()
                 from app.ai import _chat
                 prompt = (
                     f"Rewrite this X post to be ≤{config.MAX_POST_LENGTH} characters (currently {wl_}). "
-                    f"Keep the format prefix and meaning, make it shorter.\n\nPost:\n{old_post_}"
+                    f"Keep the label, flags, named speaker, uncertainty and meaning. No links or publisher credits.\n\nPost:\n{old_post_}"
                 )
                 raw = _chat([{"role": "user", "content": prompt}], temperature=0.5, max_tokens=400)
                 # Extract post — assume raw is the post or JSON with post
@@ -675,7 +642,7 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
 
         ok, final_post, reason = _validate(
             post_text, fmt,
-            story={"published_at": cluster.get("latest_activity"), "sources": cluster.get("sources", [])},
+            story={"title": story_for_gen["title"], "published_at": published_at, "sources": cluster.get("sources", []), "country_codes": country_codes, "require_freshness": True},
             existing_post_texts=existing_texts, ai_generate_fn=_rewrite_fn,
         )
         metrics.setdefault("posts_generated", 0)
@@ -700,21 +667,20 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         if reason in ("rewritten", "accepted-with-warning", "hard-truncated"):
             log.info("Post for %s: %s (%d chars)", cid[:8], reason, _wl(final_post))
         existing_texts.add(final_post)
+        recent_titles.append(story_for_gen["title"])
 
         # ── Image selection (§images) ───────────────
         # Priority: rights-cleared curated media → Commons PD/CC0 → article media.
         image_url = None
         image_metadata = None
+        image_urls = []
         if config.ENABLE_IMAGES and store.image_quota_remaining() > 0:
             try:
-                from app.images import select_story_image
-                asset = select_story_image(
-                    cluster, story_for_gen, store.data,
-                    allow_article_images=config.ENABLE_ARTICLE_IMAGES,
-                )
-                if asset:
-                    image_url = asset["url"]
-                    image_metadata = asset.get("metadata")
+                from app.images import select_story_images
+                assets = select_story_images({"title": final_post}, store.data)
+                image_urls = [asset["url"] for asset in assets]
+                image_url = image_urls[0] if image_urls else None
+                image_metadata = [asset.get("metadata") for asset in assets]
             except Exception as img_exc:
                 log.warning("Story image selection failed: %s", img_exc)
             if image_url:
@@ -731,14 +697,17 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "text": final_post,
             "is_breaking": is_breaking,
             "image_url": image_url,
+            "image_urls": image_urls,
             "image_metadata": image_metadata,
+            "published_at": published_at.isoformat(),
+            "country_codes": country_codes,
         })
         metrics["posts_generated"] += 1
 
     metrics["posts_generated_ok"] = len(generated)
-    # Mark pool entries as used for generated stories
-    for g in generated:
-        store.mark_pool_posted(g["story_id"])
+    metrics["ai_calls"] = OPENROUTER_CALLS
+    metrics["daily_ai_calls"] = store.daily_counts_for(day_key).get("ai_calls", 0)
+    # Deferred/failed drafts remain eligible until successfully accepted by Buffer.
     if not generated:
         # Mark rejections so pool doesn't loop on them
         for sel in selected:
@@ -782,7 +751,10 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
             "format": gen["format"],
             "text": gen["text"],
             "image_url": gen.get("image_url"),
+            "image_urls": gen.get("image_urls", []),
             "image_metadata": gen.get("image_metadata"),
+            "published_at": gen["published_at"],
+            "country_codes": gen["country_codes"],
             "priority": gen["urgency"],
             "scheduled_at": due.isoformat(),
             "due_at_iso": format_due_at(due),
@@ -819,9 +791,28 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
 
     # ── Buffer sends ───────────────────────────────
     if dry_run:
+        from copy import deepcopy
+        from app.publishing import prepare_post
+        preview_store = deepcopy(store)
+        occupied = [publication_time(p.get("dueAt") or p.get("scheduled_at")) for p in buffer_queue]
+        occupied = [due for due in occupied if due]
+        previews = []
+        for p in scheduled_posts:
+            try:
+                urls = prepare_post(p, preview_store, occupied, datetime.now(timezone.utc))
+                p["image_urls"] = urls or []
+                p["image_url"] = urls[0] if urls else None
+                occupied.append(publication_time(p["scheduled_at"]))
+                preview_store.increment_daily(p["day"], "ai_scheduled")
+                if urls:
+                    preview_store.increment_daily(p["day"], "image_posts")
+                previews.append(p)
+            except ValueError as exc:
+                log.info("Dry-run draft deferred: %s", exc)
+        scheduled_posts = previews
         log.info("DRY_RUN: would have scheduled %d posts:", len(scheduled_posts))
         for p in scheduled_posts:
-            log.info("  [%s] %s due %s — %s", p["format"], p["cluster_id"][:8], p["scheduled_at"], p["text"][:80])
+            log.info("  [%s] %s due %s — %s\n  Images: %s", p["format"], p["cluster_id"][:8], p["scheduled_at"], p["text"], p.get("image_urls", []))
         # Still record as dry-run scheduled for local ledger? No — don't increment daily counts in dry-run.
         for p in scheduled_posts:
             store.add_post({**p, "status": "dry_run", "buffer_post_id": None})
@@ -845,89 +836,27 @@ def run(dry_run_cli: bool = False, force: bool = False, chained: bool = False) -
         return 1
 
     successes = 0
-    # §19 anti-race: never let two posts land within 6 min of each other, even
-    # across chained runs — compare against state's future scheduled posts too.
-    latest_due_in_flight: datetime | None = None
-    for p in store.data.get("posts", []):
-        if p.get("status") == "scheduled" and p.get("scheduled_at"):
-            try:
-                d = datetime.fromisoformat(str(p["scheduled_at"]).replace("Z", "+00:00"))
-                if d.tzinfo is None:
-                    d = d.replace(tzinfo=timezone.utc)
-                if d > datetime.now(timezone.utc) and (latest_due_in_flight is None or d > latest_due_in_flight):
-                    latest_due_in_flight = d
-            except Exception:
-                continue
+    from app.publishing import publish_post
+    occupied = []
+    for existing in buffer_queue + [p for p in store.data.get("posts", []) if p.get("status") == "scheduled"]:
+        due = publication_time(existing.get("dueAt") or existing.get("scheduled_at"))
+        if due and due >= datetime.now(timezone.utc) - timedelta(minutes=config.MIN_NORMAL_GAP_MINUTES):
+            occupied.append(due)
     for p in scheduled_posts:
-        # Re-validate dueAt is still safely in the future (Buffer requires >~60s, clock skew + AI latency can make original slot stale)
-        # Ensure at least 6 minutes future so Buffer never rejects "must be in the future" (add margin for server clock)
-        try:
-            due_dt = datetime.fromisoformat(p["due_at_iso"].replace("Z", "+00:00"))
-            if due_dt.tzinfo is None:
-                due_dt = due_dt.replace(tzinfo=timezone.utc)
-            now_utc = datetime.now(timezone.utc)
-            min_future = now_utc + timedelta(minutes=6)
-            log.info("Buffer send check %s: due %s, now %s, min_future %s", p["cluster_id"][:8], p["due_at_iso"], format_due_at(now_utc), format_due_at(min_future))
-            bumped_needed = due_dt <= min_future
-            if latest_due_in_flight is not None and due_dt < latest_due_in_flight + timedelta(minutes=6):
-                bumped_needed = True
-            if bumped_needed:
-                base = max(min_future, (latest_due_in_flight or now_utc) + timedelta(minutes=6))
-                bumped = base + timedelta(seconds=30)
-                log.warning("Bumping %s dueAt %s → %s (future/space guard)", p["cluster_id"][:8], p["due_at_iso"], format_due_at(bumped))
-                p["due_at_iso"] = format_due_at(bumped)
-                p["scheduled_at"] = bumped.isoformat()
-                p["day"] = _today_key(bumped)
-            # track for subsequent posts in this loop
-            due_dt2 = datetime.fromisoformat(p["due_at_iso"].replace("Z", "+00:00"))
-            if latest_due_in_flight is None or due_dt2 > latest_due_in_flight:
-                latest_due_in_flight = due_dt2
-        except Exception as exc:
-            log.warning("DueAt bump check failed for %s: %s", p["cluster_id"][:8], exc)
-        # Re-check total limit right before each send (race with queue)
-        day = p["day"]
-        counts_day = store.daily_counts_for(day)
-        from app.validate import check_daily_limits as _check
-        ok, reason = _check(counts_day, kind="ai")
-        if not ok:
-            log.warning("Skipping %s before send: %s", p["cluster_id"][:8], reason)
-            p["status"] = "rejected"
-            p["failure_reason"] = reason
-            store.add_post(p)
-            continue
         try:
             BUFFER_CALLS += 1
-            from app.buffer import create_scheduled_post
-            # §images: attach image only if daily image budget allows
-            img = None
-            if config.ENABLE_IMAGES and p.get("image_url") and store.image_quota_remaining(day) > 0:
-                img = [p["image_url"]]
-            try:
-                result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"], image_urls=img, source_names=p.get("sources", []))
-            except Exception as first_exc:
-                err_low = str(first_exc).lower()
-                if "future" in err_low:
-                    bumped2 = datetime.now(timezone.utc) + timedelta(minutes=7)
-                    new_due = format_due_at(bumped2)
-                    log.warning("Buffer rejected dueAt in past, retrying %s with %s", p["cluster_id"][:8], new_due)
-                    p["due_at_iso"] = new_due
-                    p["scheduled_at"] = bumped2.isoformat()
-                    p["day"] = _today_key(bumped2)
-                    result = create_scheduled_post(ctx["channel_id"], p["text"], new_due, image_urls=img, source_names=p.get("sources", []))
-                elif img and ("image" in err_low or "fetch" in err_low or "asset" in err_low):
-                    # Image rejected (unreachable/expire URL) → retry text-only, never block the post
-                    log.warning("Buffer rejected image for %s (%.120s) — retrying text-only", p["cluster_id"][:8], err_low)
-                    img = None
-                    result = create_scheduled_post(ctx["channel_id"], p["text"], p["due_at_iso"], source_names=p.get("sources", []))
-                else:
-                    raise
+            result = publish_post(p, store, occupied)
+            day = p["day"]
             p["buffer_post_id"] = result.get("id")
             p["status"] = "scheduled"
             store.add_post(p)
+            store.mark_pool_posted(p["cluster_id"])
+            occupied.append(publication_time(p["scheduled_at"]))
             store.increment_daily(day, "ai_scheduled", 1)
-            if img:
+            if p.get("image_urls"):
                 store.increment_daily(day, "image_posts", 1)
                 metrics["image_posts_today"] = store.daily_counts_for(day).get("image_posts", 0)
+            store.save()
             successes += 1
         except Exception as exc:
             BUFFER_FAILURES += 1

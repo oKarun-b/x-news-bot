@@ -30,7 +30,7 @@ def test_more_than_two_flags_rejected():
     # Also via codes
     from app.countries import codes_to_flags
     try:
-        codes_to_flags(["US", "RU", "UA"])
+        codes_to_flags(["US", "RU", "UA", "CN"])
         assert False
     except ValueError:
         pass

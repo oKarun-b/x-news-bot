@@ -120,10 +120,14 @@ def _fetch_one(feed, cache_entry: dict | None = None) -> tuple[list[dict], str |
 
             canon = canonical_url(link)
             aid = article_id(guid, link, title)
-            source = getattr(parsed.feed, "title", None) or parsed.feed.get("title", "") or name  # type: ignore[attr-defined]
+            # Google News identifies the actual publisher on each entry.
+            entry_source = e.get("source") or {}
+            source = (entry_source.get("title") if isinstance(entry_source, dict) else None) or parsed.feed.get("title") or name
             # feedparser feed.title may be missing
             if not source:
                 source = name
+            from app.content import clean_headline
+            title = clean_headline(title, [str(source)])
 
             articles.append({
                 "id": aid,

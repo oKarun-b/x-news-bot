@@ -160,7 +160,7 @@ def is_valid_code(code: str) -> bool:
 
 
 def codes_to_flags(codes: list[str]) -> str:
-    """Convert list of ISO codes to concatenated flag emojis. Validates max 2."""
+    """Convert up to three distinct, central-country codes to flag emojis."""
     if not codes:
         return ""
     # Normalize to upper, dedupe preserving order
@@ -171,8 +171,8 @@ def codes_to_flags(codes: list[str]) -> str:
         if cu and cu not in seen:
             seen.add(cu)
             uniq.append(cu)
-    if len(uniq) > 2:
-        raise ValueError(f"Too many country codes ({len(uniq)} > 2): {uniq}")
+    if len(uniq) > 3:
+        raise ValueError(f"Too many country codes ({len(uniq)} > 3): {uniq}")
     flags = []
     for c in uniq:
         flag = _COUNTRY_TO_FLAG.get(c)
@@ -188,8 +188,8 @@ def count_flags(text: str) -> int:
 
 
 def validate_flags(codes: list[str]) -> tuple[bool, str]:
-    if len(codes) > 2:
-        return False, f"too many country_codes ({len(codes)} > 2)"
+    if len(codes) > 3:
+        return False, f"too many country_codes ({len(codes)} > 3)"
     for c in codes:
         if not is_valid_code(c):
             return False, f"unknown country code {c!r}"

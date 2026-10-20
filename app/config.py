@@ -104,18 +104,18 @@ POSTING_END_HOUR: int = _env_int("POSTING_END_HOUR", 23)
 # ── Daily quota (§3) ─────────────────────────────────
 DAILY_POST_TARGET: int = _env_int("DAILY_POST_TARGET", 10)
 DAILY_POST_MINIMUM: int = _env_int("DAILY_POST_MINIMUM", 10)
-DAILY_POST_HARD_MAX: int = _env_int("DAILY_POST_HARD_MAX", 14)
+DAILY_POST_HARD_MAX: int = _env_int("DAILY_POST_HARD_MAX", 10)
 
 # ── Limits ───────────────────────────────────────────
 MAX_TOTAL_POSTS_PER_DAY: int = _env_int("MAX_TOTAL_POSTS_PER_DAY", DAILY_POST_HARD_MAX)
-MAX_AI_POSTS_PER_DAY: int = _env_int("MAX_AI_POSTS_PER_DAY", DAILY_POST_HARD_MAX)
 RESERVED_FIXED_POSTS: int = _env_int("RESERVED_FIXED_POSTS", 0)
-MAX_BUFFER_AHEAD_POSTS: int = _env_int("MAX_BUFFER_AHEAD_POSTS", 4)
+MAX_AI_POSTS_PER_DAY: int = _env_int("MAX_AI_POSTS_PER_DAY", MAX_TOTAL_POSTS_PER_DAY - RESERVED_FIXED_POSTS)
+MAX_BUFFER_AHEAD_POSTS: int = _env_int("MAX_BUFFER_AHEAD_POSTS", 3)
 # Rolling scheduling horizon for normal news (§21: 3-6h)
-BUFFER_HORIZON_MINUTES: int = _env_int("BUFFER_HORIZON_MINUTES", _env_int("MAX_SCHEDULE_HORIZON_MINUTES", 360))
+BUFFER_HORIZON_MINUTES: int = _env_int("BUFFER_HORIZON_MINUTES", _env_int("MAX_SCHEDULE_HORIZON_MINUTES", 180))
 MAX_SCHEDULE_HORIZON_MINUTES: int = BUFFER_HORIZON_MINUTES
 # Per-run post cap (quota engine scales actual posts/run up to this)
-MAX_NEW_POSTS_PER_RUN: int = _env_int("MAX_NEW_POSTS_PER_RUN", 4)
+MAX_NEW_POSTS_PER_RUN: int = _env_int("MAX_NEW_POSTS_PER_RUN", 2)
 MAX_AI_CALLS_PER_RUN: int = _env_int("MAX_AI_CALLS_PER_RUN", 3)
 MAX_AI_CALLS_PER_RUN_CATCHUP: int = _env_int("MAX_AI_CALLS_PER_RUN_CATCHUP", 5)
 # OpenRouter free tier = 50 requests/day across ALL free models (resets 00:00 UTC).
@@ -130,7 +130,7 @@ CHAIN_WAIT_MAX_MINUTES: int = _env_int("CHAIN_WAIT_MAX_MINUTES", 12)
 
 # ── Gaps ─────────────────────────────────────────────
 MIN_NORMAL_GAP_MINUTES: int = _env_int("MIN_NORMAL_GAP_MINUTES", 25)
-MAX_NORMAL_GAP_MINUTES: int = _env_int("MAX_NORMAL_GAP_MINUTES", 150)
+MAX_NORMAL_GAP_MINUTES: int = _env_int("MAX_NORMAL_GAP_MINUTES", 180)
 BREAKING_MIN_DELAY_MINUTES: int = _env_int("BREAKING_MIN_DELAY_MINUTES", 2)
 BREAKING_MAX_DELAY_MINUTES: int = _env_int("BREAKING_MAX_DELAY_MINUTES", 4)
 
@@ -155,7 +155,7 @@ ALLOW_HASHTAGS: bool = _env_bool("ALLOW_HASHTAGS", False)
 ENABLE_IMAGES: bool = _env_bool("ENABLE_IMAGES", True)
 ENABLE_COMMONS_IMAGES: bool = _env_bool("ENABLE_COMMONS_IMAGES", True)
 ENABLE_ARTICLE_IMAGES: bool = _env_bool("ENABLE_ARTICLE_IMAGES", False)
-MAX_IMAGES_PER_POST: int = _env_int("MAX_IMAGES_PER_POST", 1)
+MAX_IMAGES_PER_POST: int = _env_int("MAX_IMAGES_PER_POST", 2)
 MAX_IMAGE_POSTS_PER_DAY: int = _env_int("MAX_IMAGE_POSTS_PER_DAY", 4)
 # Curated library URLs (public repo raw files — Buffer-valid: public/direct/https/stable)
 IMAGE_BASE_URL: str = _env_str(

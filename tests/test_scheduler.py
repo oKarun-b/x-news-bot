@@ -71,6 +71,13 @@ def test_horizon_defers_far_normal():
     assert len(sched) == 0
 
 
+def test_horizon_calculation_does_not_mutate_global_gap_config():
+    now = _now_at(10, 0)
+    original_max_gap = config.MAX_NORMAL_GAP_MINUTES
+    compute_schedule([_story(f"n{i}") for i in range(4)], now=now, remaining_quota=4)
+    assert config.MAX_NORMAL_GAP_MINUTES == original_max_gap
+
+
 def test_posting_window_check():
     # Within posting window (default 7-22 UTC)
     assert is_within_posting_window(_now_at(10, 0)) is True
@@ -101,3 +108,22 @@ def test_breaking_while_normals_scheduled():
     sched = compute_schedule([_story("break", "BREAKING", True)], existing_scheduled=existing, now=now)
     assert len(sched) == 1
     assert sched[0]["due_at"] < datetime.fromisoformat(existing[1]["dueAt"])
+
+
+def test_final_send_preserves_breaking_priority_and_avoids_near_collision():
+    from app.scheduler import final_due_at
+    now = _now_at(10)
+    occupied = [now + timedelta(minutes=m) for m in (3, 30, 90)]
+    due = final_due_at(now, occupied, now, True)
+    assert due == now + timedelta(minutes=9)
+    assert due < occupied[1]
+    assert all(abs((due - d).total_seconds()) >= 360 for d in occupied)
+
+
+def test_normal_after_breaking_still_uses_end_of_routine_queue():
+    now = _now_at(10)
+    last = now + timedelta(minutes=60)
+    schedule = compute_schedule([_story("b", "BREAKING", True), _story("n")],
+                                existing_scheduled=[{"dueAt": last.isoformat()}], now=now)
+    normal = next(item for item in schedule if not item["is_breaking"])
+    assert normal["due_at"] >= last + timedelta(minutes=config.MIN_NORMAL_GAP_MINUTES)

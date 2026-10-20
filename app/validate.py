@@ -123,13 +123,35 @@ def validate_post(
         return False, post, "empty post"
 
     stripped = post.strip()
+    from app.content import CAPTION_RE, CLAIM_RE, UNCERTAINTY_RE, story_problem, publication_time, visible_label
+    if CAPTION_RE.search(post):
+        return False, post, "photo caption is not a news development"
+    if story and story.get("require_freshness"):
+        problem = story_problem(story.get("title", ""), story.get("published_at"), story.get("validation_time"))
+        if problem:
+            return False, post, problem
+        if CLAIM_RE.search(story.get("title", "")) and not CLAIM_RE.search(post):
+            return False, post, "claim attribution lost during generation"
+        if UNCERTAINTY_RE.search(story.get("title", "")) and not UNCERTAINTY_RE.search(post):
+            return False, post, "uncertainty lost during generation"
+        claim = CLAIM_RE.search(story.get("title", ""))
+        written_claim = CLAIM_RE.search(post)
+        if claim and written_claim:
+            from app.images import match_entities
+            speakers = {e["slug"] for e in match_entities(story["title"][:claim.start()])}
+            written_speakers = {e["slug"] for e in match_entities(post[:written_claim.start()])}
+            if speakers and not speakers <= written_speakers:
+                return False, post, "named speaker changed during generation"
+            if re.search(r"\bden(?:y|ies|ied)\b", claim.group(), re.I) and not re.search(r"\bden(?:y|ies|ied)\b", post, re.I):
+                return False, post, "denial lost during generation"
 
     # ── JUST IN: check (after optional 0-2 flags) ────
     # Flags are 2-char regional indicators, count them
     from app.countries import count_flags, contains_url as _contains_url
     flag_count = count_flags(stripped)
-    if flag_count > 2:
-        return False, post, f"too many flags ({flag_count} > 2)"
+    max_flags = 3 if story and len(set(story.get("country_codes", []))) == 3 else 2
+    if flag_count > max_flags:
+        return False, post, f"too many flags ({flag_count} > {max_flags})"
     # Remove leading flags + space to check JUST IN:
     without_flags = stripped
     # Flags are at start, each flag is 2 code units but 1 grapheme — our regex finds them
@@ -139,10 +161,16 @@ def validate_post(
     m = _flag_re.match(without_flags)
     if m:
         without_flags = without_flags[m.end():].lstrip()
-    if not without_flags.startswith("JUST IN:"):
-        return False, post, "post must start with JUST IN: after optional flags"
+    label = next((label for label in ("JUST IN:", "UPDATE:", "CONTEXT:") if without_flags.startswith(label)), None)
+    if not label:
+        return False, post, "post must start with JUST IN:, UPDATE: or CONTEXT:"
+    if story and story.get("require_freshness"):
+        if stripped != without_flags:
+            return False, post, "flags must follow the label"
+        if label != visible_label(selected_format, story.get("published_at"), story.get("validation_time")):
+            return False, post, "label does not match publication age or format"
     # Ensure "JUST IN:" is followed by space and content
-    after_just_in = without_flags[len("JUST IN:"):].strip()
+    after_just_in = _flag_re.sub("", without_flags[len(label):].strip()).strip()
     if not after_just_in or len(after_just_in) < 5:
         return False, post, "JUST IN: must be followed by content"
 
@@ -156,10 +184,10 @@ def validate_post(
 
     # ── Breaking freshness ───────────────────────────
     if selected_format in ("BREAKING", "DEVELOPING") and story:
-        pub = story.get("published_at")
+        pub = publication_time(story.get("published_at"))
         if pub is not None:
             try:
-                now = datetime.now(timezone.utc)
+                now = story.get("validation_time") or datetime.now(timezone.utc)
                 age_min = (now - pub).total_seconds() / 60
                 if age_min > config.BREAKING_MAX_AGE_MINUTES:
                     return False, post, f"breaking story too old ({age_min:.0f} min > {config.BREAKING_MAX_AGE_MINUTES})"
@@ -184,10 +212,8 @@ def validate_post(
                         if ok:
                             return True, final, "rewritten"
                         return False, retry, reason
-                    truncated = _emergency_truncate(retry, 280)
-                    if weighted_length(truncated) <= 280 and len(truncated) > 280 * 0.5:
-                        log.warning("Post hard-truncated %d→%d chars (emergency after rewrite)", wl2, weighted_length(truncated))
-                        return True, truncated, "hard-truncated"
+                    # Never publish a truncated claim or bypass the remaining checks.
+                    return False, retry, "rewrite exceeds hard limit"
             except Exception as exc:
                 log.warning("Rewrite attempt failed: %s", exc)
         return False, post, f"exceeds hard limit {wl} > 280"

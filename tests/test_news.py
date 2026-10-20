@@ -77,3 +77,17 @@ def test_conditional_feed_request_uses_etag_and_handles_not_modified():
     headers = get.call_args.kwargs["headers"]
     assert headers["If-None-Match"] == '"v1"'
     assert headers["If-Modified-Since"] == "Wed, 01 Jan 2025 00:00:00 GMT"
+
+
+def test_google_entry_publisher_and_unicode_suffix_are_preserved_internally():
+    xml = '''<rss version="2.0"><channel><title>Google News</title><item>
+    <title>Minister says talks may resume - Українські Новини</title>
+    <link>https://example.com/article</link><source url="https://example.com">Українські Новини</source>
+    <pubDate>Tue, 20 Oct 2026 10:00:00 GMT</pubDate></item></channel></rss>'''
+    response = MagicMock()
+    response.content = xml.encode("utf-8")
+    response.headers = {}
+    with patch("app.news.requests.get", return_value=response):
+        articles, _ = news_mod.collect_articles([_feed()])
+    assert articles[0]["source"] == "Українські Новини"
+    assert articles[0]["title"] == "Minister says talks may resume"

@@ -15,9 +15,9 @@ def test_zero_flags():
     assert codes_to_flags([]) == ""
 
 
-def test_more_than_two_rejected():
+def test_more_than_three_rejected():
     try:
-        codes_to_flags(["US", "RU", "UA"])
+        codes_to_flags(["US", "RU", "UA", "CN"])
         assert False, "should have raised"
     except ValueError as e:
         assert "Too many" in str(e)

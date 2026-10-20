@@ -183,7 +183,7 @@ def create_scheduled_post(channel_id: str, text: str, due_at_iso: str, image_url
     assets_block = ""
     if image_urls:
         asset_parts = []
-        for u in image_urls[: config.MAX_IMAGES_PER_POST]:
+        for u in list(dict.fromkeys(image_urls))[: min(2, config.MAX_IMAGES_PER_POST)]:
             if not u.startswith("https://"):
                 continue  # Buffer requires public https; skip anything else
             asset_parts.append(f"{{ image: {{ url: {_gql_string(u)} }} }}")

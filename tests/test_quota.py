@@ -32,7 +32,10 @@ def _cl(title, cid="c1", age_min=20, tier=1, source_count=2, dev=1, cat="us"):
 def test_quota_target_defaults():
     assert config.DAILY_POST_TARGET == 10
     assert config.DAILY_POST_MINIMUM == 10
-    assert config.DAILY_POST_HARD_MAX == 14
+    assert config.DAILY_POST_HARD_MAX == 10
+    assert config.MAX_TOTAL_POSTS_PER_DAY == 10
+    assert config.MAX_AI_POSTS_PER_DAY == 10
+    assert config.MAX_NEW_POSTS_PER_RUN == 2
 
 
 def test_remaining_quota_math():
@@ -45,14 +48,10 @@ def test_remaining_quota_math():
     s.increment_daily(day, "ai_scheduled", 3)
     rem = s.remaining_capacity(day)
     assert rem["target_remaining"] == 7
-    # 10 → target reached, hard max not
+    # 10 → target and hard maximum reached
     s.increment_daily(day, "ai_scheduled", 7)
     rem = s.remaining_capacity(day)
     assert rem["target_remaining"] == 0
-    assert rem["hard_max_remaining"] == 4
-    # 14 → hard max reached
-    s.increment_daily(day, "ai_scheduled", 4)
-    rem = s.remaining_capacity(day)
     assert rem["hard_max_remaining"] == 0
 
 
@@ -162,10 +161,10 @@ def test_multi_post_run_within_quota():
     now = datetime.now(timezone.utc).replace(hour=12, minute=0)
     stories = [{"story_id": f"n{i}", "format": "NEWS_UPDATE", "is_breaking": False} for i in range(4)]
     sched = compute_schedule(stories, existing_scheduled=[], now=now, remaining_quota=4)
-    assert len(sched) == 4
+    assert len(sched) == min(4, config.MAX_BUFFER_AHEAD_POSTS)
     # All distinct times, spaced >= MIN gap
     times = sorted(s["due_at"] for s in sched)
-    assert len(set(times)) == 4
+    assert len(set(times)) == len(sched)
     for a, b in zip(times, times[1:]):
         assert (b - a).total_seconds() / 60 >= config.MIN_NORMAL_GAP_MINUTES - 0.5
 

@@ -1,0 +1,16 @@
+{
+  "trump": {"name": "Donald Trump", "aliases": ["Trump", "Donald Trump"], "type": "person"},
+  "zelensky": {"name": "Volodymyr Zelensky", "aliases": ["Zelensky", "Zelenskyy", "Volodymyr Zelensky"], "type": "person"},
+  "putin": {"name": "Vladimir Putin", "aliases": ["Putin", "Vladimir Putin"], "type": "person"},
+  "xi-jinping": {"name": "Xi Jinping", "aliases": ["Xi Jinping", "President Xi"], "type": "person"},
+  "netanyahu": {"name": "Benjamin Netanyahu", "aliases": ["Netanyahu", "Benjamin Netanyahu"], "type": "person"},
+  "macron": {"name": "Emmanuel Macron", "aliases": ["Macron", "Emmanuel Macron"], "type": "person"},
+  "leo-xiv": {"name": "Leo XIV", "aliases": ["Pope Leo XIV", "Leo XIV", "Robert Prevost"], "type": "person"},
+  "modi": {"name": "Narendra Modi", "aliases": ["Narendra Modi", "Prime Minister Modi"], "type": "person"},
+  "lula": {"name": "Luiz Inácio Lula da Silva", "aliases": ["Lula", "Lula da Silva"], "type": "person"},
+  "starmer": {"name": "Keir Starmer", "aliases": ["Starmer", "Keir Starmer"], "type": "person"},
+  "federal-reserve": {"name": "Eccles Building", "aliases": ["Federal Reserve"], "type": "institution"},
+  "ecb": {"name": "European Central Bank", "aliases": ["European Central Bank", "ECB"], "type": "institution"},
+  "bank-of-england": {"name": "Bank of England", "aliases": ["Bank of England"], "type": "institution"},
+  "white-house": {"name": "White House", "aliases": ["White House"], "type": "institution"}
+}

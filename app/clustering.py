@@ -90,6 +90,12 @@ def cluster_articles(
             # Cheap heuristic: if both titles contain same number, bump.
             nums_i = set(re.findall(r"\d+", articles[i].get("title", "")))
             nums_j = set(re.findall(r"\d+", articles[j].get("title", "")))
+            # A changed figure or denial can be a new development, not a duplicate.
+            if nums_i and nums_j and nums_i != nums_j:
+                continue
+            negations = {"not", "no", "denies", "denied", "rejects", "rejected"}
+            if token_sets[i] & negations != token_sets[j] & negations:
+                continue
             if nums_i and nums_i & nums_j:
                 sim = min(1.0, sim + 0.10)
             if sim >= th:
@@ -108,7 +114,7 @@ def cluster_articles(
         cid = hashlib.sha256(raw.encode()).hexdigest()[:12]
         arts = [articles[i] for i in members]
         # Representative: longest title (most informative) or most recent
-        rep = max(arts, key=lambda a: len(a.get("title", "")))
+        rep = max(arts, key=lambda a: ((a.get("published_at") or datetime.min.replace(tzinfo=timezone.utc)), len(a.get("title", ""))))
         sources = sorted({a.get("source", "") for a in arts})
         # Tier sum (lower tier number = more reputable, so weight inversely)
         tier_sum = sum({a.get("tier", 3) for a in arts})

@@ -81,7 +81,7 @@ def test_validate_rewrite_attempt():
 
 
 def test_daily_limits():
-    # New quota: AI cap == DAILY_POST_HARD_MAX (14), total cap == 14
+    # Daily news cap is ten; no fixed-post slots are reserved.
     ok, _ = check_daily_limits({"ai_scheduled": config.MAX_AI_POSTS_PER_DAY, "total": config.MAX_AI_POSTS_PER_DAY}, kind="ai")
     assert ok is False
     ok, _ = check_daily_limits({"ai_scheduled": config.MAX_AI_POSTS_PER_DAY - 1, "total": config.MAX_TOTAL_POSTS_PER_DAY - 1}, kind="ai")
