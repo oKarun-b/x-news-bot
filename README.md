@@ -57,7 +57,7 @@ All tuning is env-driven (`.env.example` documents every key). Central defaults 
 | `MAX_SCHEDULE_HORIZON_MINUTES` | 180 | Never schedule normal posts further than this |
 | `OPENROUTER_MODEL` | gemini-2.0-flash-exp:free | Configurable; keep temperature 0.4 editorial / 0.7 generation |
 | `FEED_FETCH_WORKERS` | 8 | Maximum parallel RSS fetches |
-| `ENABLE_COMMONS_IMAGES` | true | Search Wikimedia Commons for CC0/public-domain images |
+| `ENABLE_COMMONS_IMAGES` | false | Optional unreviewed Commons fallback; keep off for consistent library portraits |
 | `ENABLE_ARTICLE_IMAGES` | false | Collect article image metadata only; publishing uses approved subject images |
 | `MAX_IMAGES_PER_POST` | 2 | Up to two separate, relevant subject images |
 | `MAX_IMAGE_POSTS_PER_DAY` | 4 | Upper bound for image-bearing posts; missing/unsuitable images fall back to text |
@@ -70,7 +70,9 @@ Posts use sentence case and one development: `JUST IN: [flags] [subject] [action
 
 Public-post policy is enforced twice: generated copy is validated in `app/validate.py`, and Buffer independently blocks links/source references at the API boundary. Research sources and asset license/provenance remain in internal state only. Source handles are excluded from AI mention suggestions.
 
-Images match named subjects in the final copy using `data/images/entities.json`: curated CC0/public-domain portraits → entity-specific Wikimedia Commons search → text-only fallback. Up to two distinct portraits are sent as separate assets, not a collage. They are illustrative images, not evidence of the reported event. Matching and license checks use provider metadata; they do not constitute visual verification. Direct URLs are checked for reachability, image type and size. Successful and empty searches are cached. Add approved images and per-file license/creator/source metadata under `data/images/`; disable Commons with `ENABLE_COMMONS_IMAGES=false`. Publisher images and Pinterest are not used by the publishing selector.
+Images match named subjects in the final copy using `data/images/entities.json`. The default is a reviewed portrait library, then text-only fallback. Six shipped public-domain portraits cover Trump, Zelensky, Putin, Xi and Netanyahu, with a consistent **1200 × 1500 (4:5) JPEG** format. Two-person stories receive two separate portraits only when both are reachable; a background institution does not get a second image. These are illustrative archival portraits, not evidence of a new meeting or event. Dates, original sources, rights, crop coordinates and checksums are stored in `data/images/index.json`.
+
+Open [`data/images/preview.html`](data/images/preview.html) locally to see single and paired layouts. X controls the final display/cropping. `requirements-media.txt` installs the optional offline preparation tools; image processing is not part of each bot run. See [`data/images/README.md`](data/images/README.md) to expand the library. `ENABLE_COMMONS_IMAGES=true` enables metadata-filtered but visually unreviewed search fallback. Direct URLs are checked for reachability, type and size; publisher/Pinterest hosts are blocked at the Buffer boundary. Pinterest may inform a mood board, but is not an image supplier for this bot.
 
 `app/publishing.py` rechecks spacing, publication-time freshness, labels and destination-day quotas immediately before sending. Breaking stories can occupy an earlier free slot instead of being forced behind routine posts. Deferred candidates remain eligible until Buffer accepts them. Dry-run logs show complete copy and selected image URLs without creating Buffer posts.
 

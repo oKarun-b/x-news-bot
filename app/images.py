@@ -1,7 +1,6 @@
-"""Rights-aware images: curated assets, Wikimedia Commons, and optional article media.
+"""Reviewed subject portraits, with optional Commons discovery fallback.
 
-Selection order: curated library → Commons CC0/public domain → opt-in article media.
-Rotation is persisted in state so the same photo never repeats back-to-back.
+Publisher thumbnails are never used. Multiple approved portraits rotate per subject.
 """
 from __future__ import annotations
 
@@ -18,7 +17,6 @@ from app.normalize import canonical_url
 
 log = get_logger("x-news-bot.images")
 
-INDEX_PATH = pathlib.Path(config.DATA_DIR) / "images" / "index.json"
 _IMG_EXT_RE = re.compile(r"\.(jpe?g|png|webp)$", re.IGNORECASE)
 _COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 _SAFE_LICENSES = {"cc0", "cc0 1.0", "public domain", "public domain mark", "public domain mark 1.0", "pd"}
@@ -41,13 +39,14 @@ def match_entities(title: str) -> list[dict]:
         if positions:
             hits.append((0 if entity["type"] == "person" else 1, min(positions), {**entity, "slug": slug}))
     hits.sort(key=lambda hit: hit[:2])
-    return [entity for _, _, entity in hits][:2]
+    people = [entity for _, _, entity in hits if entity["type"] == "person"]
+    return (people or [entity for _, _, entity in hits])[:2]
 
 
 def load_index() -> dict[str, dict]:
     """Load index.json; entries missing/empty fall back to a no-op."""
     try:
-        with open(INDEX_PATH, "r", encoding="utf-8") as f:
+        with open(pathlib.Path(config.DATA_DIR) / "images" / "index.json", "r", encoding="utf-8") as f:
             idx = json.load(f)
         return idx if isinstance(idx, dict) else {}
     except Exception as exc:
@@ -103,6 +102,7 @@ def curated_image_metadata(url: str) -> dict | None:
         for filename in entry.get("files") or []:
             if url == _build_url(slug, filename):
                 return {
+                    **(entry.get("assets") or {}).get(filename, {}),
                     "provider": "curated_library",
                     "slug": slug,
                     "license": (entry.get("licenses") or {}).get(filename, ""),
@@ -211,11 +211,24 @@ def search_commons_image(story: dict, entity: dict | None = None) -> dict | None
     return None
 
 
+def approved_image_url(url: str) -> bool:
+    """Only approved library hosting and Commons may reach Buffer, never RSS images."""
+    try:
+        parsed = urlsplit(url)
+        if parsed.scheme != "https" or parsed.username or parsed.password or parsed.port not in (None, 443):
+            return False
+        if parsed.hostname in {"upload.wikimedia.org", "thumb.wikimedia.org"}:
+            return True
+        return (parsed.hostname == "raw.githubusercontent.com"
+                and url.startswith(config.IMAGE_BASE_URL.rstrip("/") + "/")
+                and not any(part in (".", "..") for part in parsed.path.split("/")))
+    except (TypeError, ValueError):
+        return False
+
+
 def _reachable_image(url: str) -> bool:
     """Bounded preflight of a direct, publicly hosted image; never follow redirects."""
-    parsed = urlsplit(url)
-    allowed = {"upload.wikimedia.org", "thumb.wikimedia.org", "raw.githubusercontent.com"}
-    if parsed.scheme != "https" or parsed.hostname not in allowed or parsed.username or parsed.port not in (None, 443):
+    if not approved_image_url(url):
         return False
     try:
         with requests.head(url, headers={"User-Agent": "x-news-bot/1.0 (https://github.com/oKarun-b/x-news-bot)"}, timeout=(3, 8), allow_redirects=False) as response:
@@ -231,6 +244,8 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
     if not config.ENABLE_IMAGES:
         return []
     assets = []
+    entities = match_entities(story.get("title", ""))[:min(2, config.MAX_IMAGES_PER_POST)]
+    rotations = {}
     now = time.time()
     cache = state.setdefault("image_cache", {})
     # Keep persisted cache bounded, including negative lookups.
@@ -239,18 +254,22 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
             del cache[key]
     for key in list(cache)[:-100]:
         del cache[key]
-    for entity in match_entities(story.get("title", ""))[:min(2, config.MAX_IMAGES_PER_POST)]:
+    for entity in entities:
         slug = entity["slug"]
         asset = None
         files = _files_for(slug)
-        if files:
-            rotation = state.setdefault("image_rotation", {})
-            pick = (rotation.get(slug, -1) + 1) % len(files)
+        start = state.get("image_rotation", {}).get(slug, -1)
+        for step in range(len(files)):
+            pick = (start + step + 1) % len(files)
             url = _build_url(slug, files[pick])
             metadata = curated_image_metadata(url)
-            if metadata and metadata.get("creator") and metadata.get("source_url"):
-                asset = {"url": url, "metadata": {**metadata, "entity": entity["name"], "usage": "illustrative"}}
-                rotation[slug] = pick
+            if (metadata and metadata.get("creator") and metadata.get("source_url")
+                    and metadata.get("reviewed") is True
+                    and (metadata.get("width"), metadata.get("height")) == (1200, 1500)
+                    and _reachable_image(url)):
+                asset = {"url": url, "metadata": {**metadata, "entity": entity["name"], "usage": "illustrative portrait"}}
+                rotations[slug] = pick
+                break
         if not asset and config.ENABLE_COMMONS_IMAGES:
             if slug in cache:
                 asset = cache[slug].get("asset")
@@ -258,8 +277,13 @@ def select_story_images(story: dict, state: dict) -> list[dict]:
                 result = search_commons_image(story, entity)
                 asset = {"url": result["url"], "metadata": {k: v for k, v in result.items() if k != "url"}} if result else None
                 cache[slug] = {"asset": asset, "expires": now + (86400 if asset else 3600)}
-        if asset and asset["url"] not in [a["url"] for a in assets] and _reachable_image(asset["url"]):
+        reachable = asset and (slug in rotations or _reachable_image(asset["url"]))
+        if reachable and asset["url"] not in [a["url"] for a in assets]:
             assets.append(asset)
+    if len(entities) == 2 and all(e["type"] == "person" for e in entities) and len(assets) != 2:
+        log.info("Paired portraits incomplete — using text only")
+        return []
+    state.setdefault("image_rotation", {}).update(rotations)
     return assets
 
 
@@ -267,6 +291,8 @@ def has_known_image(title: str, state: dict) -> bool:
     """Cheap ranking hint, without performing speculative provider requests."""
     for entity in match_entities(title):
         cached = state.get("image_cache", {}).get(entity["slug"], {})
-        if _files_for(entity["slug"]) or (cached.get("expires", 0) > time.time() and cached.get("asset")):
+        reviewed = any((curated_image_metadata(_build_url(entity["slug"], filename)) or {}).get("reviewed")
+                       for filename in _files_for(entity["slug"]))
+        if reviewed or (config.ENABLE_COMMONS_IMAGES and cached.get("expires", 0) > time.time() and cached.get("asset")):
             return True
     return False

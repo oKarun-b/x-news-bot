@@ -118,7 +118,8 @@ def test_curated_attribution_required_assets_are_not_selected(tmp_path):
         assert im.select_curated_image({"title": "Trump news", "summary": ""}, {}) is None
 
 
-def test_commons_image_accepts_cc0_and_retains_provenance():
+def test_commons_image_accepts_cc0_and_retains_provenance(monkeypatch):
+    monkeypatch.setattr(config, "ENABLE_COMMONS_IMAGES", True)
     from app.images import search_commons_image
     payload = {"query": {"pages": {"1": {
         "title": "File:Donald Trump official portrait.jpg",
@@ -144,7 +145,8 @@ def test_commons_image_accepts_cc0_and_retains_provenance():
     assert asset["source_url"].startswith("https://commons.wikimedia.org/")
 
 
-def test_commons_image_skips_attribution_required_license():
+def test_commons_image_skips_attribution_required_license(monkeypatch):
+    monkeypatch.setattr(config, "ENABLE_COMMONS_IMAGES", True)
     from app.images import search_commons_image
     payload = {"query": {"pages": {"1": {
         "title": "File:Donald Trump portrait.jpg",

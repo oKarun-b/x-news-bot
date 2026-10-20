@@ -182,10 +182,11 @@ def create_scheduled_post(channel_id: str, text: str, due_at_iso: str, image_url
 
     assets_block = ""
     if image_urls:
+        from app.images import approved_image_url
         asset_parts = []
         for u in list(dict.fromkeys(image_urls))[: min(2, config.MAX_IMAGES_PER_POST)]:
-            if not u.startswith("https://"):
-                continue  # Buffer requires public https; skip anything else
+            if not approved_image_url(u):
+                raise ValueError("Image source is not an approved library/Commons host")
             asset_parts.append(f"{{ image: {{ url: {_gql_string(u)} }} }}")
         if asset_parts:
             assets_block = f", assets: [{', '.join(asset_parts)}]"

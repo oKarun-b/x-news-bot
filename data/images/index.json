@@ -1,74 +1,322 @@
 {
   "trump": {
-    "keywords": ["trump", "donald trump", "president trump"],
+    "keywords": [
+      "trump",
+      "donald trump",
+      "president trump"
+    ],
     "type": "person",
     "priority": 1,
-    "files": []
+    "files": [
+      "official-2025.jpg"
+    ],
+    "licenses": {
+      "official-2025.jpg": "Public domain"
+    },
+    "creators": {
+      "official-2025.jpg": "Daniel Torok"
+    },
+    "source_urls": {
+      "official-2025.jpg": "https://commons.wikimedia.org/wiki/File:January_2025_Official_Presidential_Portrait_of_Donald_J._Trump.jpg"
+    },
+    "assets": {
+      "official-2025.jpg": {
+        "license": "Public domain",
+        "creator": "Daniel Torok",
+        "source_url": "https://commons.wikimedia.org/wiki/File:January_2025_Official_Presidential_Portrait_of_Donald_J._Trump.jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/January_2025_Official_Presidential_Portrait_of_Donald_J._Trump.jpg",
+        "captured_at": "2025-01-15",
+        "original_source": "This image  is available from the United States <a href=\"//commons.wikimedia.org/wiki/Library_of_Congress\" title=\"Library of Congress\">Library of Congress</a>'s <a rel=\"nofollow\" class=\"external text\" href=\"//www.loc.gov/rr/print/\">Prints and Photographs division</a><br> under the digital ID <a rel=\"nofollow\" class=\"external text\" href=\"https://hdl.loc.gov/loc.pnp/ppbd.11614\">ppbd.11614</a>.<br><small>This tag does not indicate the copyright status of the attached work. <span style=\"white-space:nowrap\">A normal <a href=\"//commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Copyright_tags\" title=\"Special:MyLanguage/Commons:Copyright tags\">copyright tag</a> is still required.</span> <span style=\"white-space:nowrap\">See <a href=\"//commons.wikimedia.org/wiki/Special:MyLanguage/Commons:Licensing\" title=\"Special:MyLanguage/Commons:Licensing\">Commons:Licensing</a>.</span></small>",
+        "description": "Official 2025 inaugural portrait of Donald Trump by Daniel Torok.",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "sha256": "ef21adb27e7fc805f67b9e0b8380d3af91c1c7cef3039e9eb948e6b4534a0260"
+      }
+    }
   },
   "netanyahu": {
-    "keywords": ["netanyahu", "benjamin netanyahu"],
+    "keywords": [
+      "netanyahu",
+      "benjamin netanyahu"
+    ],
     "type": "person",
     "priority": 1,
-    "files": []
+    "files": [
+      "portrait-2019.jpg",
+      "portrait-2018.jpg"
+    ],
+    "licenses": {
+      "portrait-2019.jpg": "Public domain",
+      "portrait-2018.jpg": "Public domain"
+    },
+    "creators": {
+      "portrait-2019.jpg": "U.S. Department of State from United States",
+      "portrait-2018.jpg": "US Department of State"
+    },
+    "source_urls": {
+      "portrait-2019.jpg": "https://commons.wikimedia.org/wiki/File:Israeli_Prime_Minister_Netanyahu_(47437135011)_(cropped).jpg",
+      "portrait-2018.jpg": "https://commons.wikimedia.org/wiki/File:Benjamin_Netanyahu_2018.jpg"
+    },
+    "assets": {
+      "portrait-2019.jpg": {
+        "license": "Public domain",
+        "creator": "U.S. Department of State from United States",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Israeli_Prime_Minister_Netanyahu_(47437135011)_(cropped).jpg",
+        "download_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Israeli_Prime_Minister_Netanyahu_%2847437135011%29_%28cropped%29.jpg/3840px-Israeli_Prime_Minister_Netanyahu_%2847437135011%29_%28cropped%29.jpg",
+        "captured_at": "2019-03-21 12:28",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/statephotos/47437135011/\">Secretary Pompeo Joins Israeli Prime Minister Netanyahu on Call With President Trump</a>",
+        "description": "U.S. Secretary of State Michael R. Pompeo and U.S. Ambassador to Israel David Friedman join Israeli Prime Minister Benjamin Netanyahu on a phone call to President Donald J. Trump in Jerusalem, Israel on March 21, 2019. [State Department photo by Ron Przysucha/ Public Domain]",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "sha256": "51aec0ce5fcea1391475df10a5b169f71840ec213641f90b486b9c51edc5707c"
+      },
+      "portrait-2018.jpg": {
+        "license": "Public domain",
+        "creator": "US Department of State",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Benjamin_Netanyahu_2018.jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Benjamin_Netanyahu_2018.jpg",
+        "captured_at": "2018-04-29 07:45:43",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/statephotos/26909878457/\">Flickr.com</a>",
+        "description": "Depicted person:  Benjamin Netanyahu – Prime Minister of Israel (born 1949), (1996–1999; 2009–2021; 2022–present)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "sha256": "7fe0a14c00ea1d1e7bde4bd723a68e2f795cfd73707b2d418b0615e7ecee540b"
+      }
+    }
   },
   "putin": {
-    "keywords": ["putin", "vladimir putin", "kremlin"],
+    "keywords": [
+      "putin",
+      "vladimir putin",
+      "kremlin"
+    ],
     "type": "person",
     "priority": 1,
-    "files": []
+    "files": [
+      "alaska-2025.jpg"
+    ],
+    "licenses": {
+      "alaska-2025.jpg": "Public domain"
+    },
+    "creators": {
+      "alaska-2025.jpg": "The White House"
+    },
+    "source_urls": {
+      "alaska-2025.jpg": "https://commons.wikimedia.org/wiki/File:2025_Russia%E2%80%93United_States_summit_with_Vladimir_Putin_in_Alaska_on_August_15,_2025.jpg"
+    },
+    "assets": {
+      "alaska-2025.jpg": {
+        "license": "Public domain",
+        "creator": "The White House",
+        "source_url": "https://commons.wikimedia.org/wiki/File:2025_Russia%E2%80%93United_States_summit_with_Vladimir_Putin_in_Alaska_on_August_15,_2025.jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/2025_Russia%E2%80%93United_States_summit_with_Vladimir_Putin_in_Alaska_on_August_15%2C_2025.jpg",
+        "captured_at": "2025-08-15 18:50:06",
+        "original_source": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/202101414@N05/54731868489/\">https://www.flickr.com/photos/202101414@N05/54731868489/</a>",
+        "description": "Russian president Vladimir Putin enters the joint press conference with President Donald Trump at the Arctic Warrior Event Center at Joint Base Elmendorf Richardson in Anchorage, Alaska, Friday, August 15, 2025. (Official White House Photo by Daniel Torok)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "sha256": "f9ea58ef87eab31b9eaaf39542418dc38e2d9c3dfc567f649b23b07bcc048bae"
+      }
+    }
   },
   "zelensky": {
-    "keywords": ["zelensky", "zelenskyy", "volodymyr zelensky"],
+    "keywords": [
+      "zelensky",
+      "zelenskyy",
+      "volodymyr zelensky"
+    ],
     "type": "person",
     "priority": 1,
-    "files": []
+    "files": [
+      "portrait-2022.jpg"
+    ],
+    "licenses": {
+      "portrait-2022.jpg": "Public domain"
+    },
+    "creators": {
+      "portrait-2022.jpg": "President Of Ukraine from Україна"
+    },
+    "source_urls": {
+      "portrait-2022.jpg": "https://commons.wikimedia.org/wiki/File:Address_by_President_of_Ukraine_Volodymyr_Zelenskyy_to_the_US_Congress._(51942801840)_(cropped).jpg"
+    },
+    "assets": {
+      "portrait-2022.jpg": {
+        "license": "Public domain",
+        "creator": "President Of Ukraine from Україна",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Address_by_President_of_Ukraine_Volodymyr_Zelenskyy_to_the_US_Congress._(51942801840)_(cropped).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Address_by_President_of_Ukraine_Volodymyr_Zelenskyy_to_the_US_Congress._%2851942801840%29_%28cropped%29.jpg",
+        "captured_at": "2022-03-16 19:05",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/president_of_ukraine/51942801840/\">Address by President of Ukraine Volodymyr Zelenskyy to the US Congress.</a>",
+        "description": "Mrs. Speaker,\nMembers of Congress,\nLadies and Gentlemen,\nAmericans! Friends!\nI am proud to greet you from Ukraine, from our capital - Kyiv. From a city that is under missile and air strikes by Russian troops. Daily. But it does not give up. And it didn't even think to give up for a single minute! Just as dozens of other cities and communities in our country, which found themselves in the worst war since World War II.\nI have the honor to greet you on behalf of the Ukrainian people, brave and free",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "sha256": "327f4f4bb398a90df17d6ba19f7a4e641085879f255cc2c7ef1dd7d366a955a3"
+      }
+    }
   },
   "iran": {
-    "keywords": ["iran", "iranian", "tehran", "irgc"],
+    "keywords": [
+      "iran",
+      "iranian",
+      "tehran",
+      "irgc"
+    ],
     "type": "country",
     "priority": 2,
     "files": []
   },
   "israel": {
-    "keywords": ["israel", "israeli", "jerusalem", "idf"],
+    "keywords": [
+      "israel",
+      "israeli",
+      "jerusalem",
+      "idf"
+    ],
     "type": "country",
     "priority": 2,
     "files": []
   },
   "gaza": {
-    "keywords": ["gaza", "palestine", "palestinian", "west bank"],
+    "keywords": [
+      "gaza",
+      "palestine",
+      "palestinian",
+      "west bank"
+    ],
     "type": "country",
     "priority": 2,
     "files": []
   },
   "white-house": {
-    "keywords": ["white house", "oval office"],
+    "keywords": [
+      "white house",
+      "oval office"
+    ],
     "type": "institution",
     "priority": 2,
     "files": []
   },
   "us": {
-    "keywords": ["united states", "u.s.", "washington", "american", "pentagon", "congress"],
+    "keywords": [
+      "united states",
+      "u.s.",
+      "washington",
+      "american",
+      "pentagon",
+      "congress"
+    ],
     "type": "country",
     "priority": 3,
     "files": []
   },
   "uk": {
-    "keywords": ["uk ", "britain", "british", "london", "downing street"],
+    "keywords": [
+      "uk ",
+      "britain",
+      "british",
+      "london",
+      "downing street"
+    ],
     "type": "country",
     "priority": 3,
     "files": []
   },
   "russia": {
-    "keywords": ["russia", "russian", "moscow"],
+    "keywords": [
+      "russia",
+      "russian",
+      "moscow"
+    ],
     "type": "country",
     "priority": 3,
     "files": []
   },
   "ukraine": {
-    "keywords": ["ukraine", "ukrainian", "kyiv"],
+    "keywords": [
+      "ukraine",
+      "ukrainian",
+      "kyiv"
+    ],
     "type": "country",
     "priority": 3,
     "files": []
+  },
+  "xi-jinping": {
+    "type": "person",
+    "priority": 1,
+    "files": [
+      "lima-2024.jpg"
+    ],
+    "licenses": {
+      "lima-2024.jpg": "Public domain"
+    },
+    "creators": {
+      "lima-2024.jpg": "The White House"
+    },
+    "source_urls": {
+      "lima-2024.jpg": "https://commons.wikimedia.org/wiki/File:President_Xi_Jinping_of_China_on_November_16,_2024_in_Lima,_Peru_(cropped).jpg"
+    },
+    "assets": {
+      "lima-2024.jpg": {
+        "license": "Public domain",
+        "creator": "The White House",
+        "source_url": "https://commons.wikimedia.org/wiki/File:President_Xi_Jinping_of_China_on_November_16,_2024_in_Lima,_Peru_(cropped).jpg",
+        "download_url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/President_Xi_Jinping_of_China_on_November_16%2C_2024_in_Lima%2C_Peru_%28cropped%29.jpg",
+        "captured_at": "2024-11-16 16:05",
+        "original_source": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/whitehouse/54152359305/\">P20241116AS-0420</a>",
+        "description": "U.S. President Joe Biden greets General Secretary of the Chinese Communist Party Xi Jinping prior to a bilateral meeting, Saturday, November 16, 2024, Lima, Peru. (Official White House Photo by Adam Schultz)",
+        "width": 1200,
+        "height": 1500,
+        "crop": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "usage": "illustrative portrait",
+        "reviewed": true,
+        "sha256": "77353024d07f69a3e9d1c0a5cbd93f11156843b93d6e56590a63f25c396b872d"
+      }
+    }
   }
 }

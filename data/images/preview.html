@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JustInHQz — portrait layout previews</title>
+<style>
+  * { box-sizing: border-box; }
+  body { background: #080b10; color: #f2f4f7; font: 16px/1.5 system-ui, sans-serif; margin: 0; padding: 32px 20px; }
+  main { max-width: 1160px; margin: auto; }
+  h1 { font-size: 26px; margin-bottom: 8px; }
+  p { color: #b4bdcb; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  article { border: 1px solid #2c3542; border-radius: 16px; overflow: hidden; background: #111720; }
+  h2 { font-size: 16px; font-weight: 500; margin: 16px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+  .single { width: 65%; margin: auto; }
+  footer { color: #b4bdcb; margin-top: 28px; font-size: 14px; }
+</style>
+<main>
+  <h1>JustInHQz · image layout previews</h1>
+  <p>Clean portraits, consistent crops, no publisher overlays. These are layout demonstrations, not news posts.</p>
+  <section class="grid">
+    <article><h2>Two subjects · Trump + Zelensky</h2><div class="pair">
+      <img src="trump/official-2025.jpg" alt="Illustrative portrait of Donald Trump">
+      <img src="zelensky/portrait-2022.jpg" alt="Illustrative portrait of Volodymyr Zelensky">
+    </div></article>
+    <article><h2>Two subjects · Trump + Putin</h2><div class="pair">
+      <img src="trump/official-2025.jpg" alt="Illustrative portrait of Donald Trump">
+      <img src="putin/alaska-2025.jpg" alt="Illustrative portrait of Vladimir Putin">
+    </div></article>
+    <article><h2>Two subjects · Trump + Xi</h2><div class="pair">
+      <img src="trump/official-2025.jpg" alt="Illustrative portrait of Donald Trump">
+      <img src="xi-jinping/lima-2024.jpg" alt="Illustrative portrait of Xi Jinping">
+    </div></article>
+    <article><h2>One subject · Netanyahu</h2><div class="single">
+      <img src="netanyahu/portrait-2018.jpg" alt="Illustrative portrait of Benjamin Netanyahu">
+    </div></article>
+  </section>
+  <footer>Each file is a 1200 × 1500 JPEG. Pairs are uploaded as two separate photos; X controls the final feed layout and may crop differently by device. Image dates and provenance are in index.json. Portraits illustrate the subjects and do not depict a new meeting or event.</footer>
+</main>
+</html>

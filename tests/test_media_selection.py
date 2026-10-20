@@ -26,6 +26,7 @@ def test_names_only_not_country_or_substrings():
     page(license="not public domain"), page(license="CC BY-SA 4.0"), page(thumbwidth=300), page(mime="image/svg+xml"),
 ])
 def test_unsuitable_media_rejected(monkeypatch, result):
+    monkeypatch.setattr(config, "ENABLE_COMMONS_IMAGES", True)
     response = MagicMock()
     response.json.return_value = {"query": {"pages": {"1": result}}}
     monkeypatch.setattr(images.requests, "get", MagicMock(return_value=response))
@@ -33,6 +34,7 @@ def test_unsuitable_media_rejected(monkeypatch, result):
 
 
 def test_two_entities_two_images_and_cached_lookups(monkeypatch):
+    monkeypatch.setattr(config, "ENABLE_COMMONS_IMAGES", True)
     monkeypatch.setattr(images, "_files_for", lambda slug: [])
     search = MagicMock(side_effect=lambda story, entity: {
         "url": f'https://upload.wikimedia.org/{entity["slug"]}.jpg',

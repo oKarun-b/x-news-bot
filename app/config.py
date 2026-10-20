@@ -153,7 +153,7 @@ HARD_MAX_POST_LENGTH: int = _env_int("HARD_MAX_POST_LENGTH", 280)
 ALLOW_HASHTAGS: bool = _env_bool("ALLOW_HASHTAGS", False)
 # ── Images (§images) ─────────────────────────────────
 ENABLE_IMAGES: bool = _env_bool("ENABLE_IMAGES", True)
-ENABLE_COMMONS_IMAGES: bool = _env_bool("ENABLE_COMMONS_IMAGES", True)
+ENABLE_COMMONS_IMAGES: bool = _env_bool("ENABLE_COMMONS_IMAGES", False)
 ENABLE_ARTICLE_IMAGES: bool = _env_bool("ENABLE_ARTICLE_IMAGES", False)
 MAX_IMAGES_PER_POST: int = _env_int("MAX_IMAGES_PER_POST", 2)
 MAX_IMAGE_POSTS_PER_DAY: int = _env_int("MAX_IMAGE_POSTS_PER_DAY", 4)

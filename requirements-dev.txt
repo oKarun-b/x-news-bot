@@ -1,2 +1,2 @@
--r requirements.txt
+-r requirements-media.txt
 pytest==8.3.4

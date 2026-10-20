@@ -67,11 +67,11 @@ def test_extract_og_image_rejects_http_and_junk():
 def test_create_post_with_image_builds_assets():
     fake = {"createPost": {"post": {"id": "p1", "dueAt": "2026-01-01T00:00:00.000Z", "status": "scheduled"}}}
     with patch("app.buffer._gql", return_value=fake) as gql:
-        out = create_scheduled_post("ch1", "hello", "2026-01-01T00:00:00.000Z", image_urls=["https://img.example.com/a.jpg"])
+        out = create_scheduled_post("ch1", "hello", "2026-01-01T00:00:00.000Z", image_urls=["https://upload.wikimedia.org/a.jpg"])
     assert out["id"] == "p1"
     q = gql.call_args[0][0]
     assert "assets" in q
-    assert "https://img.example.com/a.jpg" in q
+    assert "https://upload.wikimedia.org/a.jpg" in q
     assert "{ image: { url:" in q
 
 
@@ -82,18 +82,20 @@ def test_create_post_without_image_has_no_assets():
     assert "assets" not in gql.call_args[0][0]
 
 
-def test_create_post_skips_non_https_images():
+def test_create_post_rejects_non_https_images():
+    import pytest
     fake = {"createPost": {"post": {"id": "p3", "dueAt": "2026-01-01T00:00:00.000Z", "status": "scheduled"}}}
     with patch("app.buffer._gql", return_value=fake) as gql:
-        create_scheduled_post("ch1", "hi", "2026-01-01T00:00:00.000Z", image_urls=["http://insecure.example.com/x.jpg"])
-    assert "assets" not in gql.call_args[0][0]
+        with pytest.raises(ValueError, match="approved"):
+            create_scheduled_post("ch1", "hi", "2026-01-01T00:00:00.000Z", image_urls=["http://insecure.example.com/x.jpg"])
+    gql.assert_not_called()
 
 
 def test_create_post_caps_images_per_post():
     fake = {"createPost": {"post": {"id": "p4", "dueAt": "2026-01-01T00:00:00.000Z", "status": "scheduled"}}}
     with patch("app.buffer._gql", return_value=fake) as gql:
         create_scheduled_post("ch1", "hi", "2026-01-01T00:00:00.000Z", image_urls=[
-            "https://i.example.com/1.jpg", "https://i.example.com/2.jpg", "https://i.example.com/3.jpg",
+            "https://upload.wikimedia.org/1.jpg", "https://upload.wikimedia.org/2.jpg", "https://upload.wikimedia.org/3.jpg",
         ])
     q = gql.call_args[0][0]
     assert q.count("image: { url:") == config.MAX_IMAGES_PER_POST

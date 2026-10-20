@@ -1,0 +1,8 @@
+[
+  {"entity": "trump", "file": "official-2025.jpg", "commons_title": "File:January 2025 Official Presidential Portrait of Donald J. Trump.jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "zelensky", "file": "portrait-2022.jpg", "commons_title": "File:Address by President of Ukraine Volodymyr Zelenskyy to the US Congress. (51942801840) (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "putin", "file": "alaska-2025.jpg", "commons_title": "File:2025 Russia–United States summit with Vladimir Putin in Alaska on August 15, 2025.jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "xi-jinping", "file": "lima-2024.jpg", "commons_title": "File:President Xi Jinping of China on November 16, 2024 in Lima, Peru (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "netanyahu", "file": "portrait-2019.jpg", "commons_title": "File:Israeli Prime Minister Netanyahu (47437135011) (cropped).jpg", "crop": [0, 0, 1, 1], "reviewed": true},
+  {"entity": "netanyahu", "file": "portrait-2018.jpg", "commons_title": "File:Benjamin Netanyahu 2018.jpg", "crop": [0, 0, 1, 1], "reviewed": true}
+]
