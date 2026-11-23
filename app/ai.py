@@ -14,6 +14,7 @@ from app.logging_setup import get_logger
 log = get_logger("x-news-bot.ai")
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
 # ── Daily rate-limit memory (OpenRouter free tier = 50 req/day across ALL free models) ──
 # Every request — including 429 rotations — burns budget. Models that 429 with
@@ -161,17 +162,116 @@ def _chat_once(
     raise RuntimeError(f"OpenRouter {model} failed after retries")
 
 
+def _gemini_messages(messages: list[dict]) -> dict:
+    system_parts: list[str] = []
+    contents: list[dict] = []
+    for m in messages:
+        role = str(m.get("role", "user"))
+        text = str(m.get("content", ""))
+        if role == "system":
+            system_parts.append(text)
+        else:
+            contents.append({
+                "role": "model" if role == "assistant" else "user",
+                "parts": [{"text": text}],
+            })
+    body: dict[str, Any] = {"contents": contents or [{"role": "user", "parts": [{"text": ""}]}]}
+    if system_parts:
+        body["systemInstruction"] = {"parts": [{"text": "\n\n".join(system_parts)}]}
+    return body
+
+
+def _chat_gemini_once(
+    messages: list[dict],
+    model: str,
+    temperature: float,
+    max_tokens: int,
+) -> str:
+    """Single Gemini model attempt with quick retries for transient errors."""
+    url = GEMINI_URL.format(model=model)
+    params = {"key": config.GEMINI_API_KEY}
+    body = _gemini_messages(messages)
+    body["generationConfig"] = {
+        "temperature": temperature,
+        "maxOutputTokens": max_tokens,
+    }
+    last_exc: Exception | None = None
+    for attempt in range(2):
+        try:
+            resp = requests.post(url, params=params, json=body, timeout=30)
+            if resp.status_code == 429:
+                mark_rate_limited(model)
+                log.warning("Gemini %s rate-limited (429), rotating", model)
+                raise RuntimeError(f"Rate-limited 429 for {model}")
+            if resp.status_code == 404:
+                raise RuntimeError(f"Model {model} not available (404): {resp.text[:300]}")
+            resp.raise_for_status()
+            data = resp.json()
+            candidates = data.get("candidates") or []
+            if not candidates:
+                raise ValueError(f"No candidates in Gemini response: {data}")
+            parts = ((candidates[0].get("content") or {}).get("parts") or [])
+            text = "".join(p.get("text", "") for p in parts if isinstance(p, dict)).strip()
+            if not text:
+                raise ValueError("Empty content in Gemini response")
+            return text
+        except requests.RequestException as exc:
+            last_exc = exc
+            status = getattr(getattr(exc, "response", None), "status_code", None)
+            if status and 500 <= status < 600 and attempt < 1:
+                time.sleep(2 * (attempt + 1))
+                continue
+            if attempt < 1:
+                time.sleep(2 * (attempt + 1))
+                continue
+            raise
+        except RuntimeError:
+            raise
+        except Exception:
+            raise
+    if last_exc:
+        raise last_exc
+    raise RuntimeError(f"Gemini {model} failed after retries")
+
+
 def _chat(
     messages: list[dict],
     model: str | None = None,
     temperature: float = 0.7,
     max_tokens: int = 1200,
 ) -> str:
+    provider = getattr(config, "AI_PROVIDER", "openrouter")
+    if provider == "gemini":
+        if not config.GEMINI_API_KEY:
+            raise RuntimeError("GEMINI_API_KEY not set")
+        primary = model or config.GEMINI_MODEL
+        candidates = [primary] + [m for m in config.GEMINI_FALLBACK_MODELS if m != primary]
+        live = [m for m in candidates if not _is_rate_limited_today(m)]
+        if not live:
+            raise RuntimeError("All Gemini models are rate-limited for today")
+        last_err: Exception | None = None
+        for mdl in live:
+            try:
+                return _chat_gemini_once(messages, mdl, temperature, max_tokens)
+            except Exception as exc:
+                last_err = exc
+                msg = str(exc)
+                rotatable = any(k in msg for k in ("404", "not available", "Empty content", "rate-limited", "429"))
+                if rotatable and mdl != live[-1]:
+                    log.warning("Gemini model %s failed (%s), rotating to next fallback", mdl, msg[:120])
+                    continue
+                if mdl == live[-1]:
+                    raise
+                raise
+        if last_err:
+            raise last_err
+        raise RuntimeError("Gemini failed after trying all models")
+
+    # OpenRouter (default)
     if not config.OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not set")
     primary = model or config.OPENROUTER_MODEL
     candidates = [primary] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != primary]
-    # Skip models already known to be daily-limited today (saves budget)
     live = [m for m in candidates if not _is_rate_limited_today(m)]
     if not live:
         raise RuntimeError("All OpenRouter free models are daily-limited until 00:00 UTC reset")
@@ -183,15 +283,12 @@ def _chat(
         except Exception as exc:
             last_err = exc
             msg = str(exc)
-            # Only rotate on model-level failures (404, empty content, 429 exhausted)
             rotatable = any(k in msg for k in ("404", "not available", "Empty content", "rate-limited", "Daily free-tier limit"))
             if rotatable and mdl != candidates[-1]:
                 log.warning("Model %s failed (%s), rotating to next fallback", mdl, msg[:120])
                 continue
-            # Non-rotatable or last model — propagate
             if mdl == candidates[-1]:
                 raise
-            # For transient errors already retried inside _chat_once, don't rotate
             raise
     if last_err:
         raise last_err
@@ -205,7 +302,13 @@ def editorial_select(candidates: list[dict]) -> list[dict]:
     if not candidates:
         return []
     prompt = editorial.build_editorial_prompt(candidates)
-    models = [config.OPENROUTER_MODEL] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != config.OPENROUTER_MODEL]
+    provider = getattr(config, "AI_PROVIDER", "openrouter")
+    if provider == "gemini":
+        primary = config.GEMINI_MODEL
+        models = [primary] + [m for m in config.GEMINI_FALLBACK_MODELS if m != primary]
+    else:
+        primary = config.OPENROUTER_MODEL
+        models = [primary] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != primary]
     last_err: Exception | None = None
     for mdl in models:
         try:
@@ -240,7 +343,13 @@ def editorial_select(candidates: list[dict]) -> list[dict]:
 def generate_post(story: dict, selected_format: str, mention_context: str = "") -> dict:
     """Generate one X post. Returns {post, country_codes, source_handle, ...}. Rotates on JSON failure."""
     prompt = editorial.build_generation_prompt(story, selected_format, mention_context=mention_context)
-    models = [config.OPENROUTER_MODEL] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != config.OPENROUTER_MODEL]
+    provider = getattr(config, "AI_PROVIDER", "openrouter")
+    if provider == "gemini":
+        primary = config.GEMINI_MODEL
+        models = [primary] + [m for m in config.GEMINI_FALLBACK_MODELS if m != primary]
+    else:
+        primary = config.OPENROUTER_MODEL
+        models = [primary] + [m for m in config.OPENROUTER_FALLBACK_MODELS if m != primary]
     last_err: Exception | None = None
     for mdl in models:
         try:

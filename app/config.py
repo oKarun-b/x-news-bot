@@ -210,6 +210,23 @@ BUFFER_ORGANIZATION_ID: str = _env_str("BUFFER_ORGANIZATION_ID", "")
 # ── OpenRouter ───────────────────────────────────────
 OPENROUTER_API_KEY: str = _env_str("OPENROUTER_API_KEY", "")
 
+# -- Gemini (Google AI Studio) --
+GEMINI_API_KEY: str = _env_str("GEMINI_API_KEY", "")
+GEMINI_MODEL: str = _env_str("GEMINI_MODEL", "gemini-2.0-flash")
+GEMINI_FALLBACK_MODELS: list[str] = [
+    s.strip() for s in _env_str("GEMINI_FALLBACK_MODELS", "gemini-2.0-flash-lite,gemini-1.5-flash").split(",") if s.strip()
+]
+
+# AI provider: "openrouter", "gemini", or "auto" (prefer openrouter if key set, else gemini)
+AI_PROVIDER: str = _env_str("AI_PROVIDER", "auto").lower()
+if AI_PROVIDER == "auto":
+    if OPENROUTER_API_KEY:
+        AI_PROVIDER = "openrouter"
+    elif GEMINI_API_KEY:
+        AI_PROVIDER = "gemini"
+    else:
+        AI_PROVIDER = "openrouter"
+
 # ── Effective dry-run ────────────────────────────────
 # BOT_ENABLED=false implies dry-run semantics (pipeline runs, no Buffer sends).
 EFFECTIVE_DRY_RUN: bool = DRY_RUN or (not BOT_ENABLED)
